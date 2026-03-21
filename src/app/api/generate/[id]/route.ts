@@ -248,7 +248,6 @@ export async function POST(
         questionnaireId,
         deliverableId: deliverable?.id,
         errorMessage: errorMsg,
-        stackTrace: genError instanceof Error ? genError.stack : undefined,
         timestamp: new Date().toISOString(),
       })
 

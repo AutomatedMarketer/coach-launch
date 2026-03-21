@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from '@/lib/supabase/server'
 import { getClaudeClient } from '@/lib/claude/client'
 
 const SYSTEM_PROMPT = `You are Coach Launch's friendly AI assistant. You help coaching business owners fill out their marketing questionnaire.
@@ -31,6 +32,13 @@ Rules:
 
 export async function POST(request: NextRequest) {
   try {
+    // Auth check — prevent anonymous API credit abuse
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { message, context } = await request.json()
 
     if (!message || typeof message !== 'string') {
