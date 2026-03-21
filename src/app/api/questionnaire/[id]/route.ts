@@ -88,6 +88,10 @@ export async function PATCH(
     }
 
     if (status !== undefined) {
+      const VALID_STATUSES = ['draft', 'completed', 'generating', 'done']
+      if (!VALID_STATUSES.includes(status)) {
+        return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
+      }
       updates.status = status
     }
 
