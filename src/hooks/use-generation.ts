@@ -1,6 +1,6 @@
 'use client'
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { getDeliverablesByPhase, buildWaves } from '@/lib/deliverable-config'
+import { getDeliverablesByPhase, buildWaves, type PhaseNumber } from '@/lib/deliverable-config'
 import { safeParseJSON } from '@/lib/utils'
 
 const GENERATION_TIMEOUT_MS = 5 * 60 * 1000 // 5 minutes per deliverable
@@ -37,7 +37,7 @@ async function fetchWithTimeout(
   }
 }
 
-export function useGeneration(questionnaireId: string, phase: 1 | 2 | 3) {
+export function useGeneration(questionnaireId: string, phase: PhaseNumber) {
   const phaseDeliverables = getDeliverablesByPhase(phase)
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null)
 

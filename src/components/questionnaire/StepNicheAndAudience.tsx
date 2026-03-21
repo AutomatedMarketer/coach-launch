@@ -14,138 +14,200 @@ export default function StepNicheAndAudience({ form }: StepNicheAndAudienceProps
 
   return (
     <div className="space-y-6">
-      {/* Niche */}
-      <div className="space-y-2">
-        <Label htmlFor="niche">Who Do You Help?</Label>
-        <p className="text-sm text-gray-500">
-          Get specific. &apos;Executive coaching for burned-out tech managers&apos; beats &apos;life coaching&apos; every time. The more specific, the less you spend on ads and the faster you close.
-        </p>
-        <Textarea
-          id="niche"
-          placeholder='e.g. Executive performance coaching for mid-level tech managers who want to break into the C-suite within 2 years'
-          rows={3}
-          {...register('niche')}
-        />
-        {errors.niche && (
-          <p className="text-sm text-red-500">{errors.niche.message as string}</p>
-        )}
-      </div>
 
-      {/* Target Audience */}
-      <div className="space-y-2">
-        <Label htmlFor="targetAudience">Describe Your Dream Client</Label>
-        <p className="text-sm text-gray-500">
-          Paint a picture. Age, income, job title, what keeps them up at night, what they&apos;re Googling at 2am. The more detail, the better your marketing hits.
-        </p>
-        <Textarea
-          id="targetAudience"
-          placeholder='e.g. Men aged 35-50, earning $100K-$250K in corporate roles, feeling stuck and unfulfilled. They are successful on paper but exhausted. Skeptical of fluffy coaching — they want tactical, results-driven guidance.'
-          rows={4}
-          {...register('targetAudience')}
-        />
-        {errors.targetAudience && (
-          <p className="text-sm text-red-500">{errors.targetAudience.message as string}</p>
-        )}
-      </div>
+      {/* Hidden legacy fields for schema backward compatibility */}
+      <input type="hidden" {...register('personalFamily')} />
+      <input type="hidden" {...register('personalLocation')} />
 
-      {/* Minimum Client Requirements */}
+      {/* Q11 — Upbringing */}
       <div className="space-y-2">
-        <Label htmlFor="minimumRequirements">
-          Minimum Client Requirements <span className="text-slate-500">(optional)</span>
+        <Label htmlFor="upbringing">
+          Where Did You Grow Up? <span className="text-slate-500">(optional)</span>
         </Label>
         <p className="text-sm text-gray-500">
-          What are the bare-minimum qualifications someone needs to work with you?
-          Income level, experience, business stage, etc. This is your floor — different
-          from your dream client above.
+          Where you came from shapes who you are. Tell us about your hometown, your background, and anything that left a mark on you growing up.
         </p>
         <Textarea
-          id="minimumRequirements"
-          placeholder="e.g. Must be making at least $15K/month, have an existing business for 2+ years, and be willing to invest in growth"
+          id="upbringing"
+          placeholder="e.g. I grew up in a small town in Ohio. Working-class neighborhood, not a lot of opportunity around — but that environment taught me to create my own."
           rows={3}
-          {...register('minimumRequirements')}
+          {...register('upbringing')}
         />
       </div>
 
-      {/* Problem Solved */}
+      {/* Q12 — Parent Influence */}
       <div className="space-y-2">
-        <Label htmlFor="problemSolved">The #1 Problem You Solve</Label>
+        <Label htmlFor="parentInfluence">
+          What Role Did Your Parents Play? <span className="text-slate-500">(optional)</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          Go deep — not the surface symptom, but the real problem underneath. This becomes the Pain in your 4P Power Message.
+          What did your parents do for work? What did they model for you — about money, work, success, or life? Even what they got wrong matters here.
         </p>
         <Textarea
-          id="problemSolved"
-          placeholder='e.g. My clients are high-performing professionals who feel empty inside — they hit a ceiling in their career, their health is declining, and they have no real strategy to get to the next level. They keep grinding harder but getting diminishing returns.'
+          id="parentInfluence"
+          placeholder="e.g. My dad worked nights at a factory and my mom stayed home with us. They worked incredibly hard but always struggled financially. That instilled a deep drive in me to build something different."
+          rows={3}
+          {...register('parentInfluence')}
+        />
+      </div>
+
+      {/* Q13 — Coaching Lineage */}
+      <div className="space-y-2">
+        <Label htmlFor="coachingLineage">
+          Any Coaches, Teachers, or Mentors in Your Family? <span className="text-slate-500">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Was anyone in your family or close circle a coach, teacher, pastor, mentor, or guide? This often reveals where your gift for helping people comes from.
+        </p>
+        <Textarea
+          id="coachingLineage"
+          placeholder="e.g. My uncle was a high school football coach for 30 years. He was the first person who ever believed in me and showed me what real mentorship looks like."
+          rows={3}
+          {...register('coachingLineage')}
+        />
+      </div>
+
+      {/* Q14 — First Business */}
+      <div className="space-y-2">
+        <Label htmlFor="firstBusiness">
+          What Was the First Business You Ever Built? <span className="text-slate-500">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Whether it was a lemonade stand or a seven-figure company — your first venture reveals a lot about your entrepreneurial DNA. What did you learn from it?
+        </p>
+        <Textarea
+          id="firstBusiness"
+          placeholder="e.g. I started a landscaping company at 17. I had no idea what I was doing but I learned everything about knocking on doors, delivering results, and managing people the hard way."
+          rows={3}
+          {...register('firstBusiness')}
+        />
+      </div>
+
+      {/* Q15 — Before State (was in Step 1) */}
+      <div className="space-y-2">
+        <Label htmlFor="storyBeforeState">
+          When Were You Most Stuck? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Describe your lowest point. What was happening in your life and business? The more honest and specific you are here, the more your future clients will see themselves in your story.
+        </p>
+        <Textarea
+          id="storyBeforeState"
+          placeholder="e.g. In 2019, I was $80K in debt, my marriage was falling apart, and I was working 70-hour weeks with nothing to show for it. I felt like a complete fraud — a business coach who couldn't run his own business."
           rows={4}
-          {...register('problemSolved')}
+          {...register('storyBeforeState')}
         />
-        {errors.problemSolved && (
-          <p className="text-sm text-red-500">{errors.problemSolved.message as string}</p>
+        {errors.storyBeforeState && (
+          <p className="text-sm text-red-500">{errors.storyBeforeState.message as string}</p>
         )}
       </div>
 
-      {/* Unwanted Feelings (Hell Island) */}
+      {/* Q16 — Turning Point (was in Step 1) */}
       <div className="space-y-2">
-        <Label htmlFor="unwantedFeelings">Where Are They Stuck? (The Pain Zone)</Label>
+        <Label htmlFor="storyTurningPoint">
+          What Did You Figure Out That Changed Everything? <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          What emotions are they stuck in every day? Frustrated, overwhelmed, ashamed, broke, exhausted? These feelings become the hook in everything we create for you.
+          What was the insight, the moment, or the decision that turned it all around? This is the core of your origin story — the thing your clients are about to discover for themselves.
         </p>
         <Textarea
-          id="unwantedFeelings"
-          placeholder="e.g. Overwhelmed, exhausted, frustrated, anxious, stuck, doubtful. They feel like they're working harder than ever but getting nowhere."
-          rows={3}
-          {...register('unwantedFeelings')}
+          id="storyTurningPoint"
+          placeholder="e.g. I stopped trying to do everything and went all-in on one niche. Within 90 days of niching down and fixing my offer, I signed 4 clients at $5K each. The problem was never effort — it was clarity."
+          rows={4}
+          {...register('storyTurningPoint')}
         />
-        {errors.unwantedFeelings && (
-          <p className="text-sm text-red-500">{errors.unwantedFeelings.message as string}</p>
+        {errors.storyTurningPoint && (
+          <p className="text-sm text-red-500">{errors.storyTurningPoint.message as string}</p>
         )}
       </div>
 
-      {/* Desired Feelings (Heaven Island) */}
+      {/* Q17 — After State (was in Step 1) */}
       <div className="space-y-2">
-        <Label htmlFor="desiredFeelings">Where Do They Want to Be? (The Possibility)</Label>
+        <Label htmlFor="storyAfterState">
+          What Has Your Coaching Journey Looked Like Since? <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          What does the other side look like? Confident, free, in control, making money? The gap between where they are and where they want to be — that&apos;s what sells.
+          Where are you now? What have you built, achieved, or helped others accomplish since that turning point? Be specific — numbers, timelines, and outcomes make this credible.
         </p>
         <Textarea
-          id="desiredFeelings"
-          placeholder="e.g. Confident, free, in control, energized, proud, peaceful. They want to wake up excited about their business, not dreading another day of hustle."
-          rows={3}
-          {...register('desiredFeelings')}
+          id="storyAfterState"
+          placeholder="e.g. Over the next 3 years I built a 7-figure coaching practice, helped over 200 coaches scale past $10K/month, and now run a team of 6 while working 4 days a week from home."
+          rows={4}
+          {...register('storyAfterState')}
         />
-        {errors.desiredFeelings && (
-          <p className="text-sm text-red-500">{errors.desiredFeelings.message as string}</p>
+        {errors.storyAfterState && (
+          <p className="text-sm text-red-500">{errors.storyAfterState.message as string}</p>
         )}
       </div>
 
-      {/* Common Objections */}
+      {/* Q18 — Why Do This */}
+      <div className="space-y-2">
+        <Label htmlFor="whyDoThis">
+          Why Is This the Most Important Work You Could Be Doing Right Now? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Beyond money or freedom — what is the deeper reason you do this work? What would be lost in the world if you stopped? This becomes the emotional core of your brand.
+        </p>
+        <Textarea
+          id="whyDoThis"
+          placeholder="e.g. I spent 8 years figuring this out the hard way. If I can shortcut that journey for even one coach, that is 8 years of their life back — time with their family, freedom, and the impact they were meant to have."
+          rows={4}
+          {...register('whyDoThis')}
+        />
+        {errors.whyDoThis && (
+          <p className="text-sm text-red-500">{errors.whyDoThis.message as string}</p>
+        )}
+      </div>
+
+      {/* Q19 — Personal Hobbies (was in Step 1) */}
       <div className="space-y-2">
         <p className="text-sm text-gray-500">
-          What do people say when they hesitate? &apos;I can&apos;t afford it,&apos; &apos;I need to think about it,&apos; &apos;I&apos;ve tried coaching before.&apos; These become content that handles objections before the sales call.
+          What do you do when you are not coaching? Hobbies and interests make you relatable and give your content personality. List as many as you like.
         </p>
         <DynamicArrayField
           form={form}
-          name="commonObjections"
-          label="What Excuses Do They Make?"
-          placeholder="e.g. I tried coaching before and it didn't work"
-          addLabel="Add Objection"
+          name="personalHobbies"
+          label="What Do You Do Outside of Work? (optional)"
+          placeholder="e.g. Trail running, cooking, reading biographies"
+          addLabel="Add Hobby"
         />
       </div>
 
-      {/* Testimonials (optional) */}
+      {/* Q20 — Personal Life (new field replacing personalFamily + personalLocation) */}
       <div className="space-y-2">
+        <Label htmlFor="personalLife">
+          Describe Your Personal Life <span className="text-slate-500">(optional)</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          Social proof is the most powerful tool in coaching marketing. Even 2-3 strong
-          testimonials with specific results can dramatically increase conversions. Skip if you
-          don&apos;t have any yet.
+          Who is in your life — family, partner, kids, pets? Where do you live? What does a great week look like for you? This context lets the AI write about you like a real person, not a LinkedIn profile.
         </p>
-        <DynamicArrayField
-          form={form}
-          name="testimonials"
-          label="Client Testimonials (optional)"
-          placeholder='e.g. "Before working with Sarah, I was stuck at $4K/month. Within 60 days I hit $12K." — Jamie R.'
-          addLabel="Add Testimonial"
+        <Textarea
+          id="personalLife"
+          placeholder="e.g. I live in Phoenix with my wife and two daughters. A great week means school drop-off in the morning, client calls by 10am, done by 3pm, and a date night on Friday. We love hiking and slow Sundays."
+          rows={4}
+          {...register('personalLife')}
         />
       </div>
+
+      {/* Anti-hallucination: Story Facts (was in Step 1) */}
+      <div className="space-y-2">
+        <Label htmlFor="storyFacts">
+          Key Facts and Milestones <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          List the facts, numbers, and milestones the AI is allowed to use about you. One per line. This prevents the AI from inventing details — it will only reference what you write here.
+        </p>
+        <Textarea
+          id="storyFacts"
+          placeholder={`e.g.\n- Coached 200+ clients since 2020\n- Hit $1M revenue in year 3\n- Former corporate sales director for 12 years\n- Based in Phoenix, AZ\n- Married with 2 daughters\n- Featured in Forbes and Entrepreneur Magazine`}
+          rows={6}
+          {...register('storyFacts')}
+        />
+        {errors.storyFacts && (
+          <p className="text-sm text-red-500">{errors.storyFacts.message as string}</p>
+        )}
+      </div>
+
     </div>
   )
 }

@@ -22,6 +22,9 @@ export interface Deliverable {
   error_message: string | null
   model_used: string | null
   tokens_used: number | null
+  quality_score: number | null
+  quality_issues: string | null
+  retry_count: number
   image_urls: string[]
   created_at: string
   updated_at: string

@@ -17,6 +17,7 @@ import {
   FileText,
   Rocket,
   Shield,
+  Target,
 } from 'lucide-react'
 
 // ─── Nav items ────────────────────────────────────────────────────────────────
@@ -58,24 +59,31 @@ const STEPS = [
 
 // ─── Phase preview items ──────────────────────────────────────────────────────
 
-const PHASES = [
+const SIDEBAR_PHASES = [
   {
     icon: Megaphone,
-    label: 'Magnetic Messaging',
-    description: 'Define your niche, story, and core offer statement.',
+    label: 'Money Messaging',
+    description: 'Define your audience and messaging.',
     color: 'text-amber-400',
     bg: 'bg-amber-400/10',
   },
   {
+    icon: Target,
+    label: 'Mind Shift Method',
+    description: 'Build your persuasion framework and offer.',
+    color: 'text-purple-400',
+    bg: 'bg-purple-400/10',
+  },
+  {
     icon: FileText,
-    label: 'Core Conversion',
-    description: 'Build your sales script and all key marketing copy.',
+    label: 'The Conversion Code',
+    description: 'Build your sales script and marketing copy.',
     color: 'text-blue-400',
     bg: 'bg-blue-400/10',
   },
   {
     icon: Rocket,
-    label: 'Propaganda Machine',
+    label: 'Authority Amplifier',
     description: 'Launch your content engine, ads, and automation.',
     color: 'text-green-400',
     bg: 'bg-green-400/10',
@@ -256,7 +264,7 @@ export function Sidebar({ userEmail }: SidebarProps) {
               What You'll Get
             </p>
             <ul className="space-y-2">
-              {PHASES.map((phase) => {
+              {SIDEBAR_PHASES.map((phase) => {
                 const Icon = phase.icon
                 return (
                   <li

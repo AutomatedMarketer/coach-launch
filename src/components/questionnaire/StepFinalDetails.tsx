@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { type UseFormReturn } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -20,11 +21,14 @@ interface StepFinalDetailsProps {
 export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
   const { register, formState: { errors }, watch, setValue } = form
 
-  // Set default brandVoice if not already set (fixes validation bug where
-  // the Select displays "motivational" but the form value is undefined)
+  // Set defaults for Select fields (fixes validation bug where
+  // the Select displays a value but the form value is undefined)
   useEffect(() => {
     if (!watch('brandVoice')) {
       setValue('brandVoice', 'motivational')
+    }
+    if (!watch('contentCadence')) {
+      setValue('contentCadence', 'unsure')
     }
   }, [watch, setValue])
 
@@ -68,6 +72,47 @@ export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
         {errors.brandVoice && (
           <p className="text-sm text-red-500">{errors.brandVoice.message as string}</p>
         )}
+      </div>
+
+      {/* Content Cadence */}
+      <div className="space-y-2">
+        <Label>How Often Will You Post Content?</Label>
+        <p className="text-sm text-gray-500">
+          How frequently you plan to publish content. This helps us tailor your content playbook and posting schedule.
+        </p>
+        <Select
+          value={watch('contentCadence') as string || 'unsure'}
+          onValueChange={(value) => setValue('contentCadence', value, { shouldValidate: true })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Choose frequency..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="daily">Daily</SelectItem>
+            <SelectItem value="3-5-week">3-5 times per week</SelectItem>
+            <SelectItem value="weekly">Weekly</SelectItem>
+            <SelectItem value="biweekly">Every other week</SelectItem>
+            <SelectItem value="unsure">Not sure yet</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Voice Notes (free-text addition to dropdown) */}
+      <div className="space-y-2">
+        <Label htmlFor="voiceNotes">
+          Voice Notes <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Want to get more specific? Describe how you actually talk to clients. Are you blunt?
+          Sarcastic? Do you curse? Do you use sports metaphors? Give us a line you&apos;d
+          actually say on a call.
+        </p>
+        <Textarea
+          id="voiceNotes"
+          placeholder="e.g. I'm pretty direct and I curse sometimes. I use sports and military analogies. I say things like 'stop being soft' and 'execute the play.' More like a no-BS older brother than a therapist."
+          rows={3}
+          {...register('voiceNotes')}
+        />
       </div>
 
       {/* URLs (optional) */}

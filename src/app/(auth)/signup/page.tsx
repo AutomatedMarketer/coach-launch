@@ -15,14 +15,13 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
-
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setLoading(true)
 
     const supabase = createClient()
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -38,6 +37,13 @@ export default function SignupPage() {
       return
     }
 
+    // If Supabase auto-confirms (email confirmation disabled), redirect to dashboard
+    if (data.session) {
+      window.location.href = '/dashboard'
+      return
+    }
+
+    // Otherwise show "check your email" screen
     setSuccess(true)
     setLoading(false)
   }

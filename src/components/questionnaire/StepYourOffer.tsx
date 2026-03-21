@@ -1,7 +1,6 @@
 'use client'
 
 import { type UseFormReturn } from 'react-hook-form'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import {
@@ -11,12 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-const CTA_LABELS: Record<string, string> = {
-  application: 'Application Form — Pre-qualifies leads before you speak',
-  booking: 'Book a Call — Direct calendar link, fastest path to sales',
-  'dm-keyword': 'DM Keyword — Prospect DMs a word to trigger automation',
-}
+import DynamicArrayField from './DynamicArrayField'
 
 interface StepYourOfferProps {
   form: UseFormReturn<Record<string, unknown>>
@@ -24,65 +18,176 @@ interface StepYourOfferProps {
 
 export default function StepYourOffer({ form }: StepYourOfferProps) {
   const { register, formState: { errors }, watch, setValue } = form
-  const ctaType = watch('ctaType') as string
 
   return (
     <div className="space-y-6">
-      {/* Offer Name */}
-      <div className="space-y-2">
-        <Label htmlFor="offerName">Offer Name</Label>
-        <p className="text-sm text-gray-500">
-          Give your program a compelling, outcome-driven name that makes it feel
-          like a branded system — not just &quot;coaching sessions.&quot;
-        </p>
-        <Input
-          id="offerName"
-          placeholder='e.g. "The 90-Day Revenue Accelerator" or "Unstoppable Coach Blueprint"'
-          {...register('offerName')}
-        />
-        {errors.offerName && (
-          <p className="text-sm text-red-500">{errors.offerName.message as string}</p>
-        )}
-      </div>
 
-      {/* Price Point */}
+      {/* Q21 — Target Audience */}
       <div className="space-y-2">
-        <Label htmlFor="pricePoint">Price Point</Label>
+        <Label htmlFor="targetAudience">
+          Who do you most love working with? <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          Your price anchors your positioning. Include payment plan options if you offer them.
-        </p>
-        <Input
-          id="pricePoint"
-          placeholder="e.g. $4,997 one-time or 3 payments of $1,897"
-          {...register('pricePoint')}
-        />
-        {errors.pricePoint && (
-          <p className="text-sm text-red-500">{errors.pricePoint.message as string}</p>
-        )}
-      </div>
-
-      {/* Transformation */}
-      <div className="space-y-2">
-        <Label htmlFor="transformation">The Before & After</Label>
-        <p className="text-sm text-gray-500">
-          Where do they start, and where do they end up? Be specific — &apos;20 lbs lighter in 90 days&apos; beats &apos;better health.&apos; Details matter.
+          Describe the person you most love working with — who are they, what do they do, how old, how much are they earning?
         </p>
         <Textarea
-          id="transformation"
-          placeholder="e.g. BEFORE: Stuck at $5K-$8K/month, working 50+ hours, doing everything themselves. AFTER: Consistently hitting $15K-$25K/month, working 30 hours a week, team in place, automated lead gen running."
+          id="targetAudience"
+          placeholder="e.g. Online coaches aged 30-45 who are earning $3K-$8K/month and feel stuck. They've got a program, they know they're good at what they do, but they can't consistently get clients."
           rows={4}
-          {...register('transformation')}
+          {...register('targetAudience')}
         />
-        {errors.transformation && (
-          <p className="text-sm text-red-500">{errors.transformation.message as string}</p>
+        {errors.targetAudience && (
+          <p className="text-sm text-red-500">{errors.targetAudience.message as string}</p>
         )}
       </div>
 
-      {/* Aspiring Identity */}
+      {/* Q22 — Niche */}
       <div className="space-y-2">
-        <Label htmlFor="aspiringIdentity">Their Next-Level Self</Label>
+        <Label htmlFor="niche">
+          Do you focus on a specific niche? <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          Not what they want to DO — who they want to BE. All your content sells this identity. What does the upgraded version of your client look like?
+          Is there a specific type of coach or niche you focus on? Being specific makes all your marketing sharper.
+        </p>
+        <Textarea
+          id="niche"
+          placeholder="e.g. I work with health and wellness coaches who want to build a 6-figure online business — specifically people who have the skills but struggle with sales and lead generation."
+          rows={3}
+          {...register('niche')}
+        />
+        {errors.niche && (
+          <p className="text-sm text-red-500">{errors.niche.message as string}</p>
+        )}
+      </div>
+
+      {/* Q23 — Best Client Ever */}
+      <div className="space-y-2">
+        <Label htmlFor="bestClientEver">
+          Describe your best client ever <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Describe your best client ever by name — who were they, what was their situation when they came to you, and what happened after working with you?
+        </p>
+        <Textarea
+          id="bestClientEver"
+          placeholder="e.g. Sarah was a fitness coach making $2K/month and burning out with 1-on-1 clients. She came to me confused about her messaging. Within 90 days she had a signature group program, a lead gen system, and hit $11K in a single month."
+          rows={4}
+          {...register('bestClientEver')}
+        />
+      </div>
+
+      {/* Q24 — Top Complaints */}
+      <div className="space-y-2">
+        <Label htmlFor="topComplaints">
+          What are the top 3 things your ideal client complains about? <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          What do they say when being completely honest with a close friend? What frustrations do they vent about?
+        </p>
+        <Textarea
+          id="topComplaints"
+          placeholder={`e.g.\n1. "I post every day but nobody engages and I never get leads."\n2. "I have calls with people who say they're interested and then ghost me."\n3. "I feel like I'm doing everything right but I'm still stuck at the same income."`}
+          rows={4}
+          {...register('topComplaints')}
+        />
+      </div>
+
+      {/* Q25 — Unwanted Feelings */}
+      <div className="space-y-2">
+        <Label htmlFor="unwantedFeelings">
+          How does your ideal client feel on a daily basis? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          How does your ideal client feel on a daily basis because of those problems? These emotions are the engine of your marketing.
+        </p>
+        <Textarea
+          id="unwantedFeelings"
+          placeholder="e.g. Frustrated and embarrassed that they're not further along. Anxious checking their bank account. Exhausted from constant hustle. A quiet fear that maybe they're not cut out for this. Imposter syndrome when they see others succeeding."
+          rows={4}
+          {...register('unwantedFeelings')}
+        />
+        {errors.unwantedFeelings && (
+          <p className="text-sm text-red-500">{errors.unwantedFeelings.message as string}</p>
+        )}
+      </div>
+
+      {/* Q26 — Top Desires */}
+      <div className="space-y-2">
+        <Label htmlFor="topDesires">
+          What are the top 3 things your ideal client wants most? <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          What are the top 3 things your ideal client wants most from their coaching business? What do they daydream about?
+        </p>
+        <Textarea
+          id="topDesires"
+          placeholder={`e.g.\n1. Consistent $10K-$20K months without burning out.\n2. A steady stream of qualified leads coming to them.\n3. The confidence and credibility to charge premium prices.`}
+          rows={4}
+          {...register('topDesires')}
+        />
+      </div>
+
+      {/* Q27 — Desired Feelings */}
+      <div className="space-y-2">
+        <Label htmlFor="desiredFeelings">
+          How do they want to feel when they get those things? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Your marketing sells a feeling before it sells a result. What emotion does your client most crave?
+        </p>
+        <Textarea
+          id="desiredFeelings"
+          placeholder="e.g. Free. In control. Proud. Like they made the right bet on themselves. Confident when they talk about their business at dinner. Excited to check their phone in the morning."
+          rows={3}
+          {...register('desiredFeelings')}
+        />
+        {errors.desiredFeelings && (
+          <p className="text-sm text-red-500">{errors.desiredFeelings.message as string}</p>
+        )}
+      </div>
+
+      {/* Q28 — Current Methods */}
+      <div className="space-y-2">
+        <Label htmlFor="idealClientCurrentMethods">
+          What is your ideal client currently doing to try to grow? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          What strategies, platforms, or approaches are they already trying? This helps position your method as different.
+        </p>
+        <Textarea
+          id="idealClientCurrentMethods"
+          placeholder="e.g. Posting on Instagram daily, running free discovery calls, watching YouTube videos about funnels, buying online courses, trying to figure out Facebook ads on their own."
+          rows={3}
+          {...register('idealClientCurrentMethods')}
+        />
+        {errors.idealClientCurrentMethods && (
+          <p className="text-sm text-red-500">{errors.idealClientCurrentMethods.message as string}</p>
+        )}
+      </div>
+
+      {/* Q29 — Why Current Method Fails */}
+      <div className="space-y-2">
+        <Label htmlFor="whyCurrentMethodFails">
+          Why isn&apos;t what they&apos;re currently doing working? <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          What is the root reason their current approach keeps failing them? This becomes the core of your marketing argument.
+        </p>
+        <Textarea
+          id="whyCurrentMethodFails"
+          placeholder="e.g. They're focusing on tactics before they have a clear message. They're attracting the wrong people or no one at all because their positioning is vague. They're copying what big names do but they don't have the audience yet."
+          rows={3}
+          {...register('whyCurrentMethodFails')}
+        />
+      </div>
+
+      {/* Q30 — Aspiring Identity */}
+      <div className="space-y-2">
+        <Label htmlFor="aspiringIdentity">
+          Who has your ideal client become after your program? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Not what they can DO — who they have BECOME. All your content sells this identity. Describe the upgraded version of your client.
         </p>
         <Textarea
           id="aspiringIdentity"
@@ -95,80 +200,91 @@ export default function StepYourOffer({ form }: StepYourOfferProps) {
         )}
       </div>
 
-      {/* Unique Mechanism */}
+      {/* Problem Solved */}
       <div className="space-y-2">
-        <Label htmlFor="uniqueMechanism">Your Proprietary System</Label>
+        <Label htmlFor="problemSolved">
+          The #1 deep problem you solve <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          Your method. Your framework. The thing that makes YOUR approach different. Give it a name — &apos;The 4 P&apos;s,&apos; &apos;The Bulletproof Protocol,&apos; whatever feels right. If you don&apos;t have one, we&apos;ll help you create it.
+          Boil it down to one sentence. What is the single most painful problem you eliminate for your clients?
         </p>
         <Textarea
-          id="uniqueMechanism"
-          placeholder='e.g. "The Revenue Ramp Method" — a 4-phase system: Phase 1: Offer Architecture. Phase 2: Audience Magnetism. Phase 3: Conversion Engine. Phase 4: Scale Systems.'
-          rows={4}
-          {...register('uniqueMechanism')}
+          id="problemSolved"
+          placeholder="e.g. Coaches who are great at their craft but invisible online — I help them build a clear message and a repeatable system so they can attract and close clients consistently."
+          rows={3}
+          {...register('problemSolved')}
         />
-        {errors.uniqueMechanism && (
-          <p className="text-sm text-red-500">{errors.uniqueMechanism.message as string}</p>
+        {errors.problemSolved && (
+          <p className="text-sm text-red-500">{errors.problemSolved.message as string}</p>
         )}
       </div>
 
-      {/* Lead Magnet Name */}
-      <div className="space-y-2">
-        <Label htmlFor="leadMagnetName">Lead Magnet Name</Label>
-        <p className="text-sm text-gray-500">
-          Your free resource that attracts leads into your funnel. Make the name specific
-          and outcome-driven — it should feel like something they would pay for.
-        </p>
-        <Input
-          id="leadMagnetName"
-          placeholder='e.g. "The 7-Figure Coach Checklist: 12 Things You Need Before You Scale Past $10K/Month"'
-          {...register('leadMagnetName')}
-        />
-        {errors.leadMagnetName && (
-          <p className="text-sm text-red-500">{errors.leadMagnetName.message as string}</p>
-        )}
-      </div>
+      {/* Common Objections */}
+      <DynamicArrayField
+        form={form}
+        name="commonObjections"
+        label="What excuses do they make? (min 1)"
+        placeholder={"e.g. \"I don't have enough time\" or \"I've tried this before and it didn't work\""}
+        addLabel="Add Objection"
+      />
 
-      {/* CTA Type */}
+      {/* Sales Approach */}
       <div className="space-y-2">
-        <Label>Call-to-Action Type</Label>
+        <Label>
+          How do you close clients? <span className="text-red-400">*</span>
+        </Label>
         <p className="text-sm text-gray-500">
-          How prospects take the next step after engaging with your content.
+          Your primary sales method — this shapes the sales scripts and content we generate for you.
         </p>
         <Select
-          value={ctaType || ''}
-          onValueChange={(value) => setValue('ctaType', value, { shouldValidate: true })}
+          value={watch('salesApproach') as string || ''}
+          onValueChange={(value) => setValue('salesApproach', value, { shouldValidate: true })}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Choose CTA type...">
-              {ctaType ? CTA_LABELS[ctaType] || ctaType : undefined}
-            </SelectValue>
+            <SelectValue placeholder="Choose your sales approach..." />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="application">Application Form — Pre-qualifies leads before you speak</SelectItem>
-            <SelectItem value="booking">Book a Call — Direct calendar link, fastest path to sales</SelectItem>
-            <SelectItem value="dm-keyword">DM Keyword — Prospect DMs a word to trigger automation</SelectItem>
+            <SelectItem value="discovery-call">Discovery Call — Free strategy session to qualify and close</SelectItem>
+            <SelectItem value="application-call">Application + Sales Call — Application first, then close on a call</SelectItem>
+            <SelectItem value="dm-close">DM Close — Close entirely through direct message conversation</SelectItem>
+            <SelectItem value="webinar">Webinar / Workshop — Live or automated presentation with pitch at the end</SelectItem>
+            <SelectItem value="video-sales-letter">Video Sales Letter — Recorded presentation, no live selling</SelectItem>
           </SelectContent>
         </Select>
-        {errors.ctaType && (
-          <p className="text-sm text-red-500">{errors.ctaType.message as string}</p>
+        {errors.salesApproach && (
+          <p className="text-sm text-red-500">{errors.salesApproach.message as string}</p>
         )}
       </div>
 
-      {/* CTA Keyword — conditional */}
-      {ctaType === 'dm-keyword' && (
-        <div className="space-y-2">
-          <Label htmlFor="ctaKeyword">DM Keyword</Label>
-          <p className="text-sm text-gray-500">
-            A short, memorable word. When someone DMs you this word, your automation kicks in.
-          </p>
-          <Input
-            id="ctaKeyword"
-            placeholder='e.g. "READY" or "SCALE" or "BLUEPRINT"'
-            {...register('ctaKeyword')}
-          />
-        </div>
-      )}
+      {/* Delivery Model */}
+      <div className="space-y-2">
+        <Label>
+          How do you deliver your coaching? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Your delivery format affects how your offer is positioned and described across all generated materials.
+        </p>
+        <Select
+          value={watch('deliveryModel') as string || ''}
+          onValueChange={(value) => setValue('deliveryModel', value, { shouldValidate: true })}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Choose your delivery model..." />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1-on-1">1-on-1 Coaching — Private sessions, fully personalized</SelectItem>
+            <SelectItem value="group-program">Group Program — Cohort-based, structured curriculum</SelectItem>
+            <SelectItem value="mastermind">Mastermind — Peer learning + hot seats + community</SelectItem>
+            <SelectItem value="hybrid">Hybrid — Mix of private and group elements</SelectItem>
+            <SelectItem value="self-paced-course">Self-Paced Course — Recorded content with optional support</SelectItem>
+            <SelectItem value="membership">Membership / Community — Recurring subscription model</SelectItem>
+          </SelectContent>
+        </Select>
+        {errors.deliveryModel && (
+          <p className="text-sm text-red-500">{errors.deliveryModel.message as string}</p>
+        )}
+      </div>
+
     </div>
   )
 }

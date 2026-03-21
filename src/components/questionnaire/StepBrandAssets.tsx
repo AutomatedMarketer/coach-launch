@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Upload, X, ImageIcon, Loader2 } from 'lucide-react'
 import { safeParseJSON } from '@/lib/utils'
 
-const MAX_CLIENT_FILE_SIZE = 4.5 * 1024 * 1024 // 4.5MB — Vercel serverless limit
+const MAX_CLIENT_FILE_SIZE = 3 * 1024 * 1024 // 3MB per file — safe buffer below 4MB server limit (multipart encoding adds ~33% overhead)
 
 interface StepBrandAssetsProps {
   form: UseFormReturn<Record<string, unknown>>
@@ -50,7 +50,7 @@ export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
     for (const file of Array.from(files)) {
       if (file.size > MAX_CLIENT_FILE_SIZE) {
         const sizeMB = (file.size / (1024 * 1024)).toFixed(1)
-        throw new Error(`"${file.name}" is ${sizeMB}MB — max 4.5MB per file. Please resize or compress it.`)
+        throw new Error(`"${file.name}" is ${sizeMB}MB — max 3MB per file. Please resize or compress it.`)
       }
     }
 
@@ -89,7 +89,7 @@ export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
         throw new Error(data.error || 'Upload failed')
       }
 
-      const data = await response.json()
+      const data = await safeParseJSON(response)
 
       // Mark all as complete
       setUploadProgress(prev => {
@@ -262,7 +262,7 @@ export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
         )}
 
         <p className="text-xs text-slate-500">
-          JPG, PNG, or WebP. Max 4.5MB per file. Up to 10 images.
+          JPG, PNG, or WebP. Max 3MB per file. Up to 10 images.
         </p>
       </div>
 

@@ -23,16 +23,16 @@ import {
   Copy,
   Check,
 } from 'lucide-react'
-import { DELIVERABLES, PHASE_TITLES, getDeliverablesByPhase } from '@/lib/deliverable-config'
+import { PHASES, DELIVERABLES, PHASE_TITLES, getDeliverablesByPhase, type PhaseNumber } from '@/lib/deliverable-config'
 import { exportToPdf, exportToDocx } from '@/lib/export'
 import type { Deliverable } from '@/types'
 
-const PHASES = [1, 2, 3] as const
-
-const PHASE_COLORS: Record<1 | 2 | 3, { border: string; text: string; bg: string }> = {
-  1: { border: 'border-l-amber-400', text: 'text-amber-400', bg: 'bg-amber-400/10' },
-  2: { border: 'border-l-blue-400', text: 'text-blue-400', bg: 'bg-blue-400/10' },
-  3: { border: 'border-l-green-400', text: 'text-green-400', bg: 'bg-green-400/10' },
+const PHASE_COLORS: Record<PhaseNumber, { border: string; text: string; bg: string }> = {
+  1: { border: 'border-l-purple-400', text: 'text-purple-400', bg: 'bg-purple-400/10' },
+  2: { border: 'border-l-amber-400', text: 'text-amber-400', bg: 'bg-amber-400/10' },
+  3: { border: 'border-l-blue-400', text: 'text-blue-400', bg: 'bg-blue-400/10' },
+  4: { border: 'border-l-green-400', text: 'text-green-400', bg: 'bg-green-400/10' },
+  5: { border: 'border-l-orange-400', text: 'text-orange-400', bg: 'bg-orange-400/10' },
 }
 
 const statusStyles: Record<string, string> = {
@@ -121,7 +121,7 @@ export default function AdminReviewPage() {
     }
   }
 
-  function handleDownloadPhasePdf(phase: 1 | 2 | 3) {
+  function handleDownloadPhasePdf(phase: PhaseNumber) {
     const phaseTemplateIds = getDeliverablesByPhase(phase).map(c => c.templateId)
     const completed = deliverables.filter(
       d => phaseTemplateIds.includes(d.template_id) && d.status === 'completed'
@@ -135,7 +135,7 @@ export default function AdminReviewPage() {
     exportToPdf(items, `${businessName}-phase-${phase}`)
   }
 
-  function handleDownloadPhaseDocx(phase: 1 | 2 | 3) {
+  function handleDownloadPhaseDocx(phase: PhaseNumber) {
     const phaseTemplateIds = getDeliverablesByPhase(phase).map(c => c.templateId)
     const completed = deliverables.filter(
       d => phaseTemplateIds.includes(d.template_id) && d.status === 'completed'

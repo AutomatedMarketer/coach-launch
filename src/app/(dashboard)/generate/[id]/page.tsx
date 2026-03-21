@@ -6,9 +6,11 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useGeneration } from '@/hooks/use-generation'
 import {
+  PHASES,
   PHASE_TITLES,
   PHASE_DESCRIPTIONS,
   getDeliverablesByPhase,
+  type PhaseNumber,
 } from '@/lib/deliverable-config'
 import {
   Circle,
@@ -86,7 +88,7 @@ function PhaseCard({
   onComplete,
   alreadyCompletedIds,
 }: {
-  phase: 1 | 2 | 3
+  phase: PhaseNumber
   questionnaireId: string
   phaseStatus: PhaseStatus
   onComplete: (phase: number) => void
@@ -288,7 +290,7 @@ export default function GeneratePage() {
           )
 
           const done = new Set<number>()
-          for (const phase of [1, 2, 3] as const) {
+          for (const phase of PHASES) {
             const phaseDeliverables = getDeliverablesByPhase(phase)
             const allDone = phaseDeliverables.every(d => existingIds.has(d.templateId))
             if (allDone && phaseDeliverables.length > 0) {
@@ -315,16 +317,15 @@ export default function GeneratePage() {
   }, [])
 
   // Determine each phase's status
-  function getPhaseStatus(phase: 1 | 2 | 3): PhaseStatus {
+  function getPhaseStatus(phase: PhaseNumber): PhaseStatus {
     if (completedPhases.has(phase)) return 'complete'
     if (phase === 1) return 'ready'
     // Phase N is ready if phase N-1 is complete
-    const prevPhase = (phase - 1) as 1 | 2 | 3
-    if (completedPhases.has(prevPhase)) return 'ready'
+    if (completedPhases.has(phase - 1)) return 'ready'
     return 'locked'
   }
 
-  const allDone = completedPhases.has(1) && completedPhases.has(2) && completedPhases.has(3)
+  const allDone = PHASES.every(p => completedPhases.has(p))
 
   if (loading) {
     return (
@@ -358,7 +359,7 @@ export default function GeneratePage() {
       </div>
 
       {/* Phase cards */}
-      {([1, 2, 3] as const).map((phase) => (
+      {PHASES.map((phase) => (
         <PhaseCard
           key={phase}
           phase={phase}

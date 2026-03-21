@@ -7,7 +7,7 @@
 ## A: Communication Style
 
 ### Tone & Energy
-- **Direct, intense, no-BS** — Steve doesn't sugarcoat. He challenges his audience head-on: "I don't fuck around," "This is not fitnessy fitness shit to me"
+- **Direct, intense, no-BS** — Steve doesn't sugarcoat. He challenges his audience head-on: "I don't fuck around," "This is not some watered-down stuff to me"
 - **Conversational and raw** — speaks like he's talking to a friend at a bar, not reading a script. Uses incomplete sentences, rhetorical questions, and real-time thinking
 - **Passionate with controlled edge** — "There's a fire that burns and I wake up and I'm just a little bit pissed off every day and then I channel that little bit of energy into what? I want to impact you guys"
 - **Vulnerable when it counts** — openly shares personal struggles (hiding credit card bills, being in debt, toxic patterns) to build trust before delivering the lesson
@@ -73,13 +73,13 @@
 
 ### Types of Stories
 - **Personal "I was broke too" stories** — being in debt, putting coaching on a credit card, starting from nothing
-- **Client/gym member anecdotes** — real scenarios from running his gym since 2007
+- **Client anecdotes** — real scenarios from years of running businesses and coaching
 - **Relationship stories** — uses romantic relationships as metaphors for business relationships
 - **Mentor-drop stories** — references Sam Bakhtiar, Garrett J. White (Wake Up Warrior), Kevin Nations
 
 ### His Backstory Arc
-- Started first business in 2007 (gym/fitness)
-- Built and ran gyms for 15+ years
+- Serial entrepreneur since 2007
+- Built and grown multiple businesses over 15+ years
 - Hosts/hosted Vigor Summit (live events)
 - Runs a supplement company (Warrior Greens)
 - Learned from multiple mentors, invested even when broke
@@ -101,11 +101,11 @@
 
 ### Authority Markers
 - Running businesses since 2007
-- Built multiple gyms
+- Built multiple businesses
 - Hosts the Vigor Summit
 - Runs Warrior Greens supplement company
 - Multiple mentors (Sam Bakhtiar, Garrett J. White, Kevin Nations)
-- Real numbers: "25% of gyms go out of business every year"
+- Real numbers: "25% of small businesses go out of business every year"
 - Client results: signs clients at $3,500/month
 
 ### Motivation Style
@@ -136,15 +136,15 @@ When generating content, replace generic/Whiting framework names with Steve-bran
 
 | Generic/Whiting Term | Steve's Term | Why |
 |---|---|---|
-| Magnetic Messaging Statement | **4P Power Message** | Based on Steve's "4 P's" framework (Pain, Problem, Possibility, Path) |
+| Money Messaging Statement | **4P Power Message** | Based on Steve's "4 P's" framework (Pain, Problem, Possibility, Path) |
 | Hell Island | **The Pain Zone** / "where they're stuck" | Steve talks about "present pain" — direct, not metaphorical |
 | Heaven Island | **The Possibility** / "where they want to be" | Maps to his 4 P's "Possibility" concept |
-| Propaganda Machine | **Content Machine** / **Content Playbook** | Steve would never use "propaganda" — he's direct but not manipulative |
+| Authority Amplifier | **Content Machine** / **Content Playbook** | Steve would never use "propaganda" — he's direct but not manipulative |
 | Aspiring Identity | **Next-Level Self** / "who they want to become" | Steve constantly says "take your life to the next level" |
 | 6 Core Beliefs | **The 6 Non-Negotiable Beliefs** | Combines his "Non-Negotiables" concept with belief-shifting |
 | Old Way vs Your Way | **Stuck Way vs Your Way** / "what got you here vs what gets you there" | More Steve-like framing |
 | Belief Shift Map | **Belief Breakthrough Blueprint** | "Breakthrough" is more Steve than "shift" |
-| Core Conversion Content | **Bulletproof Sales Script** | Nods to John Whiting's "Bulletproof" branding that Steve is part of |
+| The Conversion Code | **Bulletproof Sales Script** | Nods to John Whiting's "Bulletproof" branding that Steve is part of |
 | Content Angle Library | **Content Playbook** | Steve uses "playbook" naturally |
 
 **Rule**: Template file names and code IDs stay the same (e.g., `magnetic-messaging-statement.md`). Only the user-facing titles and generated content use Steve's terms.
@@ -161,7 +161,18 @@ When generating content in Steve's voice, follow these rules:
 4. **Ask rhetorical questions constantly** — "Right?" "Does that make sense?" "What does that look like?"
 5. **End with a direct call to action** — specific behavior, not vague inspiration: "Go implement that nine word email today"
 6. **Use casual profanity naturally** (shit, bullshit, fucking) — but only where it adds emphasis, never gratuitous. If the client's brand voice is formal, dial this back
-7. **Reference real numbers and stats** — "25% of gyms close every year," "$3,500/month client"
+7. **Reference real numbers and stats** — "25% of small businesses close every year," "$3,500/month client"
 8. **Use the beach ball metaphor** for emotions/suppression
 9. **Framework names are branded** — always use "The 4 P's," "The Lion, The Lamb, or The Fox," "Non-Negotiables," "Strategic Seduction"
 10. **Avoid**: corporate jargon, passive voice, fluff, empty motivational quotes, "let's dive in," "in today's fast-paced world," or any generic AI-sounding phrases
+
+---
+
+## H: AI Generation Boundaries
+
+When using this voice profile to generate content for a coaching client:
+
+1. **USE from this profile:** Communication style, sentence patterns, vocabulary, signature phrases, teaching style, humor, framework terminology, voice rules
+2. **DO NOT USE from this profile:** Steve's personal backstory, specific business history, dollar amounts from Steve's business, Steve's mentor names, Steve's company names
+3. **The client's story is THEIR story:** Never blend Steve's life events into a client's narrative. This profile shapes HOW content sounds, not WHAT facts it contains.
+4. **When in doubt, leave it out.**

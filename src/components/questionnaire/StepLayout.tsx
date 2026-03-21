@@ -24,6 +24,16 @@ const STEP_INTROS = [
     proTip: 'Name your system. A branded method instantly adds perceived value.',
   },
   {
+    headline: 'Show Your Proof',
+    why: "Proof is the #1 objection killer. Structured case studies and a real track record make Claude write content based on FACTS, not fiction.",
+    proTip: 'Even 1-2 case studies with real numbers make a massive difference. The AI will ONLY use what you provide here.',
+  },
+  {
+    headline: 'Your Mission & Goals',
+    why: "This is your north star. Why you do what you do, where you're headed, and what makes your way different from the old way. Drives your Mission Statement and sales urgency.",
+    proTip: 'Go deeper than "to help people." The real why is what makes clients trust you.',
+  },
+  {
     headline: 'Almost There!',
     why: 'These details fine-tune everything so your marketing sounds like YOU, not a robot.',
     proTip: 'Pick the voice that matches how you talk on client calls.',
@@ -45,7 +55,7 @@ interface StepLayoutProps {
   children: React.ReactNode
 }
 
-const TOTAL_STEPS = stepNames.length // 4
+const TOTAL_STEPS = stepNames.length
 
 export default function StepLayout({
   step,

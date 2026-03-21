@@ -41,7 +41,7 @@ const FAQS = [
   },
   {
     q: 'What are the 3 phases?',
-    a: 'Phase 1 (Magnetic Messaging) defines your audience and core message. Phase 2 (Core Conversion) builds your sales script and key marketing copy. Phase 3 (Propaganda Machine) creates your content system, ads, and automation sequences.',
+    a: 'Phase 1 (Money Messaging) defines your audience and messaging. Phase 2 (Mind Shift Method) builds your persuasion framework and offer. Phase 3 (The Conversion Code) builds your sales script and marketing pages. Phase 4 (Authority Amplifier) creates your content system, ads, and automation.',
   },
 ]
 

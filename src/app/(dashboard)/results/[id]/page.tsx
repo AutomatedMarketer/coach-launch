@@ -8,18 +8,20 @@ import { ExportMenu } from '@/components/results/ExportMenu'
 import { Loader2, Sparkles, PenLine } from 'lucide-react'
 import Link from 'next/link'
 import {
+  PHASES,
   PHASE_TITLES,
   PHASE_DESCRIPTIONS,
   getDeliverablesByPhase,
+  type PhaseNumber,
 } from '@/lib/deliverable-config'
 import type { Deliverable, Questionnaire } from '@/types'
 
-const PHASES = [1, 2, 3] as const
-
-const PHASE_ACCENT: Record<1 | 2 | 3, string> = {
-  1: 'border-l-amber-400',
-  2: 'border-l-blue-400',
-  3: 'border-l-green-400',
+const PHASE_ACCENT: Record<PhaseNumber, string> = {
+  1: 'border-l-purple-400',
+  2: 'border-l-amber-400',
+  3: 'border-l-blue-400',
+  4: 'border-l-green-400',
+  5: 'border-l-orange-400',
 }
 
 export default function ResultsPage() {
@@ -66,7 +68,7 @@ export default function ResultsPage() {
     (questionnaire?.answers?.businessName as string) || 'Untitled'
 
   // Group deliverables by phase using template IDs from config
-  function getPhaseDeliverables(phase: 1 | 2 | 3): Deliverable[] {
+  function getPhaseDeliverables(phase: PhaseNumber): Deliverable[] {
     const phaseTemplateIds = getDeliverablesByPhase(phase).map(
       (cfg) => cfg.templateId
     )

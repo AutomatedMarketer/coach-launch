@@ -6,6 +6,9 @@ import StepLayout from '@/components/questionnaire/StepLayout'
 import StepYouAndStory from '@/components/questionnaire/StepYouAndStory'
 import StepNicheAndAudience from '@/components/questionnaire/StepNicheAndAudience'
 import StepYourOffer from '@/components/questionnaire/StepYourOffer'
+import StepDeepPsychology from '@/components/questionnaire/StepDeepPsychology'
+import StepYourProof from '@/components/questionnaire/StepYourProof'
+import StepGoalsAndWhy from '@/components/questionnaire/StepGoalsAndWhy'
 import StepFinalDetails from '@/components/questionnaire/StepFinalDetails'
 import StepBrandAssets from '@/components/questionnaire/StepBrandAssets'
 
@@ -13,6 +16,9 @@ const stepComponents = [
   StepYouAndStory,
   StepNicheAndAudience,
   StepYourOffer,
+  StepDeepPsychology,
+  StepYourProof,
+  StepGoalsAndWhy,
   StepFinalDetails,
   StepBrandAssets,
 ]
@@ -20,7 +26,7 @@ const stepComponents = [
 export default function QuestionnairePage() {
   const params = useParams()
   const stepParam = Number(params.step)
-  const step = isNaN(stepParam) || stepParam < 1 || stepParam > 5 ? 1 : stepParam
+  const step = isNaN(stepParam) || stepParam < 1 || stepParam > 8 ? 1 : stepParam
 
   const {
     form,

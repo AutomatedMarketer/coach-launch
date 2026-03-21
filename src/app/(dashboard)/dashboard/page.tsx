@@ -25,9 +25,11 @@ import {
   ChevronUp,
 } from 'lucide-react'
 import {
+  PHASES,
   PHASE_TITLES,
   getDeliverablesByPhase,
   DELIVERABLES,
+  type PhaseNumber,
 } from '@/lib/deliverable-config'
 import { exportToPdf, exportToDocx } from '@/lib/export'
 import type { Questionnaire, QuestionnaireStatus, Deliverable } from '@/types'
@@ -79,37 +81,47 @@ function getActionForStatus(questionnaire: Questionnaire, deliverables: Delivera
   }
 }
 
-const PHASES = [1, 2, 3] as const
-
 // Full phase display config — name, bar color, icon color
 const PHASE_CONFIG: Record<
-  1 | 2 | 3,
+  PhaseNumber,
   { textColor: string; barColor: string; pillBg: string; pillText: string }
 > = {
   1: {
+    textColor: 'text-purple-400',
+    barColor: 'bg-purple-400',
+    pillBg: 'bg-purple-400/10',
+    pillText: 'text-purple-300',
+  },
+  2: {
     textColor: 'text-amber-400',
     barColor: 'bg-amber-400',
     pillBg: 'bg-amber-400/10',
     pillText: 'text-amber-300',
   },
-  2: {
+  3: {
     textColor: 'text-blue-400',
     barColor: 'bg-blue-400',
     pillBg: 'bg-blue-400/10',
     pillText: 'text-blue-300',
   },
-  3: {
+  4: {
     textColor: 'text-green-400',
     barColor: 'bg-green-400',
     pillBg: 'bg-green-400/10',
     pillText: 'text-green-300',
+  },
+  5: {
+    textColor: 'text-orange-400',
+    barColor: 'bg-orange-400',
+    pillBg: 'bg-orange-400/10',
+    pillText: 'text-orange-300',
   },
 }
 
 type PhaseStatus = 'complete' | 'in-progress' | 'not-started' | 'locked'
 
 function getPhaseStatus(
-  phase: 1 | 2 | 3,
+  phase: PhaseNumber,
   deliverables: Deliverable[],
   questionnaireStatus: QuestionnaireStatus
 ): PhaseStatus {
@@ -145,7 +157,7 @@ function getPhaseStatus(
 }
 
 function getPhaseProgress(
-  phase: 1 | 2 | 3,
+  phase: PhaseNumber,
   deliverables: Deliverable[]
 ): { completed: number; total: number } {
   const phaseTemplateIds = getDeliverablesByPhase(phase).map(
@@ -181,14 +193,16 @@ const PHASE_STATUS_LABEL: Record<PhaseStatus, string> = {
 }
 
 // Short display names for the phase pills (to keep cards compact)
-const PHASE_SHORT_NAMES: Record<1 | 2 | 3, string> = {
-  1: 'Magnetic Messaging',
-  2: 'Core Conversion',
-  3: 'Propaganda Machine',
+const PHASE_SHORT_NAMES: Record<PhaseNumber, string> = {
+  1: 'Blueprint',
+  2: 'Messaging',
+  3: 'Mind Shift',
+  4: 'Conversion',
+  5: 'Amplifier',
 }
 
 function getPhaseCompletedDeliverables(
-  phase: 1 | 2 | 3,
+  phase: PhaseNumber,
   deliverables: Deliverable[]
 ): Deliverable[] {
   const phaseTemplateIds = getDeliverablesByPhase(phase).map(cfg => cfg.templateId)
@@ -198,7 +212,7 @@ function getPhaseCompletedDeliverables(
 }
 
 function handleDownloadAllPdf(
-  phase: 1 | 2 | 3,
+  phase: PhaseNumber,
   deliverables: Deliverable[],
   businessName: string
 ) {
@@ -214,7 +228,7 @@ function handleDownloadAllPdf(
 }
 
 function handleDownloadAllDocx(
-  phase: 1 | 2 | 3,
+  phase: PhaseNumber,
   deliverables: Deliverable[],
   businessName: string
 ) {
@@ -326,7 +340,7 @@ export default function DashboardPage() {
           Welcome to Coach Launch
         </h2>
         <p className="text-slate-400 max-w-md mb-4 text-lg leading-relaxed">
-          Answer a few questions about your coaching business and we&apos;ll generate your complete marketing launch kit — 16 deliverables powered by belief-shifting frameworks.
+          Answer a few questions about your coaching business and we&apos;ll generate your complete marketing launch kit — 26 deliverables powered by belief-shifting frameworks.
         </p>
 
         {/* What you get mini-preview */}
@@ -335,7 +349,7 @@ export default function DashboardPage() {
             { icon: <Sparkles className="w-3.5 h-3.5" />, label: '4P Power Message' },
             { icon: <FileText className="w-3.5 h-3.5" />, label: 'Sales Script' },
             { icon: <ClipboardList className="w-3.5 h-3.5" />, label: 'Email Sequences' },
-            { icon: <Zap className="w-3.5 h-3.5" />, label: '+ 13 More' },
+            { icon: <Zap className="w-3.5 h-3.5" />, label: '+ 23 More' },
           ].map(({ icon, label }) => (
             <span
               key={label}
@@ -361,8 +375,8 @@ export default function DashboardPage() {
               },
               {
                 icon: <Rocket className="w-4 h-4 text-blue-400" />,
-                title: 'Generate your 3-phase launch kit',
-                desc: 'AI builds your messaging, sales assets, and content system — all in your voice.',
+                title: 'Generate your 5-phase launch kit',
+                desc: 'AI builds your blueprint, messaging, sales assets, and content system — all in your voice.',
               },
               {
                 icon: <BarChart3 className="w-4 h-4 text-green-400" />,
@@ -416,7 +430,7 @@ export default function DashboardPage() {
             Your Launch Kits
           </h2>
           <p className="text-sm text-slate-400 mt-1">
-            Each kit generates your complete marketing package across 3 phases.
+            Each kit generates your complete marketing package across 5 phases.
           </p>
         </div>
         <Button
@@ -479,7 +493,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Phase progress indicators */}
-              <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-700/50">
+              <div className="grid grid-cols-5 gap-2 pt-3 border-t border-slate-700/50">
                 {PHASES.map((phase) => {
                   const phaseStatus = getPhaseStatus(
                     phase,

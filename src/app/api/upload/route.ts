@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
-const MAX_FILE_SIZE = 4.5 * 1024 * 1024 // 4.5MB — Vercel serverless payload limit
+const MAX_FILE_SIZE = 3 * 1024 * 1024 // 3MB — matches client-side limit (multipart overhead adds ~33%)
 const ALLOWED_UPLOAD_TYPES = ['headshots', 'logos', 'brand-photos']
 
 export async function POST(request: NextRequest) {
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
 
       if (file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { error: `File "${file.name}" exceeds 4.5MB limit. Please resize or compress it.` },
+          { error: `File "${file.name}" exceeds 3MB limit. Please resize or compress it.` },
           { status: 400 }
         )
       }
@@ -111,8 +111,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ urls: uploadedUrls })
   } catch (error) {
     console.error('Upload route error:', error)
+    const message = error instanceof Error ? error.message : 'Internal server error'
+    // Handle body parser / payload too large errors
+    if (message.includes('body') || message.includes('size') || message.includes('limit') || message.includes('Entity')) {
+      return NextResponse.json(
+        { error: 'File too large. Please use images under 3MB each.' },
+        { status: 413 }
+      )
+    }
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Upload failed. Please try again with smaller files.' },
       { status: 500 }
     )
   }
