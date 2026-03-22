@@ -3,7 +3,7 @@ import { loadTemplate } from './template-loader'
 
 const QA_MODEL = 'claude-haiku-4-5-20251001'
 const PASS_THRESHOLD = 70
-const MAX_CONTENT_FOR_QA = 4000
+const MAX_CONTENT_FOR_QA = 12000
 
 export interface QualityResult {
   score: number

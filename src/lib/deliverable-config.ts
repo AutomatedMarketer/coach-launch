@@ -46,17 +46,17 @@ export const DELIVERABLES: DeliverableConfig[] = [
 
   // Phase 2: Money Messaging (3 deliverables)
   { templateId: 'magnetic-messaging-statement', title: '4P Power Message', dependsOn: [], phase: 2, maxTokens: 4096 },
-  { templateId: 'emotional-trigger-map', title: 'Emotional Trigger Map', dependsOn: [], phase: 2, maxTokens: 6144 },
+  { templateId: 'emotional-trigger-map', title: 'Emotional Trigger Map', dependsOn: [], phase: 2, maxTokens: 8192 },
   { templateId: 'usp', title: 'Unique Selling Proposition', dependsOn: ['magnetic-messaging-statement'], phase: 2, maxTokens: 4096 },
 
   // Phase 3: Mind Shift Method (4 deliverables)
-  { templateId: 'two-identities', title: 'Two Identities', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map'], phase: 3, maxTokens: 6144 },
-  { templateId: 'belief-shift-map', title: 'Belief Breakthrough Blueprint', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map', 'two-identities'], phase: 3, maxTokens: 8192 },
+  { templateId: 'two-identities', title: 'Two Identities', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map'], phase: 3, maxTokens: 8192 },
+  { templateId: 'belief-shift-map', title: 'Belief Breakthrough Blueprint', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map', 'two-identities'], phase: 3, maxTokens: 10240 },
   { templateId: 'lead-magnet-outline', title: 'Lead Magnet Outline', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map'], phase: 3, maxTokens: 4096, imageType: 'lead-magnet-cover', imageCount: 1 },
-  { templateId: 'offer-one-sheet', title: 'Offer 1-Sheet', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map'], phase: 3, maxTokens: 4096 },
+  { templateId: 'offer-one-sheet', title: 'Offer 1-Sheet', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map'], phase: 3, maxTokens: 6144 },
 
   // Phase 4: The Conversion Code (8 deliverables)
-  { templateId: 'core-conversion-content', title: 'Bulletproof Sales Script', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map', 'two-identities'], phase: 4, maxTokens: 8192 },
+  { templateId: 'core-conversion-content', title: 'Bulletproof Sales Script', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map', 'two-identities'], phase: 4, maxTokens: 10240 },
   { templateId: 'sales-call-script', title: 'Sales Call Script', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map', 'core-conversion-content'], phase: 4, maxTokens: 8192 },
   { templateId: 'homepage-copy', title: 'Homepage Copy', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 8192, imageType: 'hero-image', imageCount: 1 },
   { templateId: 'about-page', title: 'About Page', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 8192 },
@@ -68,7 +68,7 @@ export const DELIVERABLES: DeliverableConfig[] = [
   // Phase 5: Authority Amplifier (8 deliverables)
   { templateId: 'content-angle-library', title: 'Content Playbook (98+ Ideas)', dependsOn: ['belief-shift-map', 'core-conversion-content'], phase: 5, maxTokens: 8192 },
   { templateId: 'facebook-posts', title: 'Facebook Posts', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content', 'content-angle-library'], phase: 5, maxTokens: 8192, imageType: 'social-post', imageCount: 3 },
-  { templateId: 'facebook-ad-copy', title: 'Facebook Ad Copy', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content', 'content-angle-library'], phase: 5, maxTokens: 4096, imageType: 'ad-creative', imageCount: 3 },
+  { templateId: 'facebook-ad-copy', title: 'Facebook Ad Copy', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content', 'content-angle-library'], phase: 5, maxTokens: 6144, imageType: 'ad-creative', imageCount: 3 },
   { templateId: 'youtube-script', title: 'YouTube Script', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content', 'content-angle-library'], phase: 5, maxTokens: 6144 },
   { templateId: 'shorts-reels-scripts', title: 'Shorts/Reels Scripts', dependsOn: ['youtube-script'], phase: 5, maxTokens: 6144 },
   { templateId: 'carousel-posts', title: 'Carousel Posts', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'content-angle-library'], phase: 5, maxTokens: 8192, imageType: 'carousel-slide', imageCount: 5 },

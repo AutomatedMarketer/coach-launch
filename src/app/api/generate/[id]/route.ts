@@ -128,11 +128,14 @@ export async function POST(
       if (!qualityResult.pass && qualityResult.suggestions.length > 0) {
         console.log(`[generate] QA failed for ${templateId} (score: ${qualityResult.score}). Retrying with corrections...`)
         try {
-          const correctionContext = `\n\nIMPORTANT CORRECTIONS REQUIRED:\n${qualityResult.suggestions.map(s => `- ${s}`).join('\n')}\nPlease regenerate addressing these specific issues.`
+          // Detect truncation — if QA flagged truncation, boost token budget
+          const isTruncated = qualityResult.issues.some(i => i.toLowerCase().includes('truncat'))
+          const correctionContext = `\n\nIMPORTANT CORRECTIONS REQUIRED:\n${qualityResult.suggestions.map(s => `- ${s}`).join('\n')}\nPlease regenerate addressing these specific issues.${isTruncated ? ' Ensure ALL sections are fully completed — do not cut off mid-sentence.' : ''}`
           const correctedResult = await generateDeliverable(
             templateId,
             answers,
-            context ? context + correctionContext : correctionContext
+            context ? context + correctionContext : correctionContext,
+            isTruncated ? { maxTokensOverride: config.maxTokens + 2048 } : undefined
           )
           result.content = correctedResult.content
           result.promptTokens += correctedResult.promptTokens

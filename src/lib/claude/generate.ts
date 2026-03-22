@@ -33,6 +33,7 @@ export interface GenerationResult {
 
 export interface GenerateOptions {
   modelOverride?: string
+  maxTokensOverride?: number
 }
 
 export async function generateDeliverable(
@@ -67,7 +68,7 @@ export async function generateDeliverable(
 
   const response = await claude.messages.create({
     model: options?.modelOverride || CLAUDE_MODEL,
-    max_tokens: deliverable.maxTokens,
+    max_tokens: options?.maxTokensOverride || deliverable.maxTokens,
     system: [
       { type: 'text' as const, text: GLOBAL_SYSTEM_PREAMBLE },
       ...(voiceProfile
