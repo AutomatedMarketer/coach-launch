@@ -3,7 +3,7 @@ import { loadTemplate } from './template-loader'
 
 const QA_MODEL = 'claude-haiku-4-5-20251001'
 const PASS_THRESHOLD = 70
-const MAX_CONTENT_FOR_QA = 12000
+const MAX_CONTENT_FOR_QA = 40000
 
 export interface QualityResult {
   score: number
@@ -45,12 +45,26 @@ export async function checkQuality(
 
     const checks = postProcessingRules || DEFAULT_CHECKS
 
+    // Build a readable summary of client input for QA verification
+    const inputSummary = Object.entries(answers)
+      .filter(([, v]) => v !== undefined && v !== null && v !== '')
+      .map(([key, value]) => {
+        if (typeof value === 'string') return `${key}: ${value.slice(0, 500)}`
+        if (Array.isArray(value)) return `${key}: ${JSON.stringify(value).slice(0, 500)}`
+        if (typeof value === 'object') return `${key}: ${JSON.stringify(value).slice(0, 500)}`
+        return null
+      })
+      .filter(Boolean)
+      .join('\n')
+
     const prompt = `You are a quality assurance reviewer for AI-generated coaching content. Grade the content below.
 
 TEMPLATE: ${templateId}
 COACH: ${answers.clientName || 'Unknown'}
 BUSINESS: ${answers.businessName || 'Unknown'}
-NICHE: ${answers.niche || 'Unknown'}
+
+CLIENT INPUT DATA (verify generated content against these fields — if a detail in the output matches a field here, it is VERIFIED and should NOT be flagged):
+${inputSummary}
 
 GENERATED CONTENT (may be truncated):
 ${truncatedContent}
@@ -61,12 +75,14 @@ ${checks}
 UNIVERSAL CHECKS (always apply):
 ${DEFAULT_CHECKS}
 
+IMPORTANT: Only flag details as "unverified" if they appear in the generated content but do NOT appear anywhere in the CLIENT INPUT DATA above. If a fact matches client input, it is verified.
+
 Respond with ONLY this JSON (no other text):
 {"score": <0-100>, "pass": <true if score >= ${PASS_THRESHOLD}>, "issues": ["issue 1", "issue 2"], "suggestions": ["fix for issue 1", "fix for issue 2"]}`
 
     const response = await claude.messages.create({
       model: QA_MODEL,
-      max_tokens: 512,
+      max_tokens: 1024,
       messages: [{ role: 'user', content: prompt }],
     })
 

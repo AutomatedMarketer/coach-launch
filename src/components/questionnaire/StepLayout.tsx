@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { stepNames } from '@/lib/schemas/questionnaire'
-import { ArrowLeft, ArrowRight, Lightbulb, Sparkles, Zap } from 'lucide-react'
+import { AlertCircle, ArrowLeft, ArrowRight, Lightbulb, Sparkles, Zap } from 'lucide-react'
 
 // Motivational guidance shown above the form on each step.
 // Coaches often don't know jargon like "niche" or "lead magnet", so
@@ -50,6 +50,7 @@ interface StepLayoutProps {
   isFirstStep: boolean
   isLastStep: boolean
   isSaving: boolean
+  errorCount?: number
   onNext: () => void
   onBack: () => void
   children: React.ReactNode
@@ -62,6 +63,7 @@ export default function StepLayout({
   isFirstStep,
   isLastStep,
   isSaving,
+  errorCount = 0,
   onNext,
   onBack,
   children,
@@ -130,6 +132,16 @@ export default function StepLayout({
 
           {/* Separator */}
           <div className="h-px bg-slate-700/50 mb-7" />
+
+          {/* Validation error banner */}
+          {errorCount > 0 && (
+            <div className="flex items-center gap-2 rounded-lg border border-red-500/30 bg-red-500/10 p-3 mb-6">
+              <AlertCircle className="h-4 w-4 shrink-0 text-red-400" />
+              <p className="text-sm text-red-400">
+                Please complete {errorCount} required field{errorCount > 1 ? 's' : ''} to continue.
+              </p>
+            </div>
+          )}
 
           {/*
             Form content wrapper.

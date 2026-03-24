@@ -61,7 +61,7 @@ export const DELIVERABLES: DeliverableConfig[] = [
   { templateId: 'homepage-copy', title: 'Homepage Copy', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 8192, imageType: 'hero-image', imageCount: 1 },
   { templateId: 'about-page', title: 'About Page', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 8192 },
   { templateId: 'email-welcome-sequence', title: 'Email Welcome Sequence', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 8192 },
-  { templateId: 'email-sales-sequence', title: 'Email Sales Sequence', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 12288 },
+  { templateId: 'email-sales-sequence', title: 'Email Sales Sequence', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'core-conversion-content'], phase: 4, maxTokens: 20480 },
   { templateId: 'qualifying-filter', title: 'This Is For You If / Not For You', dependsOn: ['two-identities', 'belief-shift-map'], phase: 4, maxTokens: 4096 },
   { templateId: 'pricing-framework', title: 'Perfect Pricing Framework', dependsOn: ['offer-one-sheet'], phase: 4, maxTokens: 6144 },
 

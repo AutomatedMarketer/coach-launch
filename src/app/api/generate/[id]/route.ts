@@ -6,6 +6,8 @@ import { checkQuality, extractPostProcessing } from '@/lib/claude/quality-check'
 import { reportError } from '@/lib/notifications/error-reporter'
 import { DELIVERABLES } from '@/lib/deliverable-config'
 
+export const maxDuration = 600 // 10 minutes — email-sales-sequence with QA + correction retry needs this
+
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -125,11 +127,11 @@ export async function POST(
       let qualityResult = await checkQuality(templateId, result.content, answers, postProcessingRules)
 
       // If quality fails, retry once with corrections
-      if (!qualityResult.pass && qualityResult.suggestions.length > 0) {
-        console.log(`[generate] QA failed for ${templateId} (score: ${qualityResult.score}). Retrying with corrections...`)
+      // Small templates: always retry. Large templates: only retry on truncation (to avoid timeout).
+      const isTruncated = qualityResult.issues.some(i => i.toLowerCase().includes('truncat'))
+      if (!qualityResult.pass && qualityResult.suggestions.length > 0 && (config.maxTokens < 10240 || isTruncated)) {
+        console.log(`[generate] QA failed for ${templateId} (score: ${qualityResult.score}, truncated: ${isTruncated}). Retrying with corrections...`)
         try {
-          // Detect truncation — if QA flagged truncation, boost token budget
-          const isTruncated = qualityResult.issues.some(i => i.toLowerCase().includes('truncat'))
           const correctionContext = `\n\nIMPORTANT CORRECTIONS REQUIRED:\n${qualityResult.suggestions.map(s => `- ${s}`).join('\n')}\nPlease regenerate addressing these specific issues.${isTruncated ? ' Ensure ALL sections are fully completed — do not cut off mid-sentence.' : ''}`
           const correctedResult = await generateDeliverable(
             templateId,

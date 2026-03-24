@@ -3,7 +3,12 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import { getDeliverablesByPhase, buildWaves, type PhaseNumber } from '@/lib/deliverable-config'
 import { safeParseJSON } from '@/lib/utils'
 
-const GENERATION_TIMEOUT_MS = 5 * 60 * 1000 // 5 minutes per deliverable
+const BASE_TIMEOUT_MS = 5 * 60 * 1000 // 5 minutes base (matches server maxDuration headroom)
+const TIMEOUT_PER_1K_TOKENS_MS = 20_000 // +20 seconds per 1K max tokens
+
+function getTimeoutForDeliverable(maxTokens: number): number {
+  return BASE_TIMEOUT_MS + Math.ceil(maxTokens / 1000) * TIMEOUT_PER_1K_TOKENS_MS
+}
 const POLL_INTERVAL_MS = 15_000 // 15 seconds
 
 export interface GenerationProgress {
@@ -162,7 +167,7 @@ export function useGeneration(questionnaireId: string, phase: PhaseNumber) {
 
       // Run all deliverables in this wave in parallel
       const results = await Promise.allSettled(
-        wave.map(async ({ templateId }) => {
+        wave.map(async ({ templateId, maxTokens }) => {
           const res = await fetchWithTimeout(
             `/api/generate/${questionnaireId}`,
             {
@@ -170,7 +175,7 @@ export function useGeneration(questionnaireId: string, phase: PhaseNumber) {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ templateId }),
             },
-            GENERATION_TIMEOUT_MS
+            getTimeoutForDeliverable(maxTokens)
           )
 
           if (!res.ok) {

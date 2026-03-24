@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useForm, type UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -17,7 +17,7 @@ interface UseQuestionnaireReturn {
   isLoading: boolean
   isSaving: boolean
   goNext: () => Promise<void>
-  goBack: () => void
+  goBack: () => Promise<void>
   isFirstStep: boolean
   isLastStep: boolean
 }
@@ -80,6 +80,33 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
     loadOrCreate()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Auto-save: silently persist answers 3 seconds after any field change
+  const autoSaveTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
+  useEffect(() => {
+    if (!questionnaire) return
+
+    const subscription = form.watch(() => {
+      clearTimeout(autoSaveTimer.current)
+      autoSaveTimer.current = setTimeout(async () => {
+        const formData = form.getValues()
+        try {
+          await fetch(`/api/questionnaire/${questionnaire.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: formData }),
+          })
+        } catch {
+          // Auto-save failure is non-critical — explicit save on Next/Back is the fallback
+        }
+      }, 3000)
+    })
+
+    return () => {
+      clearTimeout(autoSaveTimer.current)
+      subscription.unsubscribe()
+    }
+  }, [questionnaire, form])
+
   const saveCurrentStep = useCallback(async (formData: Record<string, unknown>): Promise<boolean> => {
     if (!questionnaire) return false
 
@@ -114,7 +141,15 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
   const goNext = useCallback(async () => {
     // Validate and get form data
     const isValid = await form.trigger()
-    if (!isValid) return
+    if (!isValid) {
+      // Scroll to the first field with an error so the user sees what's wrong
+      const firstErrorKey = Object.keys(form.formState.errors)[0]
+      if (firstErrorKey) {
+        const el = document.querySelector(`[name="${firstErrorKey}"], [id="${firstErrorKey}"]`)
+        el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+      return
+    }
 
     const formData = form.getValues()
     const saved = await saveCurrentStep(formData)
@@ -135,11 +170,14 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
     }
   }, [form, saveCurrentStep, step, questionnaire, router])
 
-  const goBack = useCallback(() => {
+  const goBack = useCallback(async () => {
     if (step > 1) {
+      // Save current answers before navigating back (skip validation — partial data is OK)
+      const formData = form.getValues()
+      await saveCurrentStep(formData)
       router.push(`/questionnaire/${step - 1}`)
     }
-  }, [step, router])
+  }, [step, router, form, saveCurrentStep])
 
   return {
     form: form as unknown as UseFormReturn<Record<string, unknown>>,

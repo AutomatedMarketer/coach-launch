@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
       if (uploadError) {
         console.error('Upload error:', uploadError)
         const message = uploadError.message?.includes('not found')
-          ? 'Storage not configured. Please contact support to set up the brand-assets bucket.'
+          ? 'File uploads are temporarily unavailable. Your answers have been saved — you can add brand assets later.'
           : `Failed to upload "${file.name}": ${uploadError.message}`
         return NextResponse.json(
           { error: message },

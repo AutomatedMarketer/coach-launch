@@ -57,6 +57,7 @@ export default function QuestionnairePage() {
       isFirstStep={isFirstStep}
       isLastStep={isLastStep}
       isSaving={isSaving}
+      errorCount={Object.keys(form.formState.errors).length}
       onNext={goNext}
       onBack={goBack}
     >
