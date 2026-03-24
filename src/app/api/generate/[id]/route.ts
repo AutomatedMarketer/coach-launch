@@ -6,7 +6,7 @@ import { checkQuality, extractPostProcessing } from '@/lib/claude/quality-check'
 import { reportError } from '@/lib/notifications/error-reporter'
 import { DELIVERABLES } from '@/lib/deliverable-config'
 
-export const maxDuration = 600 // 10 minutes — email-sales-sequence with QA + correction retry needs this
+export const maxDuration = 300 // 5 minutes — Vercel Hobby plan max
 
 export async function POST(
   request: NextRequest,
