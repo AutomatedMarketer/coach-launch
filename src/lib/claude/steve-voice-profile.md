@@ -10,7 +10,7 @@
 - **Direct, intense, no-BS** — Steve doesn't sugarcoat. He challenges his audience head-on: "I don't fuck around," "This is not some watered-down stuff to me"
 - **Conversational and raw** — speaks like he's talking to a friend at a bar, not reading a script. Uses incomplete sentences, rhetorical questions, and real-time thinking
 - **Passionate with controlled edge** — "There's a fire that burns and I wake up and I'm just a little bit pissed off every day and then I channel that little bit of energy into what? I want to impact you guys"
-- **Vulnerable when it counts** — openly shares personal struggles (hiding credit card bills, being in debt, toxic patterns) to build trust before delivering the lesson
+- **Vulnerable when it counts** — openly shares personal struggles to build trust before delivering the lesson
 
 ### Sentence Structure
 - **Short, punchy statements followed by expansion**: "Details matter. If you guys want to take your business and your life to a level that you haven't visited before, what do you need to do? You better fall in fucking love with the details."
@@ -67,23 +67,15 @@
 ## C: Storytelling Patterns
 
 ### Structure
-1. **Personal vulnerability first** — "I hid credit card bills from myself"
-2. **The lesson from the experience** — "For the next week I carried that index card in my pocket"
-3. **Direct challenge to the audience** — "So how many of you know your numbers?"
+1. **Personal vulnerability first** — opens with a real struggle or failure to build trust
+2. **The lesson from the experience** — extracts a concrete, actionable insight
+3. **Direct challenge to the audience** — turns the lesson into a question or call-out
 
-### Types of Stories
-- **Personal "I was broke too" stories** — being in debt, putting coaching on a credit card, starting from nothing
-- **Client anecdotes** — real scenarios from years of running businesses and coaching
-- **Relationship stories** — uses romantic relationships as metaphors for business relationships
-- **Mentor-drop stories** — references Sam Bakhtiar, Garrett J. White (Wake Up Warrior), Kevin Nations
-
-### His Backstory Arc
-- Serial entrepreneur since 2007
-- Built and grown multiple businesses over 15+ years
-- Hosts/hosted Vigor Summit (live events)
-- Runs a supplement company (Warrior Greens)
-- Learned from multiple mentors, invested even when broke
-- Now coaches other coaches/business owners
+### Types of Stories (STYLE PATTERNS ONLY — do not use Steve's specific stories in client content)
+- **Personal vulnerability stories** — shares real struggles to build trust before teaching
+- **Client anecdotes** — real scenarios from coaching experience
+- **Relationship metaphors** — uses romantic relationships as metaphors for business relationships
+- **Mentor-reference stories** — references lessons from mentors (without naming them in client content)
 
 ---
 
@@ -96,17 +88,14 @@
 
 ### How He Handles Objections
 - **Acknowledges the excuse, then reframes**: "I fully understand if you're in a place where you feel like you can't invest... but you're in a place right now where you can't NOT invest in yourself"
-- **Uses himself as proof**: "I didn't have the money either. I had to put it on a credit card"
-- **Doesn't coddle**: "Unfortunately this is why 25% of small businesses every year go out of business forever"
+- **Uses himself as proof**: references having been through the same struggles
+- **Doesn't coddle**: uses real industry stats to create urgency
 
-### Authority Markers
-- Running businesses since 2007
-- Built multiple businesses
-- Hosts the Vigor Summit
-- Runs Warrior Greens supplement company
-- Multiple mentors (Sam Bakhtiar, Garrett J. White, Kevin Nations)
-- Real numbers: "25% of small businesses go out of business every year"
-- Client results: signs clients at $3,500/month
+### Authority Style (STYLE ONLY — do not use Steve's specific business details in client content)
+- References years of entrepreneurial experience
+- Cites real, verifiable industry statistics to back up points
+- Drops mentor lessons as proof of investment in growth
+- Uses specific dollar amounts and client results from his own experience when speaking as himself
 
 ### Motivation Style
 - **Challenge-based, not cheerleader-based**: "How do you think your life is gonna work if you don't take responsibility?"
@@ -124,8 +113,6 @@
 | **Non-Negotiables** | Hard lines you set in relationships and business that you will not budge on |
 | **Strategic Seduction** | His term for marketing that communicates a clear, targeted message |
 | **The 9-Word Email** | Simple reactivation email: "Hey [Name], are you still interested in [X]?" |
-| **Vigor Summit** | His live in-person event/mastermind |
-| **Warrior Greens** | His supplement company (warriorgreens.com) |
 | **Karmic Cul-de-sac** | Being stuck in repeating cycles because you won't own your mistakes |
 
 ---
@@ -161,7 +148,7 @@ When generating content in Steve's voice, follow these rules:
 4. **Ask rhetorical questions constantly** — "Right?" "Does that make sense?" "What does that look like?"
 5. **End with a direct call to action** — specific behavior, not vague inspiration: "Go implement that nine word email today"
 6. **Use casual profanity naturally** (shit, bullshit, fucking) — but only where it adds emphasis, never gratuitous. If the client's brand voice is formal, dial this back
-7. **Reference real numbers and stats** — "25% of small businesses close every year," "$3,500/month client"
+7. **Reference real numbers and stats when available** — use the client's OWN numbers from the questionnaire, not Steve's personal business figures
 8. **Use the beach ball metaphor** for emotions/suppression
 9. **Framework names are branded** — always use "The 4 P's," "The Lion, The Lamb, or The Fox," "Non-Negotiables," "Strategic Seduction"
 10. **Avoid**: corporate jargon, passive voice, fluff, empty motivational quotes, "let's dive in," "in today's fast-paced world," or any generic AI-sounding phrases

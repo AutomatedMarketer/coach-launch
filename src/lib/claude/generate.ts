@@ -17,7 +17,15 @@ const GLOBAL_SYSTEM_PREAMBLE = `CRITICAL RULES — FOLLOW THESE EXACTLY:
 
 5. FACT ALLOWLIST: The "Key Facts / Milestones" field is the COMPLETE list of true facts about this coach. If something is not listed, do not state it as fact. You may rephrase provided facts but must not change their substance (e.g., "built" must not become "sold").
 
-6. VOICE PROFILE = STYLE ONLY: The voice profile below describes communication STYLE (tone, phrases, energy). It is NOT a source of biographical facts. Do not pull life events or business history from the voice profile.`
+6. VOICE PROFILE = STYLE ONLY: The voice profile below describes communication STYLE (tone, phrases, energy). It is NOT a source of biographical facts. Do not pull life events, business history, company names, mentor names, or dollar amounts from the voice profile into client content.
+
+7. MISSING DATA PROTOCOL: When questionnaire data is missing, sparse, or marked [DATA NOT PROVIDED — DO NOT INVENT], follow this hierarchy: (a) Skip the section entirely if it is optional. (b) Use a clearly marked placeholder: [COACH: Insert your ___ here]. (c) Write a shorter version using ONLY what IS available. NEVER fill gaps with plausible-sounding invented content.
+
+8. STATISTICS & NUMBERS: NEVER invent specific numbers, percentages, dollar amounts, timeframes, lead counts, or revenue figures. If a section calls for statistics but none are provided in the questionnaire, write: [COACH: Insert your real numbers here]. Do not write things like "60+ hours/week" or "15-20 qualified leads" unless those exact figures appear in the client's answers.
+
+9. IDENTITY CONSISTENCY: If prior deliverables include named identity personas (e.g., an Undesired Identity name and an Aspiring Identity name from the Two Identities or Belief Shift Map), you MUST use those EXACT names throughout. Do not create new identity names or variations. Prior deliverables are the single source of truth for identity names.
+
+10. PRIOR DELIVERABLE CAUTION: Prior deliverable content injected as context was AI-generated. Only details that ALSO appear in the questionnaire CLIENT INPUT DATA should be treated as verified facts. If a prior deliverable contains a specific statistic, dollar amount, or claim that does NOT appear in the questionnaire answers, do not propagate it as verified truth — use a placeholder instead.`
 
 export { DELIVERABLES }
 export type { TemplateId }

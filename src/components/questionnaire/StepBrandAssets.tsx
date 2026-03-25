@@ -12,13 +12,14 @@ const MAX_CLIENT_FILE_SIZE = 3 * 1024 * 1024 // 3MB per file — safe buffer bel
 
 interface StepBrandAssetsProps {
   form: UseFormReturn<Record<string, unknown>>
+  questionnaireId?: string
 }
 
 interface UploadProgress {
   [filename: string]: number
 }
 
-export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
+export default function StepBrandAssets({ form, questionnaireId }: StepBrandAssetsProps) {
   const { register, setValue, watch } = form
 
   const brandPhotoUrls = (watch('brandPhotoUrls') as string[]) || []
@@ -32,10 +33,11 @@ export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
   const photoInputRef = useRef<HTMLInputElement>(null)
   const logoInputRef = useRef<HTMLInputElement>(null)
 
-  // Get the questionnaire_id from localStorage
+  // Get the questionnaire_id from props (preferred) or localStorage (fallback)
   const getQuestionnaireId = useCallback(() => {
+    if (questionnaireId) return questionnaireId
     return localStorage.getItem('questionnaire_id') || ''
-  }, [])
+  }, [questionnaireId])
 
   const uploadFiles = useCallback(async (
     files: FileList,
@@ -43,7 +45,7 @@ export default function StepBrandAssets({ form }: StepBrandAssetsProps) {
   ): Promise<string[]> => {
     const questionnaireId = getQuestionnaireId()
     if (!questionnaireId) {
-      throw new Error('No questionnaire found. Please refresh the page.')
+      throw new Error('Could not identify your questionnaire. Please save on a previous step first, or refresh the page.')
     }
 
     // Client-side file size check before uploading

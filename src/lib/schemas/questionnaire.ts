@@ -86,8 +86,8 @@ export const stepIdealClientSchema = z.object({
   aspiringIdentity: z.string().min(10, 'Describe who your client becomes after working with you'),
   problemSolved: z.string().min(10, 'What problem do you solve?'),
   commonObjections: z.array(z.string()).min(1, 'Add at least one objection'),
-  salesApproach: z.enum(['call-close', 'dm-close', 'self-closing', 'application', 'mixed']),
-  deliveryModel: z.enum(['one-on-one', 'group', 'course-community', 'hybrid', 'advisory']),
+  salesApproach: z.enum(['discovery-call', 'application-call', 'dm-close', 'webinar', 'video-sales-letter']),
+  deliveryModel: z.enum(['1-on-1', 'group-program', 'mastermind', 'hybrid', 'self-paced-course', 'membership']),
   // Legacy fields
   minimumRequirements: z.string().optional(),
   testimonials: z.array(z.string()).optional(),

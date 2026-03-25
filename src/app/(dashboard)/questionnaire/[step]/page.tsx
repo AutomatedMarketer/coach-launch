@@ -1,5 +1,7 @@
 'use client'
 
+import React from 'react'
+import { type UseFormReturn } from 'react-hook-form'
 import { useParams } from 'next/navigation'
 import { useQuestionnaire } from '@/hooks/use-questionnaire'
 import StepLayout from '@/components/questionnaire/StepLayout'
@@ -12,7 +14,8 @@ import StepGoalsAndWhy from '@/components/questionnaire/StepGoalsAndWhy'
 import StepFinalDetails from '@/components/questionnaire/StepFinalDetails'
 import StepBrandAssets from '@/components/questionnaire/StepBrandAssets'
 
-const stepComponents = [
+// All step components accept `form`; StepBrandAssets also uses `questionnaireId`
+const stepComponents: React.ComponentType<{ form: UseFormReturn<Record<string, unknown>>; questionnaireId?: string }>[] = [
   StepYouAndStory,
   StepNicheAndAudience,
   StepYourOffer,
@@ -30,6 +33,7 @@ export default function QuestionnairePage() {
 
   const {
     form,
+    questionnaire,
     isLoading,
     isSaving,
     goNext,
@@ -61,7 +65,7 @@ export default function QuestionnairePage() {
       onNext={goNext}
       onBack={goBack}
     >
-      <StepComponent form={form} />
+      <StepComponent form={form} questionnaireId={questionnaire?.id} />
     </StepLayout>
   )
 }

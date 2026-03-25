@@ -33,8 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# copied templates (generated at build time)
-/src/lib/claude/templates/
+# templates are now tracked directly in git (no longer copied at build time)
 
 # vercel
 .vercel

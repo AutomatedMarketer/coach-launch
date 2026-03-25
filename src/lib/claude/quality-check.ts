@@ -28,7 +28,11 @@ const DEFAULT_CHECKS = `1. No placeholder text like {{fieldName}} or [DATA NOT P
 3. No invented client stories or testimonials (unless clearly marked as templates/placeholders)
 4. Content is specific to the coach's niche, not generic coaching language
 5. All requested sections/components are present and substantive
-6. Content is an appropriate length (not suspiciously short or truncated)`
+6. Content is an appropriate length (not suspiciously short or truncated)
+7. No invented statistics, dollar amounts, percentages, or timeframes — every number in the output should trace back to a CLIENT INPUT DATA field
+8. No voice profile biographical details leaking into client content (e.g., no references to the platform coach's personal businesses, mentor names, supplement companies, or company names that are not in the client input)
+9. Identity names (Undesired Identity, Aspiring Identity) are consistent — no new names invented if prior deliverable context defined them
+10. Personal story sections use ONLY details from the personalStory / storyBeforeState / storyTurningPoint / storyAfterState / storyFacts fields — no embellishment or invented anecdotes`
 
 export async function checkQuality(
   templateId: string,
@@ -77,6 +81,12 @@ ${DEFAULT_CHECKS}
 
 IMPORTANT: Only flag details as "unverified" if they appear in the generated content but do NOT appear anywhere in the CLIENT INPUT DATA above. If a fact matches client input, it is verified.
 
+HALLUCINATION-SPECIFIC CHECKS (critical):
+- Compare ALL statistics, dollar amounts, percentages, and timeframes in the generated content against the CLIENT INPUT DATA. Flag any number that does not have a matching source.
+- Check for voice profile bleed: flag any references to specific company names (e.g., "Warrior Greens," "Vigor Summit"), mentor names (e.g., "Sam Bakhtiar," "Garrett J. White," "Kevin Nations"), or dollar amounts (e.g., "$3,500/month") that appear to come from the voice profile rather than client input.
+- Check that identity names are consistent across the content and match prior deliverables if those were provided as context.
+- Verify personal story sections only use details from the structured story fields — flag any biographical details that appear invented.
+
 Respond with ONLY this JSON (no other text):
 {"score": <0-100>, "pass": <true if score >= ${PASS_THRESHOLD}>, "issues": ["issue 1", "issue 2"], "suggestions": ["fix for issue 1", "fix for issue 2"]}`
 
@@ -93,7 +103,7 @@ Respond with ONLY this JSON (no other text):
 
     return parseQualityResponse(text.text)
   } catch (err) {
-    console.error('[quality-check] QA check failed:', err instanceof Error ? err.message : err)
+    console.warn(`[quality-check] QA SKIPPED for ${templateId} due to error — content saved without quality verification:`, err instanceof Error ? err.message : err)
     return { score: 75, pass: true, issues: ['QA check error — skipped'], suggestions: [] }
   }
 }

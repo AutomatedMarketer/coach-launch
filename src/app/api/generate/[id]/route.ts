@@ -110,12 +110,14 @@ export async function POST(
           .in('template_id', config.dependsOn)
 
         if (priorDeliverables && priorDeliverables.length > 0) {
-          context = priorDeliverables
+          const deliverableContent = priorDeliverables
             .map(d => {
               const delConfig = DELIVERABLES.find(del => del.templateId === d.template_id)
               return `## [PRIOR DELIVERABLE: ${d.template_id}] ${d.title}\nPhase ${delConfig?.phase || '?'} | Template: ${d.template_id}\n\n${d.content}`
             })
             .join('\n\n---\n\n')
+
+          context = `IMPORTANT: The following prior deliverables were AI-generated. Only facts that ALSO appear in the CLIENT INPUT DATA section should be treated as verified. Statistics, dollar amounts, and specific claims in prior deliverables may be AI-generated inferences — verify against the questionnaire data before repeating them. If a prior deliverable defines identity names (Undesired Identity, Aspiring Identity), use those EXACT names consistently.\n\n${deliverableContent}`
         }
       }
 

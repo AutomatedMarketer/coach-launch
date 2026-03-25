@@ -51,7 +51,7 @@ export const DELIVERABLES: DeliverableConfig[] = [
 
   // Phase 3: Mind Shift Method (4 deliverables)
   { templateId: 'two-identities', title: 'Two Identities', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map'], phase: 3, maxTokens: 8192 },
-  { templateId: 'belief-shift-map', title: 'Belief Breakthrough Blueprint', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map', 'two-identities'], phase: 3, maxTokens: 10240 },
+  { templateId: 'belief-shift-map', title: 'Belief Breakthrough Blueprint', dependsOn: ['magnetic-messaging-statement', 'emotional-trigger-map', 'two-identities'], phase: 3, maxTokens: 12288 },
   { templateId: 'lead-magnet-outline', title: 'Lead Magnet Outline', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map'], phase: 3, maxTokens: 4096, imageType: 'lead-magnet-cover', imageCount: 1 },
   { templateId: 'offer-one-sheet', title: 'Offer 1-Sheet', dependsOn: ['magnetic-messaging-statement', 'belief-shift-map', 'emotional-trigger-map'], phase: 3, maxTokens: 6144 },
 
