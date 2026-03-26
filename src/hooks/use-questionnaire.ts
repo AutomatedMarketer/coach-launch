@@ -4,17 +4,19 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useForm, type UseFormReturn } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { stepSchemas, type QuestionnaireAnswers } from '@/lib/schemas/questionnaire'
+import { stepSchemas } from '@/lib/schemas/questionnaire'
 import type { Questionnaire } from '@/types'
 
 interface UseQuestionnaireOptions {
   step: number
+  questionnaire: Questionnaire
+  initialAnswers: Record<string, unknown>
+  onUpdate: (q: Questionnaire) => void
 }
 
 interface UseQuestionnaireReturn {
   form: UseFormReturn<Record<string, unknown>>
-  questionnaire: Questionnaire | null
-  isLoading: boolean
+  questionnaire: Questionnaire
   isSaving: boolean
   goNext: () => Promise<void>
   goBack: () => Promise<void>
@@ -22,73 +24,53 @@ interface UseQuestionnaireReturn {
   isLastStep: boolean
 }
 
-const STORAGE_KEY = 'questionnaire_id'
+/**
+ * Extract only the current step's field values from the full form state.
+ * Prevents cross-step data overwrites — only the fields the user is actively
+ * editing on this step get sent to the API.
+ */
+function scopeToStep(
+  allValues: Record<string, unknown>,
+  schema: { shape: Record<string, unknown> }
+): Record<string, unknown> {
+  const keys = Object.keys(schema.shape)
+  const scoped: Record<string, unknown> = {}
+  for (const key of keys) {
+    if (key in allValues) {
+      scoped[key] = allValues[key]
+    }
+  }
+  return scoped
+}
 
-export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestionnaireReturn {
+export function useQuestionnaire({
+  step,
+  questionnaire,
+  initialAnswers,
+  onUpdate,
+}: UseQuestionnaireOptions): UseQuestionnaireReturn {
   const router = useRouter()
-  const [questionnaire, setQuestionnaire] = useState<Questionnaire | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
 
   // step is 1-indexed from URL, schemas are 0-indexed
   const stepIndex = step - 1
   const currentSchema = stepSchemas[stepIndex]
 
+  // Form is created with the LOADED answers as defaultValues.
+  // No reset() needed — data is correct from birth.
   const form = useForm({
     resolver: zodResolver(currentSchema),
-    defaultValues: {},
+    defaultValues: initialAnswers,
     mode: 'onSubmit',
   })
-
-  // Load or create questionnaire on mount
-  useEffect(() => {
-    async function loadOrCreate() {
-      setIsLoading(true)
-      try {
-        let questionnaireId = localStorage.getItem(STORAGE_KEY)
-
-        if (questionnaireId) {
-          // Try to load existing
-          const response = await fetch(`/api/questionnaire/${questionnaireId}`)
-          if (response.ok) {
-            const data: Questionnaire = await response.json()
-            setQuestionnaire(data)
-            // Pre-fill form with saved answers
-            if (data.answers) {
-              const currentAnswers = data.answers as Record<string, unknown>
-              form.reset(currentAnswers)
-            }
-            setIsLoading(false)
-            return
-          }
-        }
-
-        // Create new questionnaire
-        const response = await fetch('/api/questionnaire', { method: 'POST' })
-        if (response.ok) {
-          const data: Questionnaire = await response.json()
-          localStorage.setItem(STORAGE_KEY, data.id)
-          setQuestionnaire(data)
-        }
-      } catch (error) {
-        console.error('Failed to load questionnaire:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadOrCreate()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Auto-save: silently persist answers 3 seconds after any field change
   const autoSaveTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   useEffect(() => {
-    if (!questionnaire) return
-
     const subscription = form.watch(() => {
       clearTimeout(autoSaveTimer.current)
       autoSaveTimer.current = setTimeout(async () => {
-        const formData = form.getValues()
+        const formData = scopeToStep(form.getValues(), currentSchema)
         try {
           await fetch(`/api/questionnaire/${questionnaire.id}`, {
             method: 'PATCH',
@@ -105,11 +87,9 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
       clearTimeout(autoSaveTimer.current)
       subscription.unsubscribe()
     }
-  }, [questionnaire, form])
+  }, [questionnaire.id, form, currentSchema])
 
   const saveCurrentStep = useCallback(async (formData: Record<string, unknown>): Promise<boolean> => {
-    if (!questionnaire) return false
-
     setIsSaving(true)
     try {
       const response = await fetch(`/api/questionnaire/${questionnaire.id}`, {
@@ -123,7 +103,7 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
 
       if (response.ok) {
         const updated = await response.json()
-        setQuestionnaire(updated)
+        onUpdate(updated)
         return true
       }
 
@@ -136,7 +116,7 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
     } finally {
       setIsSaving(false)
     }
-  }, [questionnaire, step])
+  }, [questionnaire.id, step, onUpdate])
 
   const goNext = useCallback(async () => {
     // Validate and get form data
@@ -151,38 +131,35 @@ export function useQuestionnaire({ step }: UseQuestionnaireOptions): UseQuestion
       return
     }
 
-    const formData = form.getValues()
+    const formData = scopeToStep(form.getValues(), currentSchema)
     const saved = await saveCurrentStep(formData)
     if (!saved) return
 
     if (step === stepSchemas.length) {
       // Final step — mark as completed and redirect
-      if (questionnaire) {
-        await fetch(`/api/questionnaire/${questionnaire.id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ status: 'completed' }),
-        })
-        router.push(`/generate/${questionnaire.id}`)
-      }
+      await fetch(`/api/questionnaire/${questionnaire.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'completed' }),
+      })
+      router.push(`/generate/${questionnaire.id}`)
     } else {
       router.push(`/questionnaire/${step + 1}`)
     }
-  }, [form, saveCurrentStep, step, questionnaire, router])
+  }, [form, saveCurrentStep, step, currentSchema, questionnaire.id, router])
 
   const goBack = useCallback(async () => {
     if (step > 1) {
       // Save current answers before navigating back (skip validation — partial data is OK)
-      const formData = form.getValues()
+      const formData = scopeToStep(form.getValues(), currentSchema)
       await saveCurrentStep(formData)
       router.push(`/questionnaire/${step - 1}`)
     }
-  }, [step, router, form, saveCurrentStep])
+  }, [step, router, form, currentSchema, saveCurrentStep])
 
   return {
     form: form as unknown as UseFormReturn<Record<string, unknown>>,
     questionnaire,
-    isLoading,
     isSaving,
     goNext,
     goBack,

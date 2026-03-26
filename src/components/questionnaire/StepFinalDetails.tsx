@@ -21,8 +21,7 @@ interface StepFinalDetailsProps {
 export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
   const { register, formState: { errors }, watch, setValue } = form
 
-  // Set defaults for Select fields (fixes validation bug where
-  // the Select displays a value but the form value is undefined)
+  // Set defaults for Select fields only on first mount (if not already set from saved answers)
   useEffect(() => {
     if (!watch('brandVoice')) {
       setValue('brandVoice', 'motivational')
@@ -30,7 +29,7 @@ export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
     if (!watch('contentCadence')) {
       setValue('contentCadence', 'unsure')
     }
-  }, [watch, setValue])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="space-y-6">

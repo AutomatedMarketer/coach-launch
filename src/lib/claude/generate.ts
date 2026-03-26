@@ -25,10 +25,66 @@ const GLOBAL_SYSTEM_PREAMBLE = `CRITICAL RULES — FOLLOW THESE EXACTLY:
 
 9. IDENTITY CONSISTENCY: If prior deliverables include named identity personas (e.g., an Undesired Identity name and an Aspiring Identity name from the Two Identities or Belief Shift Map), you MUST use those EXACT names throughout. Do not create new identity names or variations. Prior deliverables are the single source of truth for identity names.
 
-10. PRIOR DELIVERABLE CAUTION: Prior deliverable content injected as context was AI-generated. Only details that ALSO appear in the questionnaire CLIENT INPUT DATA should be treated as verified facts. If a prior deliverable contains a specific statistic, dollar amount, or claim that does NOT appear in the questionnaire answers, do not propagate it as verified truth — use a placeholder instead.`
+10. PRIOR DELIVERABLE CAUTION: Prior deliverable content injected as context was AI-generated. Only details that ALSO appear in the questionnaire CLIENT INPUT DATA should be treated as verified facts. If a prior deliverable contains a specific statistic, dollar amount, or claim that does NOT appear in the questionnaire answers, do not propagate it as verified truth — use a placeholder instead.
+
+11. COMPLETE CLIENT DATA: A "COMPLETE CLIENT INPUT DATA" section is included in every prompt. This contains ALL answers the client provided across the entire questionnaire. Use this as your primary factual source, even for fields not explicitly called out in the template instructions. The more of the client's actual words, stories, and details you weave in naturally, the better the output will feel to them.`
 
 export { DELIVERABLES }
 export type { TemplateId }
+
+// Fields to exclude from the client data dump (brand assets for future image gen, not useful for text)
+const DATA_DUMP_EXCLUDE = new Set(['brandColors', 'brandFonts', 'brandPhotoUrls', 'logoUrl'])
+
+/**
+ * Convert camelCase field names to readable labels.
+ * e.g. "storyBeforeState" → "Story Before State"
+ */
+function humanize(key: string): string {
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/^./, s => s.toUpperCase())
+    .trim()
+}
+
+/**
+ * Format ALL non-empty questionnaire answers as a readable text block.
+ * This gets prepended to every generation prompt so Claude always sees
+ * the complete picture — not just the fields the template remembered to include.
+ */
+function formatAllAnswers(answers: Record<string, unknown>): string {
+  const lines: string[] = []
+
+  for (const [key, value] of Object.entries(answers)) {
+    if (DATA_DUMP_EXCLUDE.has(key)) continue
+    if (value === undefined || value === null || value === '') continue
+
+    if (Array.isArray(value)) {
+      if (value.length === 0) continue
+      if (typeof value[0] === 'string') {
+        lines.push(`${humanize(key)}: ${value.join(', ')}`)
+      } else {
+        // Object arrays (caseStudies, programPhases, objectionRebuttals)
+        lines.push(`${humanize(key)}:`)
+        value.forEach((item: Record<string, unknown>, i: number) => {
+          const fields = Object.entries(item)
+            .filter(([, v]) => v)
+            .map(([k, v]) => `  ${humanize(k)}: ${v}`)
+          lines.push(`  #${i + 1}:\n${fields.join('\n')}`)
+        })
+      }
+    } else if (typeof value === 'object') {
+      // Nested objects (trackRecord)
+      const fields = Object.entries(value as Record<string, unknown>)
+        .filter(([, v]) => v !== undefined && v !== null && v !== '')
+        .map(([k, v]) => `  ${humanize(k)}: ${v}`)
+      if (fields.length) lines.push(`${humanize(key)}:\n${fields.join('\n')}`)
+    } else {
+      lines.push(`${humanize(key)}: ${value}`)
+    }
+  }
+
+  return lines.join('\n')
+}
 
 export interface GenerationResult {
   templateId: string
@@ -66,7 +122,19 @@ export async function generateDeliverable(
   // Voice profile goes in system message (not user message) for prompt caching
   filledTemplate = filledTemplate.replaceAll('{{STEVE_VOICE_PROFILE}}', '')
 
-  const prompt = extractPrompt(filledTemplate)
+  const templatePrompt = extractPrompt(filledTemplate)
+
+  // Prepend a complete dump of ALL client answers so Claude always sees everything,
+  // even fields the template didn't explicitly reference with {{placeholders}}
+  const clientDataDump = formatAllAnswers(answers)
+  const prompt = `--- COMPLETE CLIENT INPUT DATA ---
+(Every answer the client provided. Use this as your primary source of truth for all facts, stories, and details.)
+
+${clientDataDump}
+
+--- END CLIENT INPUT DATA ---
+
+${templatePrompt}`
 
   const deliverable = DELIVERABLES.find(d => d.templateId === templateId)
   if (!deliverable) throw new Error(`Unknown template: ${templateId}`)

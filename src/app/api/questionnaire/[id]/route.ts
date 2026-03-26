@@ -1,6 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 
+/**
+ * Deep merge for questionnaire answers.
+ * Plain objects are merged recursively (preserves trackRecord sub-fields).
+ * Arrays and primitives are replaced atomically.
+ */
+function deepMerge(
+  target: Record<string, unknown>,
+  source: Record<string, unknown>
+): Record<string, unknown> {
+  const result = { ...target }
+  for (const key of Object.keys(source)) {
+    const sourceVal = source[key]
+    const targetVal = target[key]
+    if (
+      sourceVal !== null &&
+      typeof sourceVal === 'object' &&
+      !Array.isArray(sourceVal) &&
+      targetVal !== null &&
+      typeof targetVal === 'object' &&
+      !Array.isArray(targetVal)
+    ) {
+      result[key] = deepMerge(
+        targetVal as Record<string, unknown>,
+        sourceVal as Record<string, unknown>
+      )
+    } else {
+      result[key] = sourceVal
+    }
+  }
+  return result
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -75,12 +107,12 @@ export async function PATCH(
       updated_at: new Date().toISOString(),
     }
 
-    // Merge new answers with existing ones
+    // Deep-merge new answers with existing ones (preserves nested object sub-fields)
     if (answers) {
-      updates.answers = {
-        ...existing.answers,
-        ...answers,
-      }
+      updates.answers = deepMerge(
+        (existing.answers as Record<string, unknown>) || {},
+        answers as Record<string, unknown>
+      )
     }
 
     if (current_step !== undefined) {
