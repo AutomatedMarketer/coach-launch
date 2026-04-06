@@ -23,7 +23,7 @@ function sanitizeContext(content: string): string {
   return sanitized
 }
 
-export const maxDuration = 300 // 5 minutes — Vercel Hobby plan max
+export const maxDuration = 600 // 10 minutes — Vercel Pro plan
 
 export async function POST(
   request: NextRequest,
