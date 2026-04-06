@@ -2,6 +2,13 @@
 
 import ReactMarkdown from 'react-markdown'
 
+/**
+ * SECURITY NOTE: react-markdown strips raw HTML by default, preventing XSS
+ * from AI-generated or user-edited content. Do NOT add the rehype-raw plugin
+ * as it would allow stored XSS via embedded HTML in markdown content.
+ * If raw HTML rendering is ever needed, sanitize with DOMPurify first.
+ */
+
 interface MarkdownContentProps {
   content: string
 }

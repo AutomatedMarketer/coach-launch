@@ -80,6 +80,7 @@ IMPORTANT: When any of the Deep Client Psychology fields above are provided, use
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+8. NICHE-SPECIFIC LANGUAGE ONLY: Do NOT use generic pain/struggle cliches that apply to every industry. Banned phrases in prominent positions (headlines, identity references, key messaging): "trapped," "prisoner," "captive," "slave," "cage," "chains," "hamster wheel," "rat race," "grinding/grind." Replace with language specific to {{niche}} and {{targetAudience}}. Example: instead of "trapped in their business," write something specific like "answering every service call at 11pm" (for trade businesses) or "booking back-to-back 1-on-1 sessions just to make rent" (for fitness coaches).
 
 ### THE 12 EMOTIONAL TRIGGER CATEGORIES
 

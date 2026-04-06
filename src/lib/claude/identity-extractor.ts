@@ -10,7 +10,8 @@ export function extractIdentityNames(content: string): {
   let aspiring: string | null = null
 
   // Split into PART 1 (Undesired) and PART 2 (Aspiring) sections
-  const parts = content.split(/####?\s*PART\s*2/i)
+  // Handle any heading level: ##, ###, or ####
+  const parts = content.split(/#{2,4}\s*PART\s*2/i)
   const part1 = parts[0] || ''
   const part2 = parts[1] || ''
 
@@ -39,6 +40,15 @@ export function extractIdentityNames(content: string): {
       const match = part2.match(nameLabelRegex)
       if (match) aspiring = cleanName(match[1])
     }
+  }
+
+  // Pattern 2b: Bold-quoted name on its own line after "Identity Name" heading
+  // e.g., ### 1. Identity Name\n**"The Referral Prisoner"**
+  if (!undesired || !aspiring) {
+    const boldQuoteRegex = /Identity Name\s*\n+\s*\*\*"([^"]+)"\*\*/gi
+    const allMatches = [...content.matchAll(boldQuoteRegex)]
+    if (allMatches.length >= 1 && !undesired) undesired = cleanName(allMatches[0][1])
+    if (allMatches.length >= 2 && !aspiring) aspiring = cleanName(allMatches[1][1])
   }
 
   // Pattern 3: "BEFORE (The ___)" / "AFTER (The ___)" in condensed section

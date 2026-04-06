@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getClaudeClient } from '@/lib/claude/client'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const SYSTEM_PROMPT = `You are Coach Launch's friendly AI assistant. You help coaching business owners fill out their marketing questionnaire.
 
@@ -37,6 +38,21 @@ export async function POST(request: NextRequest) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Rate limit: 20 coach help requests per minute per user
+    const rateCheck = checkRateLimit(`coach-help:${user.id}`, RATE_LIMITS.coachHelp)
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait before asking again.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)),
+            'X-RateLimit-Remaining': '0',
+          }
+        }
+      )
     }
 
     const { message, context } = await request.json()

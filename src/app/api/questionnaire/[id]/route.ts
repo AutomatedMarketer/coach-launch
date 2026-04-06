@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 /**
  * Deep merge for questionnaire answers.
@@ -44,6 +45,11 @@ export async function GET(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const rateCheck = checkRateLimit(`questionnaire-read:${user.id}`, RATE_LIMITS.questionnaireRead)
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait.' }, { status: 429 })
+    }
+
     const { id } = await params
     const supabase = createAdminClient()
 
@@ -79,6 +85,11 @@ export async function PATCH(
     const { data: { user } } = await authClient.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const rateCheck = checkRateLimit(`questionnaire-write:${user.id}`, RATE_LIMITS.questionnaireWrite)
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait.' }, { status: 429 })
     }
 
     const { id } = await params

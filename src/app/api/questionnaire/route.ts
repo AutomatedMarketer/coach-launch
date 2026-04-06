@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export async function GET() {
   try {
@@ -12,6 +13,12 @@ export async function GET() {
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateCheck = checkRateLimit(`questionnaire-read:${user.id}`, RATE_LIMITS.questionnaireRead)
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait.' }, { status: 429 })
+    }
+
     const userId = user.id
 
     const { data, error } = await supabase
@@ -49,6 +56,12 @@ export async function POST() {
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateCheck = checkRateLimit(`questionnaire-write:${user.id}`, RATE_LIMITS.questionnaireWrite)
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait.' }, { status: 429 })
+    }
+
     const userId = user.id
 
     const { data, error } = await supabase

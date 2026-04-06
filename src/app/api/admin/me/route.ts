@@ -17,7 +17,7 @@ export async function GET() {
       .eq('id', user.id)
       .single()
 
-    return NextResponse.json({ isAdmin: !!profile?.is_admin })
+    return NextResponse.json({ isAdmin: !!profile?.is_admin, userId: user.id })
   } catch {
     return NextResponse.json({ isAdmin: false })
   }

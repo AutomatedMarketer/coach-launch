@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 
 async function getAdminUser() {
@@ -61,6 +61,44 @@ export async function GET(
       questionnaires: questionnaires || [],
       deliverables: deliverables || [],
     })
+  } catch {
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+// PATCH /api/admin/user/[userId] — toggle admin status
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ userId: string }> }
+) {
+  try {
+    const admin = await getAdminUser()
+    if (!admin) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const { userId } = await params
+    const { is_admin } = await request.json()
+
+    // Prevent removing your own admin access
+    if (userId === admin.id && is_admin === false) {
+      return NextResponse.json(
+        { error: 'Cannot remove your own admin access' },
+        { status: 400 }
+      )
+    }
+
+    const supabase = createAdminClient()
+    const { error } = await supabase
+      .from('profiles')
+      .update({ is_admin: !!is_admin })
+      .eq('id', userId)
+
+    if (error) {
+      return NextResponse.json({ error: 'Failed to update' }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true })
   } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }

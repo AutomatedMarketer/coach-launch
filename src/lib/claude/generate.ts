@@ -27,10 +27,36 @@ const GLOBAL_SYSTEM_PREAMBLE = `CRITICAL RULES — FOLLOW THESE EXACTLY:
 
 10. PRIOR DELIVERABLE CAUTION: Prior deliverable content injected as context was AI-generated. Only details that ALSO appear in the questionnaire CLIENT INPUT DATA should be treated as verified facts. If a prior deliverable contains a specific statistic, dollar amount, or claim that does NOT appear in the questionnaire answers, do not propagate it as verified truth — use a placeholder instead.
 
-11. COMPLETE CLIENT DATA: A "COMPLETE CLIENT INPUT DATA" section is included in every prompt. This contains ALL answers the client provided across the entire questionnaire. Use this as your primary factual source, even for fields not explicitly called out in the template instructions. The more of the client's actual words, stories, and details you weave in naturally, the better the output will feel to them.`
+11. COMPLETE CLIENT DATA: A "COMPLETE CLIENT INPUT DATA" section is included in every prompt. This contains ALL answers the client provided across the entire questionnaire. Use this as your primary factual source, even for fields not explicitly called out in the template instructions. The more of the client's actual words, stories, and details you weave in naturally, the better the output will feel to them.
+
+12. NICHE-SPECIFIC LANGUAGE: Identity names, headlines, and key messaging must use language specific to the client's niche — insider jargon, specific metrics, recognizable moments, or physical details from their daily life. For abstract niches (life balance, mindset, purpose, wellness), anchor language to SPECIFIC MOMENTS, BEHAVIORS, or PHYSICAL DETAILS — not abstract emotions or generic business terms. Every identity name should make someone ask "what niche is this for?" Generic metaphors that could apply to any industry are unacceptable.
+`
+
+/** Strip known hallucinated names from Claude output as a final safety net */
+const HALLUCINATED_NAMES = [
+  'Sam Bakhtiar', 'Bakhtiar', 'Kevin Nations', 'Garrett J. White',
+  'Garrett White', 'Warrior Greens', 'Vigor Summit'
+]
+
+function sanitizeOutput(content: string): string {
+  let sanitized = content
+  for (const name of HALLUCINATED_NAMES) {
+    sanitized = sanitized.replaceAll(name, '[coach reference]')
+  }
+  return sanitized
+}
 
 export { DELIVERABLES }
 export type { TemplateId }
+
+// Creative templates benefit from higher temperature for diversity across users.
+// Structured templates (pricing, offer sheets) need lower temperature for consistency.
+const CREATIVE_TEMPLATES = new Set([
+  'two-identities', 'belief-shift-map', 'emotional-trigger-map',
+  'content-angle-library', 'facebook-posts', 'youtube-script',
+  'shorts-reels-scripts', 'carousel-posts', 'facebook-ad-copy',
+  'magnetic-messaging-statement',
+])
 
 // Fields to exclude from the client data dump (brand assets for future image gen, not useful for text)
 const DATA_DUMP_EXCLUDE = new Set(['brandColors', 'brandFonts', 'brandPhotoUrls', 'logoUrl'])
@@ -142,9 +168,12 @@ ${templatePrompt}`
   // Load voice profile once and send as cached system message
   const voiceProfile = loadVoiceProfile()
 
+  const temperature = CREATIVE_TEMPLATES.has(templateId) ? 0.6 : 0.4
+
   const response = await claude.messages.create({
     model: options?.modelOverride || CLAUDE_MODEL,
     max_tokens: options?.maxTokensOverride || deliverable.maxTokens,
+    temperature,
     system: [
       { type: 'text' as const, text: GLOBAL_SYSTEM_PREAMBLE },
       ...(voiceProfile
@@ -173,7 +202,7 @@ ${templatePrompt}`
   return {
     templateId,
     title: deliverable.title,
-    content: textContent.text,
+    content: sanitizeOutput(textContent.text),
     promptTokens: response.usage.input_tokens,
     completionTokens: response.usage.output_tokens,
     model: response.model,

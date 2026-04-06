@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,6 +8,11 @@ export async function GET(request: NextRequest) {
     const { data: { user } } = await authClient.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const rateCheck = checkRateLimit(`deliverable:${user.id}`, RATE_LIMITS.deliverable)
+    if (!rateCheck.allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait.' }, { status: 429 })
     }
 
     const questionnaireId = request.nextUrl.searchParams.get('questionnaire_id')

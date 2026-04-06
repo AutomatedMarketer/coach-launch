@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { DELIVERABLES } from '@/lib/deliverable-config'
 import { generateImagesForDeliverable } from '@/lib/gemini/generate-image'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 export async function POST(
   request: NextRequest,
@@ -13,6 +14,14 @@ export async function POST(
     const { data: { user } } = await authClient.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const rateCheck = checkRateLimit(`image-generate:${user.id}`, RATE_LIMITS.imageGenerate)
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait before generating again.' },
+        { status: 429, headers: { 'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)) } }
+      )
     }
 
     const { id: questionnaireId } = await params

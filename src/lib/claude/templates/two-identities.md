@@ -43,6 +43,8 @@ These prior outputs provide rich emotional and psychological detail that makes t
 ```
 You are an expert in identity-based marketing and behavioral psychology for coaching businesses. Your job is to create two vivid, named identity profiles — the BEFORE and the AFTER — for the coach's ideal client. These identities are the foundation of all persuasion: every ad, email, post, video, and sales conversation either mirrors the Undesired Identity (so the prospect feels seen) or paints the Aspiring Identity (so the prospect feels pulled toward change).
 
+IDENTITY NAMING RULE: Names must sound like a branded methodology — something you'd see on the spine of a book written specifically for {{niche}}. Build names from niche-insider jargon, specific metrics, physical details, or recognizable moments from THIS audience's daily life. A reader should be able to guess the industry from the name alone. If you swap in a different niche and the name still works, it's too generic — start over.
+
 IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly provided, do not include it. A brief true answer beats an embellished one. If data says [DATA NOT PROVIDED — DO NOT INVENT], skip that section entirely.
 
 ### CLIENT DETAILS
@@ -85,12 +87,59 @@ Use the following previously generated content to deepen and align the two ident
 
 ---
 
+### PRE-GENERATION: CONCRETE ANCHORS
+Before creating identity names, extract these from the client data above:
+
+1. PHYSICAL REALITY: What does this client's typical Tuesday look like? What physical objects, tools, or environments define their daily work in {{niche}}?
+2. SPECIFIC MOMENT: What is a concrete, observable scene that shows the transformation? Not an emotion — what would a camera see?
+3. INSIDER LANGUAGE: What word or phrase would ONLY someone in {{niche}} recognize? Something an outsider would need explained.
+4. THE NUMBER: What specific metric (revenue, hours, clients, weight, etc.) defines their current stuck point?
+
+Use these anchors as raw material for BOTH identity names below. Every name must connect to at least one anchor.
+
+---
+
 #### PART 1: THE UNDESIRED IDENTITY (Who They Are BEFORE)
 
 This is who the prospect is RIGHT NOW — stuck, frustrated, and relying on methods that don't work. The goal is to describe this identity so accurately that the prospect reads it and thinks: "That's me. How do they know?"
 
 **1. Identity Name**
-Give this identity a 2-3 word name they would be embarrassed to identify with — something that stings because it's true. It should be specific to {{niche}}, not generic. Examples for other niches: "The Hustle Addict," "The Discount Coach," "The Perpetual Planner." The name should make them uncomfortable because they recognize themselves.
+
+First, using the CONCRETE ANCHORS you extracted above, brainstorm 5 candidate names. Show all 5 with a 1-5 niche-specificity score, then select the best one. Each name MUST include at least one word from your INSIDER LANGUAGE or PHYSICAL REALITY anchors.
+
+**Brainstorm** (show this in your output):
+| # | Name | Formula Used | Niche Score (1-5) |
+|---|------|-------------|-------------------|
+| a | [name using: Metric + State] | e.g., "The $300K Ceiling" | ? |
+| b | [name using: Time/Moment + Behavior] | e.g., "The 11pm Laptop" | ? |
+| c | [name using: Insider Jargon + Identity] | e.g., "The Trophy Case Dad" | ? |
+| d | [name using: Physical Object + Pattern] | e.g., "The Session-for-Session Swap" | ? |
+| e | [name using: Counterintuitive Truth] | e.g., "The Business-First Husband" | ? |
+
+**Selected Name:** [pick the highest-scoring name above — must score 4 or 5]
+
+EXAMPLES (study the PATTERN — do NOT copy these names):
+
+Concrete niches:
+- Trade business coach → "The $300K Ceiling"
+  WHY: References the exact revenue cap. A plumber hears this and thinks "that's me."
+- Postpartum fitness → "The Invisible Mom"
+  WHY: Captures identity loss after kids. Only this audience would feel the sting.
+- Fitness business coach → "The Session-for-Session Swap"
+  WHY: References trading hours for sessions — specific to personal trainers.
+
+Abstract/psychological niches:
+- Life balance for high achievers → "The Sunday Dread CEO"
+  WHY: "Sunday Dread" is a specific moment. Not generic — a fitness client wouldn't relate.
+- Executive burnout → "The 11pm Laptop"
+  WHY: Names a specific behavior this audience does but won't admit.
+- Men's purpose coaching → "The Trophy Case Dad"
+  WHY: "Trophy Case" = external success. "Dad" = the identity suffering.
+
+ANTI-EXAMPLES (do NOT produce names like these):
+- "The Stuck Achiever" — GENERIC. Applies to any niche.
+- "The Overwhelmed Leader" — GENERIC. Every coaching niche claims overwhelm.
+- "The Growth Catalyst" — GENERIC. Could be fitness, business, mindset, anything.
 
 **2. Statistical Profile (Undesired Current Results)**
 List 5-7 specific, measurable benchmarks that define this identity's current reality. Use numbers relevant to {{niche}}. Pull from {{idealClientCurrentRevenue}} and expand with realistic metrics for someone in this situation.
@@ -120,10 +169,13 @@ List 5-7 specific emotions this identity experiences regularly. Pull from {{unwa
 - When it hits hardest (specific moment, time of day, or trigger)
 
 **7. Undesired Attributes**
-List 5-7 behavioral or personality traits that define this identity — the patterns they fall into. Examples: reactive instead of proactive, price-competing instead of value-selling, avoiding instead of confronting. Each should be specific to {{niche}}.
+List 5-7 behavioral or personality traits that define this identity — the patterns they fall into. Each attribute must describe a SPECIFIC behavioral pattern unique to {{niche}} and {{targetAudience}} — not a generic business cliche. Do NOT use the "X instead of Y" format for every attribute. Mix formats: some as behavioral descriptions, some as specific habits, some as mindset patterns. Vary the sentence structure.
+
+BAD (generic, works for any industry): "Reactive instead of strategic"
+GOOD (niche-specific): "Answers every service call personally because he doesn't trust his crew to handle it right"
 
 **8. False Beliefs**
-List 5-7 beliefs this identity holds that keep them trapped. These are things they would DEFEND if challenged — beliefs that feel like truth but are actually the cage. Write each in first person, as they would say it.
+List 5-7 beliefs this identity holds that keep them trapped. These are beliefs they would DEFEND if challenged — convictions that feel like hard-won wisdom but are actually keeping them stuck in the exact pattern they want to escape. Write each in first person, as they would say it.
 
 ---
 
@@ -132,7 +184,19 @@ List 5-7 beliefs this identity holds that keep them trapped. These are things th
 This is who the prospect becomes after working with {{clientName}} — confident, successful, and operating with a proven system. The goal is to paint this identity so vividly that the prospect feels a deep pull toward it.
 
 **1. Identity Name**
-Give this identity a 2-3 word name they would be PROUD to identify with — something aspirational but achievable, not fantasy. It should connect to {{aspiringIdentity}} and feel specific to {{niche}}. Examples for other niches: "The Authority Coach," "The Freedom CEO," "The Client Magnet."
+
+Using the CONCRETE ANCHORS from your pre-generation analysis, brainstorm 5 aspirational names. Show all 5 with scores, then select the best.
+
+**Brainstorm** (show this in your output):
+| # | Name | Formula Used | Niche Score (1-5) |
+|---|------|-------------|-------------------|
+| a | [name using: Transformed Metric + New Identity] | e.g., "The $2M Builder" | ? |
+| b | [name using: Freed Time/Space + Role] | e.g., "The 20-Minute Powerhouse" | ? |
+| c | [name using: New Daily Reality + Status] | e.g., "The Calm Commander" | ? |
+| d | [name using: Niche Achievement] | e.g., "The Waitlist Coach" | ? |
+| e | [name using: Insider Aspiration] | e.g., "The Exit-Ready Owner" | ? |
+
+**Selected Name:** [pick the highest-scoring name — must score 4 or 5]
 
 **2. Statistical Profile (Desired Results)**
 List 5-7 specific, measurable benchmarks that define this identity's transformed reality. Mirror the same metrics from the Undesired Identity but with the new numbers. These should be ambitious but credible.

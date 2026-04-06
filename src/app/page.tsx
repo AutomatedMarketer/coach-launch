@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
@@ -17,6 +18,104 @@ import {
   ClipboardList,
 } from 'lucide-react'
 
+export const metadata: Metadata = {
+  title: "Coach Launch — Launch Your Coaching Business in Minutes with AI",
+  description:
+    "Answer 8 simple questions about your coaching business and get a complete, ready-to-publish marketing package — website copy, email sequences, social posts, ad copy, and 26 professional deliverables. Built on a proven coaching framework.",
+  openGraph: {
+    title: "Launch Your Coaching Business in Minutes, Not Months",
+    description:
+      "AI-powered marketing package generator for coaches. Website copy, emails, social posts, ad copy — all generated from one short questionnaire.",
+    url: "/",
+  },
+  twitter: {
+    title: "Launch Your Coaching Business in Minutes, Not Months",
+    description:
+      "AI-powered marketing package generator for coaches. 26 deliverables from one short questionnaire.",
+  },
+  alternates: {
+    canonical: "/",
+  },
+}
+
+function JsonLd() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Coach Launch",
+        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://coachlaunch.app",
+        "description":
+          "AI-powered marketing package generator for coaching businesses. Answer a questionnaire and receive 26 ready-to-publish deliverables.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free to get started. No credit card required.",
+        },
+        "creator": {
+          "@type": "Person",
+          "name": "Steve Krebs",
+        },
+        "featureList": [
+          "AI-generated homepage copy",
+          "Email welcome and sales sequences",
+          "Facebook posts and ad copy",
+          "Lead magnet outline",
+          "Sales call script",
+          "YouTube and Shorts/Reels scripts",
+          "GHL and ManyChat automation sequences",
+        ],
+      },
+      {
+        "@type": "Organization",
+        "name": "Coach Launch",
+        "url": process.env.NEXT_PUBLIC_SITE_URL || "https://coachlaunch.app",
+        "founder": {
+          "@type": "Person",
+          "name": "Steve Krebs",
+        },
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to Launch Your Coaching Business with Coach Launch",
+        "description":
+          "Three simple steps to generate a complete marketing package for your coaching business.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Answer Questions About Your Business",
+            "text": "Walk through our guided questionnaire. Tell us who you help, your method, and your offers. Takes less than five minutes.",
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "AI Generates Your Full Marketing Package",
+            "text": "Our AI — trained on proven coaching frameworks — writes your homepage, emails, social posts, ad copy, and more in seconds.",
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Launch With Confidence",
+            "text": "Download everything, plug it into your tools, and go live. No copywriter needed. No months of delays.",
+          },
+        ],
+      },
+    ],
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+}
+
 export default async function Home() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -30,9 +129,11 @@ export default async function Home() {
       className="min-h-screen bg-[#0a0f1e] text-white"
       style={{ fontFamily: 'var(--font-geist-sans)' }}
     >
+      <JsonLd />
 
       {/* ── NAV ── */}
-      <nav className="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
+      <header>
+      <nav className="flex items-center justify-between px-6 py-5 max-w-6xl mx-auto" aria-label="Main navigation">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-amber-400" />
           <span className="font-semibold text-lg tracking-tight">Coach Launch</span>
@@ -45,7 +146,9 @@ export default async function Home() {
           Get Started
         </Button>
       </nav>
+      </header>
 
+      <main>
       {/* ── HERO ── */}
       <section className="relative overflow-hidden px-6 pt-24 pb-32 text-center max-w-5xl mx-auto">
 
@@ -93,7 +196,7 @@ export default async function Home() {
         {/* Stat strip */}
         <div className="mt-16 flex flex-wrap justify-center gap-10 text-center">
           {[
-            { value: '8', label: 'Marketing Assets Generated' },
+            { value: '26', label: 'Marketing Deliverables Generated' },
             { value: '< 5 min', label: 'To Complete the Questionnaire' },
             { value: '100%', label: 'Ready to Publish' },
           ].map(({ value, label }) => (
@@ -106,10 +209,10 @@ export default async function Home() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="px-6 py-24 max-w-5xl mx-auto">
+      <section className="px-6 py-24 max-w-5xl mx-auto" aria-labelledby="how-it-works">
         <div className="text-center mb-14">
           <p className="text-amber-400 font-semibold tracking-widest text-sm uppercase mb-3">How It Works</p>
-          <h2 className="text-3xl sm:text-4xl font-bold">Three steps to a full launch kit</h2>
+          <h2 id="how-it-works" className="text-3xl sm:text-4xl font-bold">Three Steps to Your Complete Coaching Marketing Package</h2>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-6">
@@ -155,11 +258,11 @@ export default async function Home() {
       </section>
 
       {/* ── WHAT YOU GET ── */}
-      <section className="px-6 py-24 bg-gradient-to-b from-transparent via-indigo-950/20 to-transparent">
+      <section className="px-6 py-24 bg-gradient-to-b from-transparent via-indigo-950/20 to-transparent" aria-labelledby="what-you-get">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-amber-400 font-semibold tracking-widest text-sm uppercase mb-3">What You Get</p>
-            <h2 className="text-3xl sm:text-4xl font-bold">
+            <h2 id="what-you-get" className="text-3xl sm:text-4xl font-bold">
               Your complete marketing package —{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-300">
                 all generated in one go
@@ -231,7 +334,8 @@ export default async function Home() {
       </section>
 
       {/* ── TRUST / SOCIAL PROOF ── */}
-      <section className="px-6 py-24 max-w-5xl mx-auto">
+      <section className="px-6 py-24 max-w-5xl mx-auto" aria-labelledby="why-trust-us">
+        <h2 id="why-trust-us" className="sr-only">Why Coaches Trust Coach Launch</h2>
         <div className="grid sm:grid-cols-3 gap-6 text-center">
           {[
             {
@@ -294,6 +398,8 @@ export default async function Home() {
         </Button>
       </section>
 
+      </main>
+
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/5 px-6 py-8 text-center text-slate-600 text-sm">
         <div className="flex items-center justify-center gap-2 mb-2">
@@ -301,6 +407,11 @@ export default async function Home() {
           <span className="font-medium text-slate-400">Coach Launch</span>
         </div>
         <p>Built by Steve Krebs &mdash; For coaches who are ready to grow.</p>
+        <nav aria-label="Footer navigation" className="mt-4 flex items-center justify-center gap-6 text-slate-500 text-xs">
+          <Link href="/login" className="hover:text-amber-400 transition-colors">Log In</Link>
+          <Link href="/signup" className="hover:text-amber-400 transition-colors">Sign Up</Link>
+        </nav>
+        <p className="mt-3 text-slate-700 text-xs">&copy; {new Date().getFullYear()} Coach Launch. All rights reserved.</p>
       </footer>
 
     </div>
