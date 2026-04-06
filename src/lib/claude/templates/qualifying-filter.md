@@ -66,12 +66,20 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
 
+### IDENTITY NAME RULE
+⚠️ MANDATORY — IDENTITY NAMES ARE LOCKED ⚠️
+The Two Identities deliverable has ALREADY been generated. Find the Undesired Identity name and Aspiring Identity name in the PRIOR DELIVERABLE CONTEXT above and use those EXACT names. Do NOT invent new identity names, synonyms, or variations.
+
+You MUST reference BOTH identity names by their exact label at least once in your output — typically in the final bullet of each section or in the usage notes. For example: "You can already see yourself becoming [Aspiring Identity name] instead of staying stuck as [Undesired Identity name]."
+⚠️ END MANDATORY IDENTITY NAMES ⚠️
+
 ### WRITING PRINCIPLES
 1. **Specificity over vagueness** — Every bullet should describe a concrete behavior, situation, or characteristic — not a vague aspiration. "You've been coaching for at least 6 months and have paying clients" beats "You're serious about your business."
 2. **Recognition, not aspiration** — The "For You" bullets should make the right person think "that's literally me." The "Not For You" bullets should make the wrong person think "okay, this isn't for me."
-3. **Pull from the Two Identities** — The "For You" list draws from traits of someone transitioning FROM the Before Identity TOWARD the After Identity. The "Not For You" list draws from traits of someone deeply embedded in the Before Identity who isn't ready to change.
+3. **Pull from the Two Identities** — The "For You" list draws from traits of someone transitioning FROM the Before Identity TOWARD the After Identity. The "Not For You" list draws from traits of someone deeply embedded in the Before Identity who isn't ready to change. Reference the identity names by their exact labels — this creates continuity with the rest of the marketing system.
 4. **Disqualify with respect** — The "Not For You" section is direct but not condescending. It's honest, not mean. It protects the coach's time AND saves the wrong prospect from a bad investment.
 5. **Use real language** — Write the way real people talk. No corporate jargon. No motivational poster language. If the target audience is coaches, write like a coach would talk to another coach.
+6. **No banned cliches** — Do NOT use these overused words in any bullet: "prisoner," "captive," "trapped," "slave," "beggar," "grind," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
 
 ### SECTION 1: THIS IS FOR YOU IF...
 
@@ -85,7 +93,7 @@ Write exactly 6 bullet points. Each bullet describes a specific characteristic, 
 - Bullet 3: A frustration or pain point that proves they've outgrown their current approach
 - Bullet 4: A belief or mindset that shows they're ready for the transformation
 - Bullet 5: A resource, skill, or commitment they already have (minimum requirement)
-- Bullet 6: A desire or ambition that aligns with the After Identity — stated as something they already feel, not something they should feel
+- Bullet 6: A desire or ambition that aligns with the After Identity — stated as something they already feel, not something they should feel. THIS BULLET MUST reference the Aspiring Identity by its exact name from the Two Identities deliverable (e.g., "You can already see yourself as [Aspiring Identity name]...")
 
 Pull from the After Identity attributes and True Beliefs from the belief-shift-map context to inform what "ready" looks like.
 
@@ -101,7 +109,7 @@ Write exactly 6 bullet points. Each bullet describes a specific characteristic, 
 - Bullet 3: A financial or commitment red flag (not willing to invest, looking for free/cheap shortcuts)
 - Bullet 4: A mindset that clashes with the coaching methodology (e.g., "just tell me what to post" vs. building a real system)
 - Bullet 5: A stage or situation where the timing is genuinely wrong (too early, too late, wrong niche)
-- Bullet 6: An attitude or expectation that guarantees disappointment (magic-pill thinking, overnight success expectations, unwillingness to be uncomfortable)
+- Bullet 6: An attitude or expectation that guarantees disappointment (magic-pill thinking, overnight success expectations, unwillingness to be uncomfortable). THIS BULLET MUST reference the Undesired Identity by its exact name from the Two Identities deliverable (e.g., "You're comfortable staying as [Undesired Identity name] and aren't ready to change...")
 
 Pull from the Before Identity attributes, Old Methods, and False Beliefs from the belief-shift-map context to inform what "not ready" looks like.
 

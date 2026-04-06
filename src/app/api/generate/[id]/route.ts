@@ -4,7 +4,24 @@ import { generateDeliverable } from '@/lib/claude/generate'
 import { generateWithRetry } from '@/lib/claude/retry-engine'
 import { checkQuality, extractPostProcessing } from '@/lib/claude/quality-check'
 import { reportError } from '@/lib/notifications/error-reporter'
+import { trackTokenUsage, trackRateLimitHit, trackQualityAlert } from '@/lib/notifications/usage-monitor'
 import { DELIVERABLES } from '@/lib/deliverable-config'
+import { extractIdentityNames } from '@/lib/claude/identity-extractor'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+
+/** Strip known hallucinated names from prior deliverable context to prevent propagation */
+const HALLUCINATED_NAMES = [
+  'Sam Bakhtiar', 'Bakhtiar', 'Kevin Nations', 'Garrett J. White',
+  'Garrett White', 'Warrior Greens', 'Vigor Summit'
+]
+
+function sanitizeContext(content: string): string {
+  let sanitized = content
+  for (const name of HALLUCINATED_NAMES) {
+    sanitized = sanitized.replaceAll(name, '[mentor reference removed]')
+  }
+  return sanitized
+}
 
 export const maxDuration = 300 // 5 minutes — Vercel Hobby plan max
 
@@ -18,6 +35,22 @@ export async function POST(
     const { data: { user } } = await authClient.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Rate limit: 5 generation requests per minute per user
+    const rateCheck = checkRateLimit(`generate:${user.id}`, RATE_LIMITS.generate)
+    if (!rateCheck.allowed) {
+      trackRateLimitHit(user.id, 'generate')
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait before generating again.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)),
+            'X-RateLimit-Remaining': '0',
+          }
+        }
+      )
     }
 
     const { id: questionnaireId } = await params
@@ -99,26 +132,68 @@ export async function POST(
     }
 
     try {
-      // Build context from prior deliverables (if this template depends on them)
+      // Build context from DIRECT DEPENDENCIES only — not all completed deliverables.
+      // Loading everything risks contamination: one bad artifact with a wrong identity
+      // name can propagate through unrelated downstream templates.
+      // Identity names are extracted separately and injected as a locked, authoritative block.
       let context: string | undefined
-      if (config.dependsOn.length > 0) {
-        const { data: priorDeliverables } = await supabase
+
+      // Fetch direct dependencies for full content injection
+      const { data: directDeps } = config.dependsOn.length > 0
+        ? await supabase
+            .from('deliverables')
+            .select('template_id, title, content')
+            .eq('questionnaire_id', questionnaireId)
+            .eq('status', 'completed')
+            .in('template_id', config.dependsOn)
+        : { data: [] }
+
+      // Always fetch two-identities for identity name locking (even if not a direct dep)
+      const needsIdentityLookup = !config.dependsOn.includes('two-identities')
+      let twoIdentitiesContent: string | null = null
+      if (needsIdentityLookup) {
+        const { data: twoId } = await supabase
           .from('deliverables')
-          .select('template_id, title, content')
+          .select('content')
           .eq('questionnaire_id', questionnaireId)
+          .eq('template_id', 'two-identities')
           .eq('status', 'completed')
-          .in('template_id', config.dependsOn)
+          .single()
+        twoIdentitiesContent = twoId?.content || null
+      }
 
-        if (priorDeliverables && priorDeliverables.length > 0) {
-          const deliverableContent = priorDeliverables
-            .map(d => {
-              const delConfig = DELIVERABLES.find(del => del.templateId === d.template_id)
-              return `## [PRIOR DELIVERABLE: ${d.template_id}] ${d.title}\nPhase ${delConfig?.phase || '?'} | Template: ${d.template_id}\n\n${d.content}`
-            })
-            .join('\n\n---\n\n')
-
-          context = `IMPORTANT: The following prior deliverables were AI-generated. Only facts that ALSO appear in the CLIENT INPUT DATA section should be treated as verified. Statistics, dollar amounts, and specific claims in prior deliverables may be AI-generated inferences — verify against the questionnaire data before repeating them. If a prior deliverable defines identity names (Undesired Identity, Aspiring Identity), use those EXACT names consistently.\n\n${deliverableContent}`
+      // Extract identity names from two-identities (from deps or separate lookup)
+      let identityBlock = ''
+      const twoIdentitiesSource = (directDeps || []).find(d => d.template_id === 'two-identities')
+      const identityContent = twoIdentitiesSource?.content || twoIdentitiesContent
+      if (identityContent) {
+        const names = extractIdentityNames(identityContent)
+        if (names.undesired || names.aspiring) {
+          identityBlock = `\n⚠️ MANDATORY — IDENTITY NAMES ARE LOCKED ⚠️\n${names.undesired ? `Undesired Identity: "${names.undesired}"` : ''}${names.undesired && names.aspiring ? '\n' : ''}${names.aspiring ? `Aspiring Identity: "${names.aspiring}"` : ''}\nYou MUST use these EXACT names throughout your output. Do NOT create new names, synonyms, abbreviations, or "improved" versions. These names were established in the Two Identities deliverable and are FINAL.\n⚠️ END MANDATORY IDENTITY NAMES ⚠️\n\n`
+        } else {
+          // Extraction failed — warn so we can debug
+          console.warn(`[generate] Identity name extraction returned null for both names in questionnaire ${questionnaireId}. Two-identities content may use an unparseable format.`)
         }
+      }
+
+      if ((directDeps && directDeps.length > 0) || identityBlock) {
+        // Sort direct deps by phase order
+        const sorted = (directDeps || []).sort((a, b) => {
+          const phaseA = DELIVERABLES.find(d => d.templateId === a.template_id)?.phase || 0
+          const phaseB = DELIVERABLES.find(d => d.templateId === b.template_id)?.phase || 0
+          return phaseA - phaseB
+        })
+
+        const deliverableContent = sorted
+          .map(d => {
+            const delConfig = DELIVERABLES.find(del => del.templateId === d.template_id)
+            return `## [DIRECT DEPENDENCY: ${d.template_id}] ${d.title}\nPhase ${delConfig?.phase || '?'} | Template: ${d.template_id}\n\n${sanitizeContext(d.content)}`
+          })
+          .join('\n\n---\n\n')
+
+        const qualityWarning = `⚠️ PRIOR DELIVERABLE QUALITY NOTICE: The content below was AI-generated and may contain generic language or overused metaphors. Use it for STRUCTURAL REFERENCE ONLY (what sections exist, what topics were covered, what identity names were chosen). Do NOT copy phrases, metaphors, or identity descriptions verbatim from prior deliverables. Generate fresh, niche-specific language based on the CLIENT INPUT DATA above. The only elements to carry forward EXACTLY are: identity names (Undesired Identity and Aspiring Identity) and specific belief shift names.\n\n`
+
+        context = `IMPORTANT: Below are the deliverables this template directly depends on. Use their content, terminology, and naming as your primary reference for consistency.\n\nIf any prior deliverable defines identity names (Undesired Identity, Aspiring Identity), use those EXACT names. Do not create new ones.\n${identityBlock}${qualityWarning}${deliverableContent}`
       }
 
       // Generate with auto-retry (3-tier retry engine)
@@ -191,6 +266,14 @@ export async function POST(
         data = inserted
       }
 
+      // Track token usage for billing/usage alerts
+      trackTokenUsage(user.id, result.promptTokens + result.completionTokens, templateId)
+
+      // Track very low quality scores
+      if (qualityResult && qualityResult.score < 60 && !qualityResult.issues.some((i: string) => i.includes('QA system unavailable'))) {
+        trackQualityAlert(templateId, qualityResult.score, String(answers.clientName || 'Unknown'))
+      }
+
       // Report quality failures via email (even if we saved the content)
       if (!qualityResult.pass) {
         await reportError({
@@ -258,8 +341,9 @@ export async function POST(
         timestamp: new Date().toISOString(),
       })
 
+      console.error(`[generate] Generation failed for ${templateId}:`, errorMsg)
       return NextResponse.json(
-        { error: errorMsg, deliverable },
+        { error: 'Content generation failed. Please try again.', deliverable },
         { status: 500 }
       )
     }

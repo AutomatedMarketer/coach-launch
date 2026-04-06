@@ -1,5 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+
+/** Build allowed origins from env config — never hardcode deployment URLs */
+function buildAllowedOrigins(): Set<string> {
+  const origins = new Set<string>(['http://localhost:3000'])
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  if (siteUrl) {
+    origins.add(siteUrl.replace(/\/$/, ''))
+  }
+  const vercelUrl = process.env.VERCEL_URL
+  if (vercelUrl) {
+    origins.add(`https://${vercelUrl}`)
+  }
+  const projectUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  if (projectUrl) {
+    origins.add(`https://${projectUrl}`)
+  }
+  return origins
+}
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
 const MAX_FILE_SIZE = 3 * 1024 * 1024 // 3MB — matches client-side limit (multipart overhead adds ~33%)
@@ -11,6 +30,28 @@ export async function POST(request: NextRequest) {
     const { data: { user } } = await authClient.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // CSRF protection: verify request origin (driven by env config, not hardcoded)
+    const origin = request.headers.get('origin')
+    const allowedOrigins = buildAllowedOrigins()
+    if (origin && !allowedOrigins.has(origin)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    // Rate limit: 10 upload requests per minute per user
+    const rateCheck = checkRateLimit(`upload:${user.id}`, RATE_LIMITS.upload)
+    if (!rateCheck.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please wait before uploading again.' },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(Math.ceil((rateCheck.resetAt - Date.now()) / 1000)),
+            'X-RateLimit-Remaining': '0',
+          }
+        }
+      )
     }
 
     const formData = await request.formData()
@@ -93,7 +134,7 @@ export async function POST(request: NextRequest) {
         console.error('Upload error:', uploadError)
         const message = uploadError.message?.includes('not found')
           ? 'File uploads are temporarily unavailable. Your answers have been saved — you can add brand assets later.'
-          : `Failed to upload "${file.name}": ${uploadError.message}`
+          : 'Failed to upload file. Please try again.'
         return NextResponse.json(
           { error: message },
           { status: 500 }

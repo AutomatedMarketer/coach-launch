@@ -88,6 +88,8 @@ IMPORTANT: Write this as MAIN LINES ONLY — the actual words the coach should s
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+8. NICHE-SPECIFIC LANGUAGE ONLY: Discovery questions, objection handling, and pitch examples must use language and scenarios specific to {{niche}}. Do NOT use generic coaching questions like "what's holding you back?" Instead use niche-specific questions like "walk me through what happens when a new lead comes in — from first contact to close, what does that process look like right now?" (for coaches) or "when was the last time you took a full week off without checking your phone?" (for business owners). Every section of the script should feel like it was written for THIS specific audience.
+9. BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}

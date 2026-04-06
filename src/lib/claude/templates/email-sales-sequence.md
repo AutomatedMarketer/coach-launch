@@ -84,11 +84,15 @@ IMPORTANT: Generate EXACTLY 12 emails. Not 5, not 8, not 10 — exactly 12. Each
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+8. NICHE-SPECIFIC LANGUAGE ONLY: Do NOT use generic coaching/business cliches that apply to every industry. Each email should contain at least 2-3 details, scenarios, or references that are specific to {{niche}} and {{targetAudience}}. Replace generic pain language with vivid, niche-specific scenarios the reader would immediately recognize from their own experience. Example: instead of "feeling overwhelmed and stressed," write "staring at 47 unread DMs from prospects you'll never get back to" (for coaches) or "watching your competition win the listing because they had a better pitch deck" (for real estate agents).
+9. BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
 
 ### THE 12-EMAIL SEQUENCE
+
+IDENTITY NAMES: If the Two Identities deliverable has been generated, reference the Undesired Identity name in at least 3 of the 12 emails (especially emails 1, 3, and 7 where pain is addressed) and the Aspiring Identity name in at least 3 emails (especially emails 5, 9, and 12 where transformation is painted). Use the EXACT names — do not create generic alternatives.
 
 ---
 

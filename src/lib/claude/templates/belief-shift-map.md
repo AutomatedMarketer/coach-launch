@@ -75,6 +75,11 @@ Your job is to create the complete Belief Shift Map: two named identity personas
 {{#if whyCurrentMethodFails}}- **Why Current Method Fails:** {{whyCurrentMethodFails}}{{/if}}
 {{#if bestClientEver}}- **Best Client Ever:** {{bestClientEver}}{{/if}}
 
+### CONTENT GUARDRAILS
+- BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
+- Do NOT invent statistics, dollar amounts, percentages, or client counts. Use placeholders: [COACH: Insert your real numbers here].
+- The voice profile describes communication STYLE only — do not pull biographical facts, company names, or mentor names from it.
+
 ### WHAT TO GENERATE
 
 ---
@@ -85,7 +90,15 @@ Create two detailed identity personas — the BEFORE (who the prospect is now) a
 
 **BEFORE IDENTITY (The Undesired Self)**
 
-IMPORTANT: If the prior deliverable context above includes a Two Identities output with named identity personas, use the EXACT Undesired Identity name from that output. Do NOT create a new name. If no prior identity context exists, create one: a vivid, memorable name/label that captures who the prospect currently is (e.g., "The Hustler," "The Scattered Coach," "The Grinder"). Then fill in ALL 8 attributes:
+⚠️ MANDATORY — IDENTITY NAMES ARE LOCKED ⚠️
+The Two Identities deliverable has ALREADY been generated. The identity names from that deliverable are the ONLY names you may use. You MUST:
+1. Find the Undesired Identity name and Aspiring Identity name in the PRIOR DELIVERABLE CONTEXT above
+2. Use those EXACT names — no abbreviations, no "improvements," no synonyms, no new names
+3. If you cannot find them in the context, check the === IDENTITY NAMES === section
+4. NEVER create a new identity name. If you generate a name that differs from the prior deliverable by even one word, you have failed this instruction.
+⚠️ END MANDATORY SECTION ⚠️
+
+If NO prior identity context exists at all (this is the first deliverable being generated), ONLY THEN create one: a vivid, memorable name/label that captures who the prospect currently is — specific to {{niche}} (e.g., "The Scattered Coach," "The Overwhelmed Practitioner"). Then fill in ALL 8 attributes:
 
 1. **Name/Label:** A 2-3 word identity label that's slightly embarrassing — they'd recognize themselves but wouldn't want to be called it publicly
 2. **Statistics/Current Results:** Specific numbers that describe their current reality (income, hours worked, client count, years stuck, debt level — use data relevant to {{niche}})
@@ -94,11 +107,15 @@ IMPORTANT: If the prior deliverable context above includes a Two Identities outp
 5. **Old Methods:** 5-7 approaches they're currently using that don't work (the things they'll defend even though they fail)
 6. **Unwanted Feelings:** 5-7 specific emotions they experience daily (pull from {{unwantedFeelings}} and expand — be visceral and specific)
 7. **Attributes:** 5-7 behavioral/personality traits that define this identity (e.g., reactive, scattered, penny-pinching, excuse-making)
-8. **False Beliefs:** 5-7 beliefs they hold that keep them trapped (these become the raw material for the 6 Core Belief Shifts below)
+8. **False Beliefs:** 5-7 beliefs they hold that keep them stuck (these become the raw material for the 6 Core Belief Shifts below)
 
 **AFTER IDENTITY (The Aspiring Self)**
 
-IMPORTANT: If the prior deliverable context above includes a Two Identities output with named identity personas, use the EXACT Aspiring Identity name from that output. Do NOT create a new name. If no prior identity context exists, create one: a powerful, aspirational name/label based on {{aspiringIdentity}} (e.g., "The Wealthy Coach," "The Elite CEO," "The Freedom Builder"). Then fill in ALL 8 attributes:
+⚠️ MANDATORY — IDENTITY NAMES ARE LOCKED ⚠️
+(Same rule as above — the Aspiring Identity name MUST come from the Two Identities prior deliverable. Use the EXACT name. Do NOT invent a new one.)
+⚠️ END MANDATORY SECTION ⚠️
+
+If NO prior identity context exists at all, ONLY THEN create one: a powerful, aspirational name/label based on {{aspiringIdentity}} — specific to {{niche}} (e.g., "The Wealthy Coach," "The Elite CEO," "The Freedom Builder"). Then fill in ALL 8 attributes:
 
 1. **Name/Label:** A 2-3 word identity label they'd be proud to be called — aspirational but achievable
 2. **Statistics/Desired Results:** Specific numbers that describe their transformed reality (income, hours, freedom metrics — be concrete)
