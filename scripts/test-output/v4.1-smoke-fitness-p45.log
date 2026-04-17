@@ -1,0 +1,63 @@
+[dotenv@17.3.1] injecting env (6) from .env.local -- tip: 🔐 encrypt with Dotenvx: https://dotenvx.com
+[env] Anthropic key loaded: sk-ant-api03-JD…1xmMdAAA
+
+── Fact allowlist preview ──
+fitness-sparse  money=13  durations=9  numbers=32  properNouns=10
+
+================================================================================
+▶ COACH: Marcus Reed — Fitness Coach (sparse input) (in-home fitness coaching for busy executives)
+================================================================================
+
+── Phase 4 (1 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{credentials}}
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{revenueGoal}}
+  ✓ core-conversion-content        85/100     129.0s — 13 scanner warnings
+  ✓ sales-call-script              85/100     97.0s [redacted 3] — 34 scanner warnings
+  ✓ homepage-copy                  85/100     39.6s — 15 scanner warnings
+  ✓ about-page                     85/100     33.7s — 10 scanner warnings
+  ✓ email-welcome-sequence         85/100     81.7s [redacted 2] — 39 scanner warnings
+  ✓ email-sales-sequence           85/100     129.1s [redacted 5] — 77 scanner warnings
+  ✓ qualifying-filter              85/100     16.9s — missing sections
+  ✓ pricing-framework              85/100     43.4s [redacted 6] — 29 scanner warnings
+
+── Phase 5 (1 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{offerDetailsUrl}}, {{applicationUrl}}, {{qualificationQuestions}}, {{qualificationQuestions}}, {{offerDetailsUrl}}, {{applicationUrl}}, {{minimumRequirements}}, {{applicationUrl}}
+  ✓ content-angle-library          85/100     240.3s [redacted 5] — 310 scanner warnings
+  ✓ facebook-posts                 85/100     86.4s — 47 scanner warnings
+  ✓ facebook-ad-copy               85/100     47.2s [redacted 3] — 52 scanner warnings
+  ✓ youtube-script                 85/100     98.4s — 35 scanner warnings
+  ✓ shorts-reels-scripts           85/100     49.3s [redacted 1] — 41 scanner warnings
+  ✓ carousel-posts                 85/100     75.4s — 188 scanner warnings
+  ✓ ghl-chat-sequence              85/100     74.0s — 111 scanner warnings
+  ✓ manychat-sequence              85/100     75.9s — 197 scanner warnings
+
+================================================================================
+  FINAL REPORT
+================================================================================
+
+
+┌─ Marcus Reed — Fitness Coach (sparse input)
+│   Attempted: 16 | Completed: 16 | Failed: 0
+│   Avg rating: 85/100 | Median: 85/100
+│   Hallucinations (post-redact): 1200 (0 critical)
+│   Auto-redacted: 25 critical hits replaced with [COACH: Insert ...]
+│   Tokens: 172,623 (est. cost: $1.04)
+│
+│   Worst deliverables:
+│     85/100  core-conversion-content         13 scanner warnings
+│     85/100  sales-call-script               34 scanner warnings
+│     85/100  homepage-copy                   15 scanner warnings
+│     85/100  about-page                      10 scanner warnings
+│     85/100  email-welcome-sequence          39 scanner warnings
+└─
+
+── SCANNER ACCURACY ──
+Total critical hallucinations caught: 0
+Total warnings caught: 1200
+Templates with critical hallucinations:
+
+Full results written to: D:\dev\Coach launch\app\scripts\test-output\fact-scanner-e2e-2026-04-16T02-45-55-726Z.json
+

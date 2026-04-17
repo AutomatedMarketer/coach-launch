@@ -125,6 +125,31 @@ export async function GET() {
       : 0
     const errorCount = deliverables.filter(d => d.status === 'error').length
 
+    // Hallucination aggregation (last 30 days) — fed by the fact scanner + Haiku QA
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    const { data: hallucinations } = await supabase
+      .from('hallucination_log')
+      .select('template_id, hallucination_type, flagged_value, detected_by, severity, created_at')
+      .gte('created_at', thirtyDaysAgo)
+      .order('created_at', { ascending: false })
+
+    const hallByTemplate: Record<string, { total: number; byType: Record<string, number>; byDetector: { scanner: number; qa: number } }> = {}
+    const hallByType: Record<string, number> = {}
+    for (const h of hallucinations || []) {
+      if (!hallByTemplate[h.template_id]) {
+        hallByTemplate[h.template_id] = { total: 0, byType: {}, byDetector: { scanner: 0, qa: 0 } }
+      }
+      const bucket = hallByTemplate[h.template_id]
+      bucket.total++
+      bucket.byType[h.hallucination_type] = (bucket.byType[h.hallucination_type] || 0) + 1
+      if (h.detected_by === 'scanner') bucket.byDetector.scanner++
+      else if (h.detected_by === 'qa') bucket.byDetector.qa++
+      hallByType[h.hallucination_type] = (hallByType[h.hallucination_type] || 0) + 1
+    }
+    const hallucinationBreakdown = Object.entries(hallByTemplate)
+      .map(([tid, stats]) => ({ templateId: tid, ...stats }))
+      .sort((a, b) => b.total - a.total)
+
     return NextResponse.json({
       summary: {
         totalDeliverables: completed.length,
@@ -135,10 +160,15 @@ export async function GET() {
         avgQualityScore: avgQuality,
         errorCount,
         totalUsers: userBreakdown.length,
+        hallucinationCount30d: (hallucinations || []).length,
       },
       userBreakdown,
       templateBreakdown,
       dailyUsage: daily,
+      hallucinations: {
+        byTemplate: hallucinationBreakdown,
+        byType: hallByType,
+      },
     })
   } catch (err) {
     console.error('[admin/monitoring] Error:', err)

@@ -64,10 +64,11 @@ You are an expert direct-response copywriter creating a one-page Offer 1-Sheet f
 {{#if programIncludes}}- **What's Included:** {{programIncludes}}{{/if}}
 {{#if deliveryModel}}- **Delivery Model:** {{deliveryModel}}{{/if}}
 {{#if guaranteeOrRisk}}- **Guarantee / Risk Reversal:** {{guaranteeOrRisk}}{{/if}}
+{{#if guaranteeTimeframe}}- **Guarantee Timeframe (coach-provided — quote VERBATIM):** {{guaranteeTimeframe}}{{/if}}
 - **Common Objections:** {{commonObjections}}
 - **Brand Voice:** {{brandVoice}}
-- **Program Phases:** {{programPhases}}
-- **Scarcity Element:** {{scarcityElement}}
+{{#if programPhases}}- **Program Phases:** {{programPhases}}{{else}}- **Program Phases:** Not provided — for Section 4, build 3 logical steps from {{uniqueMechanism}} and {{transformation}}. Name each step for {{niche}} specifically.{{/if}}
+{{#if scarcityElement}}- **Scarcity Element:** {{scarcityElement}}{{/if}}
 - **Revenue Per Client:** {{revenuePerClient}}
 - **CTA Type:** {{ctaType}}
 {{#if ctaKeyword}}- **CTA Keyword:** {{ctaKeyword}}{{/if}}
@@ -81,7 +82,7 @@ You are an expert direct-response copywriter creating a one-page Offer 1-Sheet f
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -121,6 +122,8 @@ Using the Hell Island / Pain Zone language from the belief-shift-map:
 - This should feel like a bold, specific claim — not a vague aspiration
 
 #### 4. HOW IT WORKS (3 phases)
+CREDENTIAL RULE: Only state credentials, certifications, client counts, and results explicitly provided in the CLIENT INPUT DATA. If a credential is not listed, omit it. Do not estimate, round up, or infer achievements not in the questionnaire.
+
 Pull the 3-phase structure from the core-conversion-content context:
 - **Phase 1: [Name]** — One sentence: what happens and the immediate outcome
 - **Phase 2: [Name]** — One sentence: what builds and the key shift
@@ -167,7 +170,7 @@ Each bullet: checkmark + deliverable name + brief value statement (e.g., "Weekly
   - If "booking": "Book Your Strategy Call at [URL]"
   - If "dm-keyword": "DM me '{{ctaKeyword}}' on Instagram to get started"
 {{#if ctaKeyword}}- Reinforce: "Just send the word '{{ctaKeyword}}' — I'll take it from there."{{/if}}
-- Add urgency line: genuine reason to act now (limited spots, cohort start date, price increase)
+{{#if scarcityElement}}- Add urgency using the coach's scarcity element: {{scarcityElement}}{{else}}- For urgency, use qualitative language only: "This coaching relationship is selective" — do NOT invent a specific number of spots or countdown deadline.{{/if}}
 - Final line: speak directly to the Aspiring Identity — "This is your moment to become [aspiringIdentity]."
 
 ### VOICE & TONE

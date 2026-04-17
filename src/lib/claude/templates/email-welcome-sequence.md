@@ -15,12 +15,15 @@ A 5-7 email welcome/nurture sequence sent to new leads after they opt in (lead m
   "targetAudience": "string",
   "problemSolved": "string",
   "offerName": "string",
-  "pricePoint": "string",
+  "pricePoint": "string (synthesized from pricing.displayString)",
   "transformation": "string",
   "uniqueMechanism": "string",
   "leadMagnetName": "string — what they opted in for",
   "commonObjections": "array — top 3-5 objections the audience has",
   "personalStory": "string",
+  "monthlyActionCost": "string (required) — quoted verbatim in Email 6",
+  "firstResultTimeframe": "string (required) — quoted verbatim in Email 5 for result-timing",
+  "targetClientMonthlyRevenue": "string (required) — used in aspiring-identity framing",
   "testimonials": "array (optional)",
   "ctaType": "string — 'application' | 'booking' | 'dm-keyword'",
   "ctaKeyword": "string (optional)",
@@ -68,16 +71,20 @@ You are writing a 5-7 email welcome sequence for a coaching business. Each email
 - **Desired Feelings:** {{desiredFeelings}}
 - **Aspiring Identity:** {{aspiringIdentity}}
 - **Case Studies:** {{caseStudies}}
+- **Cost of Inaction (coach-provided — use verbatim):** {{monthlyActionCost}}
+- **First Measurable Result Timeframe (coach-provided):** {{firstResultTimeframe}}
+- **Target Client Monthly Revenue After Program (coach-provided):** {{targetClientMonthlyRevenue}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
 8. BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
+9. **HARD RULE — no invented external stats.** Do NOT cite invented healthcare costs (e.g., `"heart attack at 55 costs more than $100,000"`), medication prices (`"$3,000 annually"`), lost-revenue figures (`"$20K per month"`), or industry benchmarks. If an angle needs a cost comparison, describe it qualitatively ("the long-term health cost of ignoring this dwarfs the program investment") or pick a different angle from the belief-shift map. Do not write placeholder markers in email copy — coaches send these emails as-is.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
@@ -92,6 +99,7 @@ You are writing a 5-7 email welcome sequence for a coaching business. Each email
 - Tone: warm, welcoming, briefly establish authority
 
 **Email 2: Origin Story → Hell Island to Heaven Island** (Day 1-2)
+- CREDENTIAL RULE: Only state credentials, certifications, client counts, and results explicitly provided in the CLIENT INPUT DATA. If a credential is not listed, omit it. Do not estimate, round up, or infer achievements not in the questionnaire.
 - Tell {{clientName}}'s story using the Hell Island → Heaven Island arc
 - Start in Hell Island: paint the struggle using language that mirrors {{unwantedFeelings}}
 - Show the turning point / discovery
@@ -121,7 +129,7 @@ You are writing a 5-7 email welcome sequence for a coaching business. Each email
 **Email 5: Core Belief #5 — Why This Approach Works** (Day 7-8)
 - Maps to Core Belief #5 (best method) from the belief-shift-map
 - Share proof that {{uniqueMechanism}} actually works — client result or personal result
-- Specific numbers/outcomes where possible
+- Use the coach-provided timeframe VERBATIM: clients see their first measurable result {{firstResultTimeframe}}. Do NOT invent other week-N result statements.
 - Position this as the "organized, repeatable process"
 - Belief to install: "This method is proven and it works for people like me"
 - {{#if testimonials}}Use: {{testimonials}}{{/if}}
@@ -130,7 +138,7 @@ You are writing a 5-7 email welcome sequence for a coaching business. Each email
 **Email 6: Core Belief #4 — The Cost of Inaction + Investment Reframe** (Day 9-10)
 - Maps to Core Belief #4 (money) from the belief-shift-map
 - Paint the picture of what happens if they do NOTHING — they stay on Hell Island with {{unwantedFeelings}}
-- Calculate the real cost of inaction (lost revenue, wasted time, emotional toll)
+- State the cost of inaction using the coach-provided number VERBATIM: "{{monthlyActionCost}}". Do not embellish or invent other figures.
 - Reframe investment: {{pricePoint}} is not a cost, it's the price of leaving Hell Island
 - Use the pendulum law: staying stuck swings them further into frustration
 - Contrast: Hell Island (now + {{unwantedFeelings}}) vs. Heaven Island ({{programDuration}} from now + {{desiredFeelings}})

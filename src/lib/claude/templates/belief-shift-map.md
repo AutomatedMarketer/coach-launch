@@ -22,8 +22,12 @@ The complete "Ethical Manipulation" framework — the persuasion engine behind a
   "commonObjections": "array",
   "testimonials": "array (optional)",
   "offerName": "string",
-  "pricePoint": "string",
-  "brandVoice": "string"
+  "pricePoint": "string (synthesized from pricing.displayString)",
+  "brandVoice": "string",
+  "idealClientCurrentRevenue": "string (required)",
+  "targetClientMonthlyRevenue": "string (required) — used in aspiring-identity and evidence bank",
+  "firstResultTimeframe": "string (required) — quoted verbatim for result-timing claims",
+  "monthlyActionCost": "string (required) — cost of inaction used in belief-shift evidence"
 }
 ```
 
@@ -64,6 +68,9 @@ Your job is to create the complete Belief Shift Map: two named identity personas
 {{#if testimonials}}- **Testimonials:** {{testimonials}}{{/if}}
 - **Competitor/Old Way:** {{competitorOldWay}}
 - **Ideal Client Current Revenue:** {{idealClientCurrentRevenue}}
+- **Target Client Monthly Revenue After Program (coach-provided):** {{targetClientMonthlyRevenue}}
+- **First Measurable Result Timeframe (coach-provided — use verbatim for any "how long until results?" statement):** {{firstResultTimeframe}}
+- **Monthly Cost of Inaction (coach-provided):** {{monthlyActionCost}}
 - **Current Methods:** {{idealClientCurrentMethods}}
 - **Case Studies:** {{caseStudies}}
 {{#if clientExcuse}}- **Client Self-Limiting Story:** {{clientExcuse}}{{/if}}
@@ -77,7 +84,13 @@ Your job is to create the complete Belief Shift Map: two named identity personas
 
 ### CONTENT GUARDRAILS
 - BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
-- Do NOT invent statistics, dollar amounts, percentages, or client counts. Use placeholders: [COACH: Insert your real numbers here].
+- **HARD RULE on numbers — CRITICAL:** Every dollar amount, percentage, client count, sample size, time period, or statistic that is NOT already in the coach's CLIENT DETAILS is FORBIDDEN. NEVER invent a plausible-sounding number. This applies even inside example structures, stat callouts, case study prompts, and authority-quote framings.
+- ❌ WRONG: `"Average healthcare cost savings were $8,400 over two years"` (invented)
+- ❌ WRONG: `"Out of our last 50 clients, 43 achieved the result within 90 days"` (invented)
+- ✅ RIGHT (skip the stat): `"The health cost savings over the program are significant — many clients report feeling it in their insurance renewals."`
+- ✅ RIGHT (qualitative instead of invented numbers): `"The majority of our clients achieve the transformation well within the program window."`
+- ✅ RIGHT (if and only if the coach's `clientSuccessRateSummary` is provided above): quote that sentence verbatim.
+- Prefer SKIPPING the entire sentence over writing a placeholder. Good coaching copy does not need a made-up statistic in every paragraph.
 - The voice profile describes communication STYLE only — do not pull biographical facts, company names, or mentor names from it.
 
 ### WHAT TO GENERATE
@@ -185,7 +198,7 @@ Paint a 3-4 sentence picture of what their daily life looks like once they adopt
 IMPORTANT: Do NOT fabricate or guess quotes. AI-generated quotes attributed to famous people are almost always wrong and will destroy credibility if anyone checks. Instead, do ONE of these:
 - Reference a REAL book by title and author (e.g., "In 'Good to Great,' Jim Collins shows that...")
 - Paraphrase a well-known principle or teaching from a named authority (e.g., "Peter Drucker's principle that 'what gets measured gets managed' applies here because...")
-- Cite a real, verifiable study or statistic with the source (e.g., "A McKinsey study of 400 companies found...")
+- Cite a real, verifiable study or statistic — but describe the finding QUALITATIVELY in your own words. NEVER invent sample sizes, percentages, or dollar figures. ✅ RIGHT: `"A well-known McKinsey study on workplace performance found that consistent attention to [mechanism] produces measurable gains in the outcome the client cares about."`. ❌ WRONG: `"A McKinsey study of 400 companies found..."` (the "400" is fabricated unless you can verify it). If you cannot describe the study faithfully without invented numbers, SKIP the stat citation and rely on Component 7 (Universal Analogy) or Component 13 (Cross-Domain Reference) instead.
 - If you cannot verify a quote is real, do NOT use it. Use a logic trap or analogy instead.
 
 **Component 7: Universal Analogy**
@@ -200,13 +213,17 @@ A specific story angle {{clientName}} could tell from their own experience that 
 **Component 10: Client Case Study Prompt**
 {{#if testimonials}}Using the provided testimonials, frame a case study that proves this belief shift. Structure: who they were (Before Identity) → what they believed (old belief) → what changed (the shift) → specific results (numbers, timeline).{{else}}Write a template for a future case study: "[CLIENT NAME] was a [Before Identity trait]. They believed [old belief]. After implementing [specific part of {{uniqueMechanism}}], they [specific measurable result] in [timeframe]. The belief that shifted: [old → new]." Mark clearly: "*** Replace with real client story before publishing ***"{{/if}}
 
-**Component 11: External Case Study**
-FOLLOW THIS STRUCTURE: "[External authority / organization] did a real controlled study. The results showed that if you do [new method], you'll go from [hell island] to [heaven island]. The specific stats are [these]. Here is a link to the source where I got this information."
-— Reference a REAL, verifiable external study or research that supports this belief shift. Cite the source. If you cannot find a real, verifiable study, write: [COACH: Insert a real external study or statistic that supports this belief. Include the source link.]
+{{#if externalStudiesAndReferences}}**Component 11: External Case Study**
+The coach provided real external research — use it verbatim and cite the source: {{externalStudiesAndReferences}}
+{{else}}_Component 11 (External Case Study) is SKIPPED for this belief — the coach did not provide external research. Do NOT generate a placeholder block here; skip directly to Component 12._{{/if}}
 
 **Component 12: Internal Case Study**
-FOLLOW THIS STRUCTURE: "We did a controlled study internally. The results showed that if you do [new method], you'll go from [hell island] to [heaven island]. The specific stats are [these]."
-— Use real data from {{trackRecord}} or {{caseStudies}} if provided. If no internal data is provided: [COACH: Insert your own internal data — how many clients, what results, what timeframe. E.g., "Out of our last 50 clients, 43 achieved [result] within [timeframe]."]
+FOLLOW THIS STRUCTURE: "We did a controlled study internally. The results showed that if you do [new method], you'll go from [hell island] to [heaven island]."
+{{#if clientSuccessRateSummary}}
+— The coach has provided real aggregate success data: **{{clientSuccessRateSummary}}**. Use this sentence VERBATIM in the write-up, and combine with the coach-provided `firstResultTimeframe` for the timing clause: "Out of our last {{totalClientsInProgram}} clients, {{clientsAchievedResult}} achieved [result from transformation] — the first measurable wins usually show up {{firstResultTimeframe}}." Do NOT change the numbers.
+{{else}}
+— No internal success-rate data was provided. NEVER invent numbers. ❌ WRONG: `"Out of our last 50 clients, 43 achieved [result] within 90 days"` (fabricated). ✅ RIGHT (skip the stat and reframe): `"The internal data is clear — when clients follow the framework, the transformation holds. (Coach: add specific numbers here if you track them.)"` Prefer to SKIP Component 12 entirely over writing a fabricated or heavily placeholder-laden block.
+{{/if}}
 
 **Component 13: Cross-Domain Reference (Other Area)**
 FOLLOW THIS STRUCTURE: "You already do/think this in [this other area of your life], so you know it works."

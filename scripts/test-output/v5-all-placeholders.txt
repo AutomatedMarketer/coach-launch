@@ -1,0 +1,197 @@
+two-identities | fitness-sparse | - **Equipment Investment:** Owns [COACH: Insert your real dollar amount here]+ in unused fitness equipment that's bec
+two-identities | fitness-sparse | **Treats fitness like a luxury instead of a business investment** — He'll spend [COACH: Insert your real dollar amount here] on marketing but won't invest 30 minute
+two-identities | fitness-sparse | | Social Posts | "The Elevator Mirror Dodger owns [COACH: Insert your real dollar amount here] in unused equipment" | "The Executive A
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study or statistic that shows customized fitness programs have higher adherence rates than generic programs. Include the source link.]
+belief-shift-map | fitness-sparse | idence. Out of our last 60 clients, 52 achieved their target weight loss within [COACH: Insert timeframe] using this customized approach.
+belief-shift-map | fitness-sparse | een meetings, travel protocols for hotels, strategies for business meals. After [COACH: Insert your real timeframe here], the first executive has given up compl
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study showing that environmental design and systems are more effective than willpower-based approaches for behavior change. Include the source link.]
+belief-shift-map | fitness-sparse |  confidence. Out of our last 60 clients, 52 achieved sustainable results within [COACH: Insert timeframe] by addressing systems, not motivation.
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study showing that executives who exercise regularly have better cognitive performance, decision-making ability, and business outcomes. Include the source link.]
+belief-shift-map | fitness-sparse | aking. Out of our last 60 clients, 52 reported improved work performance within [COACH: Insert timeframe] of starting the program.
+belief-shift-map | fitness-sparse | gy makes you more productive, leading to better business results. You avoid the [COACH: Insert your real dollar amount here]+ cost of a heart attack or diabetes man
+belief-shift-map | fitness-sparse | e energy, and avoided a potential health crisis. The second executive has spent [COACH: Insert your real dollar amount here]on solutions that didn't work and is fac
+belief-shift-map | fitness-sparse | Rick P., private equity partner, was spending [COACH: Insert your real dollar amount here]monthly on a trainer he constantly cance
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study showing the financial ROI of executive health programs through reduced healthcare costs and improved productivity. Include the source link.]
+belief-shift-map | fitness-sparse |  performance. Out of our last 60 clients, 52 achieved their health goals within [COACH: Insert timeframe], with an average savings of [COACH: Ins
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study comparing adherence rates and results between gym-based and home-based fitness programs for busy professionals. Include the source link.]
+belief-shift-map | fitness-sparse | ults with home-based training than they ever did with gym-based programs within [COACH: Insert timeframe].
+belief-shift-map | fitness-sparse | [COACH: Insert a real external study showing that coached individuals achieve better health and fitness results than those following self-directed programs. Include the source link.]
+belief-shift-map | fitness-sparse | on and real results. Out of our last 60 clients, 52 achieved their goals within [COACH: Insert timeframe] with expert guidance after years of uns
+offer-one-sheet | fitness-sparse |  life," "I can keep up with my kids," "People ask what I'm doing because I look [COACH: Insert your real timeframe here] younger"
+offer-one-sheet | fitness-sparse |  gym sessions and abandoned programs... all you'll get are a custom baseline in [COACH: Insert your real timeframe here], your first 15-20 pound loss in 8 weeks
+core-conversion-content | fitness-sparse | So you can get a custom baseline in [COACH: Insert your real timeframe here], lose your first 15-20 pounds in 8 week
+core-conversion-content | fitness-sparse | All in a matter of [COACH: Insert your real timeframe here].
+pricing-framework | fitness-sparse | scount for paying in full — at your price point of $12,000 for 6 months, that's [COACH: Calculate and insert dollar savings here]. This rewards commitment and improves y
+pricing-framework | fitness-sparse | - **Recommendation:** 6 monthly payments of [COACH: Insert per-payment amount — must multiply to at most 10% above $12,000 to account for payment-plan premium]
+pricing-framework | fitness-sparse | er predictable monthly investments over large lump sums. Monthly payments under [COACH: Insert your real dollar amount here]feel manageable against their cash flow,
+pricing-framework | fitness-sparse | **Target Monthly Revenue:** [COACH: Insert your realistic target monthly revenue for the ideal client after transformation]  
+pricing-framework | fitness-sparse | **The Gap:** [COACH: Target - Current = this number]  
+pricing-framework | fitness-sparse | **How Long to Pay for Itself:** [COACH: At conservative result, how many months before the program pays for itself? Insert your realistic estimate]  
+pricing-framework | fitness-sparse | **12-Month ROI at Conservative Result:** [COACH: Insert your realistic 12-month additional revenue estimate]
+pricing-framework | fitness-sparse | nd canceled trainers. At [conservative result], this program pays for itself in [COACH: Insert months] and generates [COACH: Insert 12-month R
+pricing-framework | fitness-sparse | OI estimate] over the next [COACH: Insert your real timeframe here]. You're not buying fitness coaching — y
+pricing-framework | fitness-sparse | > "Try The Executive Athlete Program for [COACH: Insert your real timeframe here]. If it's not the right fit for your sch
+pricing-framework | fitness-sparse |    - **Language:** "Next cohort starts [date]. Following cohort begins [[COACH: Insert your real timeframe here] later]."
+sales-call-script | fitness-sparse | **And if nothing changes — if you're in this exact same spot [COACH: Insert your real timeframe here] from now — what does that look like?**
+email-welcome-sequence | fitness-sparse | Here's the link: [COACH: Insert your download link here]
+email-welcome-sequence | fitness-sparse |  wake up at 5am for gym sessions. Tried meal prepping on weekends. Lasted about [COACH: Insert your real timeframe here] each time.
+email-welcome-sequence | fitness-sparse | Let me paint you a picture of what the next [COACH: Insert your real timeframe here] look like if nothing changes:
+email-welcome-sequence | fitness-sparse | Meanwhile, you'll spend [COACH: Insert your real dollar amount here]+ on fitness solutions that don't work f
+email-welcome-sequence | fitness-sparse | That's [COACH: Insert your real dollar amount here]per month to solve the problem that's be
+email-welcome-sequence | fitness-sparse | Apply here: [COACH: Insert your application link]
+content-angle-library | fitness-sparse | " | 2 | Universal Story | Post | Every executive has a "busy season" that lasts [COACH: Insert your real timeframe here]. You've been using your business as an 
+content-angle-library | fitness-sparse | | 33 | What the first [COACH: Insert your real timeframe here] look like: assessment, custom protocols
+content-angle-library | fitness-sparse | o | Clear boundaries about who this isn't for. If you want to lose 30 pounds in [COACH: Insert your real timeframe here] or transform your body without changing
+content-angle-library | fitness-sparse | esults: you get what you pay for. | 4 | Premium Pricing Justification | Video | [COACH: Insert real comparison with cheaper alternatives here] programs don't include custom protocols
+content-angle-library | fitness-sparse | | 69 | The math of investing vs staying stuck: $12,000 investment vs $[COACH: Insert real healthcare cost] heart attack. | 4 | Credit and ROI Leve
+content-angle-library | fitness-sparse | | 96 | What the first [COACH: Insert your real timeframe here] look like: assessment, foundation, and 
+content-angle-library | fitness-sparse | | 97 | Client onboarding: from application to transformation in [COACH: Insert your real timeframe here]. | Video | Step-by-step process from ap
+content-angle-library | fitness-sparse | urs, custom protocols delivered within 72 hours, first workout completed within [COACH: Insert your real timeframe here]. Fast implementation creates immediate 
+content-angle-library | fitness-sparse | ng 86% success rate. Average weight loss: 28-35 pounds. Average strength gains: [COACH: Insert your real strength metrics]. Average energy improvement: [COACH: In
+content-angle-library | fitness-sparse | y this is better. | Reel | Comparison showing superior value. Personal trainer: [COACH: Insert your real dollar amount here]/session, limited to gym hours, generic 
+ghl-chat-sequence | fitness-sparse | 3. **Investment Readiness:** "Have you invested [COACH: Insert your real dollar amount here]+ in business coaching or consulting in 
+ghl-chat-sequence | fitness-sparse | the past [COACH: Insert your real timeframe here]?" (Gauges investment mindset)
+ghl-chat-sequence | fitness-sparse | - Age: 40-[COACH: Insert your real timeframe here] old
+ghl-chat-sequence | fitness-sparse | - Investment capacity: Demonstrated history of investing [COACH: Insert your real dollar amount here]+ in business growth
+ghl-chat-sequence | fitness-sparse | > - IF has invested [COACH: Insert your real dollar amount here]+: → Go to Step 4
+ghl-chat-sequence | fitness-sparse | Got it. Have you invested [COACH: Insert your real dollar amount here]+ in business coaching, consulting, or o
+ghl-chat-sequence | fitness-sparse | ther professional development in the past [COACH: Insert your real timeframe here]?
+manychat-sequence | fitness-sparse | - Tag "Nurture-Complete" + no engagement for [COACH: Insert your real timeframe here] → Move to re-engagement list
+manychat-sequence | fitness-sparse | **Application Link:** [COACH: Insert your real application/booking link here]
+manychat-sequence | fitness-sparse | **Lead Magnet Link:** [COACH: Insert your real lead magnet download link here]
+facebook-posts | fitness-sparse | Your body doesn't know if you're in a [COACH: Insert your real dollar amount here]/month gym or your home office. It only 
+facebook-ad-copy | fitness-sparse | - Budget: [COACH: Insert your real dollar amount here]-150/day
+emotional-trigger-map | business-abstract | els true because they've been burned by bad hires. Costs them: staying stuck in [COACH: Insert your real dollar amount here]/hour tasks while claiming they want to 
+emotional-trigger-map | business-abstract | 8. **Coaches selling "[COACH: Insert your real dollar amount here] months" to people making [COACH: Insert
+emotional-trigger-map | business-abstract | 3. **Charging [COACH: Insert your real dollar amount here] for work that competitors charge [COACH
+emotional-trigger-map | business-abstract | 10. **Watching her competitor charge [COACH: Insert your real dollar amount here] for what she charges $8K for** — Thinks
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Anxiety becomes her default state — 
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Sleep becomes elusive — either can't
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Undercharging costs her $100K+ in lo
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Her kids learn not to interrupt momm
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Cynicism creeps in as she questions 
+emotional-trigger-map | business-abstract | - **[COACH: Insert your real timeframe here]:** Joy becomes rare and guilt-inducing 
+emotional-trigger-map | business-abstract | **"You just found out a competitor is charging [COACH: Insert your real dollar amount here] for what you charge $8K for — and inste
+two-identities | business-abstract | ions at 47 unread messages, Sunday afternoon "quick client check-ins," charging [COACH: Insert your real dollar amount here]/hour while competitors charge [COACH: I
+two-identities | business-abstract | - **Time Off:** Can't take more than [COACH: Insert your real timeframe here] away without business anxiety
+two-identities | business-abstract | - You can't take more than [COACH: Insert your real timeframe here] off without business anxiety because ev
+belief-shift-map | business-abstract | - Working [COACH: Insert your ideal hours] per week maximum
+belief-shift-map | business-abstract | [COACH: Insert a real external study or statistic that supports this belief about inner work being more effective than external tactics. Include the source link.]
+belief-shift-map | business-abstract | lity. Out of our last 40 clients, 28 achieved sustainable revenue growth within [COACH: Insert timeframe] without increasing their work hours.
+belief-shift-map | business-abstract | [COACH: Insert a real external study or statistic about the relationship between self-worth and business success, or about how internal work affects external results. Include the source link.]
+belief-shift-map | business-abstract | [COACH: Insert a real external study about the ROI of personal development, mindfulness, or therapy on business performance. Include specific metrics and source link.]
+belief-shift-map | business-abstract | - **Financial cost:** Losing $8,000/month to underpricing alone — [COACH: Insert your real dollar amount here]/year in lost revenue
+belief-shift-map | business-abstract | [COACH: Insert a real external study about ROI of personal development, coaching, or therapy investments on business outcomes. Include specific metrics and source link.]
+belief-shift-map | business-abstract | lly. The results showed that the average client recoups their investment within [COACH: Insert timeframe] through pricing increases and efficienc
+belief-shift-map | business-abstract | [COACH: Insert a real external study comparing surface-level interventions to deeper therapeutic or coaching approaches, showing the effectiveness difference. Include specific metrics and source link.]
+belief-shift-map | business-abstract | [COACH: Insert a real external study about the effectiveness of coaching, therapy, or guided transformation versus self-help approaches. Include specific metrics and source link.]
+belief-shift-map | business-abstract |  losing $8,000/month to underpricing alone — this investment pays for itself in [COACH: Insert your real timeframe here]" |
+lead-magnet-outline | business-abstract | t of external achievement will fill an internal worthiness wound. You could hit [COACH: Insert your real dollar amount here] and still feel like you need to prove y
+offer-one-sheet | business-abstract | **$18,000 for 6 months** — What you'll save in underpricing alone in the first [COACH: Insert your real timeframe here].
+pricing-framework | business-abstract | t ~$8,000/month in underpricing alone, the program pays for itself in just over [COACH: Insert your real timeframe here] through pricing corrections alone — bef
+pricing-framework | business-abstract | scount for paying in full — at your price point of $18,000 for 6 months, that's [COACH: Calculate and insert dollar savings here]. This rewards commitment and improves c
+pricing-framework | business-abstract | **Recommended Structure:** 6 monthly payments of [COACH: Insert per-payment amount — must multiply to at most 10% above $18,000 to account for payment-plan premium]
+pricing-framework | business-abstract | ychological alignment between payment and progress. Keep monthly payments below [COACH: Insert your real dollar amount here]to stay within the "stretch but doable" 
+pricing-framework | business-abstract | minder:** Payment plan total should equal $18,000 for PIF-equivalent, or up to ~[COACH: Insert your real dollar amount here](10% premium) for payment-plan administr
+pricing-framework | business-abstract | dy spending ~$8,000/month on the cost of staying stuck. A monthly payment under [COACH: Insert your real dollar amount here]feels like a bargain compared to what in
+pricing-framework | business-abstract | ar | **Program Investment:** $18,000 for 6 months | **Target Monthly Revenue:** [COACH: Insert realistic target] |
+pricing-framework | business-abstract |  in underpricing alone + 15-20 hours/week trapped in client work | **The Gap:** [COACH: Target - Current = this number] | **Time to Pay for Itself:** [COACH: I
+pricing-framework | business-abstract | | **Annual Cost of Inaction:** [COACH: Insert your real dollar amount here]+ in underpricing + 780-1,040 hours of t
+pricing-framework | business-abstract | rapped time | **12-Month ROI:** [COACH: Insert realistic estimate] | **Value Beyond Money:** Spacious, gro
+pricing-framework | business-abstract | alone plus 15-20 hours/week trapped in client work that should be delegated. At [COACH: Insert conservative result], this program pays for itself in [COACH
+pricing-framework | business-abstract | : Insert months] and generates [COACH: Insert 12-month ROI estimate] over the next [COACH: Insert your real 
+pricing-framework | business-abstract | ur weekly sessions. If you haven't increased your prices by at least 25% within [COACH: Insert your real timeframe here], I'll work with you for free until you 
+pricing-framework | business-abstract | a meaningful shift in your relationship with work and worth, full refund within [COACH: Insert your real timeframe here]."
+pricing-framework | business-abstract | ,000 in underpricing alone plus 15-20 hours/week trapped in client work. That's [COACH: Insert your real dollar amount here]+ annually you're leaving on the table."
+pricing-framework | business-abstract | > "Investment increases to [COACH: Insert new price] on [specific date]. Enroll now to lock 
+pricing-framework | business-abstract | get a private 90-minute Sovereignty Audit with me before the program begins — a [COACH: Insert your real dollar amount here]value, yours free. We'll map your specif
+pricing-framework | business-abstract | they're buying freedom from The Half-Price Hustler identity that's costing them [COACH: Insert your real dollar amount here]+ annually.
+sales-call-script | business-abstract | "And if nothing changes — if you're dealing with this exact same thing [COACH: Insert your real timeframe here] from now — where does that leave you?"
+sales-call-script | business-abstract | "And if nothing changes — if you're in this exact same spot [COACH: Insert your real timeframe here] from now, still [their problem] — what 
+email-welcome-sequence | business-abstract | **Subject Line:** The [COACH: Insert your real dollar amount here]mistake you're making every year
+email-welcome-sequence | business-abstract | Do the math: $8,000 × [COACH: Insert your real timeframe here] = [COACH: Insert your real dollar amount here]per year in lost revenue.
+content-angle-library | business-abstract | | 33 | What the first [COACH: Insert your real timeframe here] look like: Excavate phase breakdown | 1
+content-angle-library | business-abstract | | 66 | $18,000 over 6 months is [COACH: Insert your real dollar amount here]/month — you're losing $8,000/month to u
+content-angle-library | business-abstract | | 96 | The first [COACH: Insert your real timeframe here]: Excavate phase breakdown and what to e
+content-angle-library | business-abstract | | 97 | Client onboarding: From enrollment to first breakthrough in [COACH: Insert your real timeframe here] | Carousel | Show the onboarding proces
+ghl-chat-sequence | business-abstract | You're losing $8,000/month to underpricing alone. That's [COACH: Insert your real dollar amount here]/year.
+ghl-chat-sequence | business-abstract |  in delivery work that should be delegated. At your hourly rate, that's another [COACH: Insert your calculation here]/month.
+ghl-chat-sequence | business-abstract | The program pays for itself in the first 2-[COACH: Insert your real timeframe here] just through pricing confidence.
+manychat-sequence | business-abstract | | Book my call | URL | [COACH: Insert booking link] |
+manychat-sequence | business-abstract | | Ready to get started | URL | [COACH: Insert booking link] |
+manychat-sequence | business-abstract | | Apply now | URL | [COACH: Insert booking link] |
+manychat-sequence | business-abstract | | Book my call | URL | [COACH: Insert booking link] |
+manychat-sequence | business-abstract | > [COACH: Insert lead magnet link]
+manychat-sequence | business-abstract | > Here's a free resource to help: [COACH: Insert early-stage resource]
+manychat-sequence | business-abstract | | Book a call | URL | [COACH: Insert booking link] |
+manychat-sequence | business-abstract | - Move "Nurture-Complete" + no engagement to re-engagement list after [COACH: Insert your real timeframe here]
+facebook-posts | business-abstract | $8,000 × [COACH: Insert your real timeframe here] = [COACH: Insert your real dollar amount here]per year in lost revenue.
+facebook-posts | business-abstract | What would you do with an extra [COACH: Insert your real dollar amount here]this year?
+facebook-posts | business-abstract | → Average pricing increase of [COACH: Insert your real percentage here]
+facebook-ad-copy | business-abstract | - Daily budget: [COACH: Insert your real dollar amount here]-100
+facebook-ad-copy | business-abstract | - Daily budget: [COACH: Insert your real dollar amount here]-150
+facebook-ad-copy | business-abstract | - Daily budget: [COACH: Insert your real dollar amount here]-50
+youtube-script | business-abstract | Add up what underpricing is actually costing you monthly. If you're charging [COACH: Insert your real dollar amount here]when competitors charge $10,000, and you
+emotional-trigger-map | relationship-dense | 8. **Getting advice from married friends who haven't dated in [COACH: Insert your real timeframe here]** — Makes him feel misunderstood and pa
+emotional-trigger-map | relationship-dense | 5. **His divorce attorney who cost him [COACH: Insert your real dollar amount here] and delivered mediocre results** — Feel
+belief-shift-map | relationship-dense |  on dating apps plus therapy that doesn't address dating patterns — potentially [COACH: Insert your real dollar amount here]+ per year with no results
+belief-shift-map | relationship-dense | [COACH: Insert a real external study from the Gottman Institute or attachment research that shows how internal emotional patterns determine relationship outcomes. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe].
+belief-shift-map | relationship-dense | [COACH: Insert a real external study about attachment patterns and partner selection that shows how unhealed wounds influence who we're attracted to. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe] by focusing on inner work first.
+belief-shift-map | relationship-dense | [COACH: Insert a real external study about the health and longevity benefits of marriage for men over 45, showing the ROI of prioritizing relationships. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe] by treating this as their #1 priority.
+belief-shift-map | relationship-dense | - **Financial cost:** $400-600 monthly on dating apps = [COACH: Insert your real dollar amount here]-7,200 yearly with no results, plus pote
+belief-shift-map | relationship-dense | Harvard's Grant Study, which followed men for over [COACH: Insert your real timeframe here], found that the quality of relationship
+belief-shift-map | relationship-dense | [COACH: Insert a real external study about the financial benefits of marriage for high-earning men, including shared expenses, health benefits, and longevity. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe] — making this the highest ROI investmen
+belief-shift-map | relationship-dense | You already know this in business. You don't hesitate to invest [COACH: Insert your real dollar amount here]+ in business coaching, masterminds, or 
+belief-shift-map | relationship-dense | [COACH: Insert a real external study comparing the effectiveness of specialized therapeutic approaches versus generic self-help for specific populations. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe] using The Second Act Method.
+belief-shift-map | relationship-dense | [COACH: Insert a real external study about the effectiveness of coaching versus self-directed learning for complex behavioral change. Include the source link.]
+belief-shift-map | relationship-dense |  Out of our last 80 clients, 63 achieved meaningful relationship results within [COACH: Insert timeframe] with expert coaching versus years of so
+pricing-framework | relationship-dense | st of another year dating from the wound. At 6 months, they're already spending [COACH: Insert your real dollar amount here]-3,600 on ineffective solutions. Your pr
+pricing-framework | relationship-dense | iscount for paying in full — at your price point of $9,500 for 6 months, that's [COACH: Calculate and insert dollar savings here]. This rewards commitment and improves y
+pricing-framework | relationship-dense | **Structure:** 3 monthly payments of [COACH: Insert per-payment amount — must multiply to at most 10% above $9,500 to account for payment-plan premium]
+pricing-framework | relationship-dense | **Rationale:** Three payments keep each installment below [COACH: Insert your real dollar amount here], which stays within the "business expen
+pricing-framework | relationship-dense | | $400-600/month on dating apps + therapy | $9,500 for 6 months | [COACH: Insert realistic relationship value] |
+pricing-framework | relationship-dense | **Target Monthly Revenue:** [COACH: Insert your realistic target monthly revenue for the ideal client after transformation]  
+pricing-framework | relationship-dense | **The Gap:** [COACH: Target - Current = this number]  
+pricing-framework | relationship-dense | **How Long to Pay for Itself:** [COACH: At conservative result, how many months before the program pays for itself? Insert your realistic estimate]  
+pricing-framework | relationship-dense | **12-Month ROI at Conservative Result:** [COACH: Insert your realistic 12-month additional revenue estimate]
+pricing-framework | relationship-dense | ad of from wholeness. At [conservative result], this program pays for itself in [COACH: Insert months] and generates [COACH: Insert 12-month R
+pricing-framework | relationship-dense | OI estimate] over the next [COACH: Insert your real timeframe here]. More importantly, you get the relation
+pricing-framework | relationship-dense | > "Complete all [COACH: Insert your real timeframe here] of The Second Act Method, submit your p
+pricing-framework | relationship-dense | tionally Intelligent Second-Act Man, I'll refund your investment in full within [COACH: Insert your real timeframe here] of program completion."
+pricing-framework | relationship-dense | > "Try The Second Act Method for [COACH: Insert your real timeframe here]. If you don't feel this is the breakthr
+pricing-framework | relationship-dense | > "Limited to 40 men per cohort. When we're full, the next opportunity is [COACH: Insert next cohort start date]."
+pricing-framework | relationship-dense | al cost of another year dating from the wound instead of from wholeness. That's [COACH: Insert your real dollar amount here]-3,600 wasted in six months while stayin
+pricing-framework | relationship-dense | w] and get a private 90-minute breakthrough session with me within 48 hours — a [COACH: Insert your real dollar amount here]value, yours free. We'll audit your curr
+sales-call-script | relationship-dense | **"If nothing changes — if you're in this exact same spot [COACH: Insert your real timeframe here] from now — what does that look like? Wh
+sales-call-script | relationship-dense | e hard question — if nothing changes, if you're sitting in this exact same spot [COACH: Insert your real timeframe here] from now, still swiping, still going on
+email-welcome-sequence | relationship-dense | **Subject Line:** The [COACH: Insert your real dollar amount here]annual subscription to loneliness  
+email-welcome-sequence | relationship-dense | That's [COACH: Insert your real dollar amount here]to [COACH: Insert your real dollar amount here]annually. For what? More first dates tha
+email-welcome-sequence | relationship-dense | Here's what I know about successful men: You don't hesitate to invest [COACH: Insert your real dollar amount here]+ in business coaching, masterminds, or 
+email-welcome-sequence | relationship-dense | **Book your call:** [COACH: Insert your booking link here]
+email-sales-sequence | relationship-dense | Over the next [COACH: Insert your real timeframe here], I'm going to share the exact framework
+content-angle-library | relationship-dense | | 33 | Your first [COACH: Insert your real timeframe here]: daily trigger tracking, weekly group c
+content-angle-library | relationship-dense | | 36 | Watch a man go from invisible to irresistible in [COACH: Insert your real timeframe here] using attachment-based frameworks. | #1
+content-angle-library | relationship-dense | and your first peaceful night's sleep in years. | Facebook Video | Detail first [COACH: Insert your real timeframe here] experience including grounding work, co
+content-angle-library | relationship-dense | **Title:** "How I Went From Sleeping on a Mattress on the Floor to Remarried in [COACH: Insert your real timeframe here]"
+ghl-chat-sequence | relationship-dense | [COACH: Insert your real application URL here]
+ghl-chat-sequence | relationship-dense | u're already spending $400-600 monthly on dating apps with zero results. That's [COACH: Insert your real dollar amount here]-7,200 per year for the privilege of fee
+ghl-chat-sequence | relationship-dense | uarantee 3 meaningful dates per month by month 4, or we extend your program for [COACH: Insert your real timeframe here] at no charge.
+ghl-chat-sequence | relationship-dense | nd we're currently at 37. When we hit capacity, the waiting list is typically 3-[COACH: Insert your real timeframe here].
+ghl-chat-sequence | relationship-dense | [COACH: Insert your real application URL here]
+manychat-sequence | relationship-dense |  If you don't have 3 meaningful dates per month by month 4, I'll extend you for [COACH: Insert your real timeframe here] free.
+manychat-sequence | relationship-dense | > [COACH: Insert your lead magnet link here]
+manychat-sequence | relationship-dense | > Here's a free resource in the meantime: [COACH: Insert lead magnet link]
+manychat-sequence | relationship-dense | - Tag "Nurture-Complete" + no engagement for [COACH: Insert your real timeframe here] → Move to re-engagement list
+facebook-posts | relationship-dense | That's [COACH: Insert your real dollar amount here]-7,200 yearly with no results.
+facebook-ad-copy | relationship-dense | - Budget: [COACH: Insert your real dollar amount here]-100/day
+facebook-ad-copy | relationship-dense | - Budget: [COACH: Insert your real dollar amount here]-150/day
+facebook-ad-copy | relationship-dense | - Budget: [COACH: Insert your real dollar amount here]-30/day
+youtube-script | relationship-dense |  that proves this principle. Harvard's Grant Study, which followed men for over [COACH: Insert your real timeframe here], found that the quality of relationship
+youtube-script | relationship-dense | [ON SCREEN: "Harvard Grant Study - [COACH: Insert your real timeframe here]"]
+carousel-posts | relationship-dense | **Body Text:** $52/day for transformation vs. [COACH: Insert your real dollar amount here]/day for frustration. Which investment s
+carousel-posts | relationship-dense | $400-600 monthly on apps and premium features = [COACH: Insert your real dollar amount here]yearly with no results. The Second Act M

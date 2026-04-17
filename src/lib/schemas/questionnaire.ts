@@ -36,6 +36,24 @@ export const trackRecordSchema = z.object({
   notableClients: z.string().optional(),
 })
 
+// Structured pricing — replaces free-text `pricePoint` to kill parser hallucinations.
+export const pricingSchema = z.object({
+  totalUSD: z.number().min(1, 'Enter the total program price in USD'),
+  billingType: z.enum(['one-time', 'subscription', 'installments']),
+  displayString: z.string().min(2, 'How you display the price (e.g. "$12,000 for 6 months", "$500/mo")'),
+  paymentPlanCount: z.number().int().min(1).max(24).optional(),
+  pifDiscountPercent: z.number().int().min(0).max(30).default(0),
+  _needsReviewByCoach: z.boolean().optional(),
+}).superRefine((val, ctx) => {
+  if (val.billingType === 'installments' && !val.paymentPlanCount) {
+    ctx.addIssue({
+      path: ['paymentPlanCount'],
+      code: z.ZodIssueCode.custom,
+      message: 'Number of payments required when billing type is installments',
+    })
+  }
+})
+
 // === Step 1: Who You Are (CS Block 1 — Q1-Q10) ===
 export const stepWhoYouAreSchema = z.object({
   clientName: z.string().min(2, 'Name is required'),
@@ -88,10 +106,13 @@ export const stepIdealClientSchema = z.object({
   commonObjections: z.array(z.string()).min(1, 'Add at least one objection'),
   salesApproach: z.enum(['discovery-call', 'application-call', 'dm-close', 'webinar', 'video-sales-letter']),
   deliveryModel: z.enum(['1-on-1', 'group-program', 'mastermind', 'hybrid', 'self-paced-course', 'membership']),
+  // Data-gap fields (added April 15 2026 to close hallucination → placeholder pipeline)
+  idealClientCurrentRevenue: z.string().min(3, 'Estimate your ideal client\'s current revenue (e.g. "$150K-$500K/year" or "$5-10K/month"). This powers pricing math and urgency copy.'),
+  // Promoted from optional to required (v6a) — used by cost-angle / urgency copy across 5+ templates.
+  monthlyActionCost: z.string().min(5, 'Quantify the monthly cost of staying stuck (e.g. "$2,000/month in underpricing", "15 hours/week of lost time worth $3K"). Leave vague and the AI fills in [COACH: Insert X].'),
   // Legacy fields
   minimumRequirements: z.string().optional(),
   testimonials: z.array(z.string()).optional(),
-  idealClientCurrentRevenue: z.string().optional(),
   idealClientStuckDuration: z.string().optional(),
   idealClientFailedAttempts: z.array(z.string()).optional(),
   idealClientDreamName: z.string().optional(),
@@ -120,12 +141,22 @@ export const stepYourProgramSchema = z.object({
   billboardResult: z.string().optional(),
   bonuses: z.string().optional(),
   clientCapacity: z.string().optional(),
-  pricePoint: z.string().min(1, 'Set your price'),
+  // v6a: replaced free-text `pricePoint` with structured `pricing` object.
+  // `pricePoint` is still synthesized by template-loader for backward compat with templates.
+  pricing: pricingSchema,
   guaranteeOrRisk: z.string().optional(),
+  // v6b: when coach has a guarantee, we need the timeframe to avoid invented "30 days" etc.
+  // Required-if logic enforced by full-schema superRefine below.
+  guaranteeTimeframe: z.string().optional(),
+  // v6b: optional fast-action bonus deadline, used by pricing-framework and sales-call-script.
+  fastActionBonusDeadline: z.string().optional(),
   programDuration: z.string().min(1, 'How long is your program?'),
   programIncludes: z.string().min(10, 'List what clients get in your program'),
   transformation: z.string().min(10, 'What transformation do you deliver?'),
   uniqueMechanism: z.string().min(10, 'What makes your approach different?'),
+  // v6a: added so templates stop inventing timeframes.
+  firstResultTimeframe: z.string().min(3, 'When does a client typically see their first measurable win? (e.g. "within 14 days", "by end of week 2")'),
+  targetClientMonthlyRevenue: z.string().min(3, 'After your program, what does a typical client earn or achieve? (e.g. "$15K-$30K/month", "20+ qualified leads per week")'),
   leadMagnetName: z.string().min(2, 'Name your lead magnet'),
   leadMagnetType: z.enum(['pdf-guide', 'checklist', 'framework', 'mini-course', 'quiz', 'video-series']).optional(),
   ctaType: z.enum(['application', 'booking', 'dm-keyword']),
@@ -138,22 +169,33 @@ export const stepYourResultsSchema = z.object({
   caseStudies: z.array(caseStudySchema).optional(),
   trackRecord: trackRecordSchema.optional(),
   objectionRebuttals: z.array(objectionRebuttalSchema).optional(),
+  // Structured success rate (added April 15 2026) — powers belief-shift-map Component 12 internal case study
+  clientSuccessRate: z.object({
+    clientsAchievedResult: z.number().optional(),
+    totalClientsInProgram: z.number().optional(),
+  }).optional(),
   // Legacy + goal fields
   revenueGoal: z.string().optional(),
   revenueGoalDeadline: z.string().optional(),
   competitorOldWay: z.string().optional(),
-  scarcityElement: z.string().optional(),
+  // v6b: promoted from optional to required. Every coach has a capacity limit or
+  // enrollment signal — without it, scarcity/urgency sections either hallucinate
+  // or fall back to placeholders.
+  scarcityElement: z.string().min(5, 'Describe what makes your enrollment limited — capacity cap, cohort start date, bonus deadline, price increase, etc. This powers every scarcity/urgency section.'),
   missionStatement: z.string().optional(),
 })
 
-// === Step 7: Final Details (unchanged) ===
+// === Step 7: Final Details ===
+// v6a: URLs validated conditionally based on ctaType (on the full-questionnaire schema, below).
+// leadMagnetUrl is always required — every coach has a lead magnet.
 export const stepFinalDetailsSchema = z.object({
   expertise: z.array(z.string()).min(1, 'List your expertise topics'),
   brandVoice: z.enum(['motivational', 'tactical', 'casual', 'authoritative']),
   contentCadence: z.enum(['daily', '3-5-week', 'weekly', 'biweekly', 'unsure']).optional().default('unsure'),
   voiceNotes: z.string().optional(),
-  offerDetailsUrl: z.string().url().optional().or(z.literal('')),
-  applicationUrl: z.string().url().optional().or(z.literal('')),
+  offerDetailsUrl: z.string().url('Enter a valid URL').optional().or(z.literal('')),
+  applicationUrl: z.string().url('Enter a valid URL').optional().or(z.literal('')),
+  leadMagnetUrl: z.string().url('Direct link to your lead magnet download'),
 })
 
 // === Step 8: Brand Assets (unchanged) ===
@@ -165,6 +207,9 @@ export const stepBrandAssetsSchema = z.object({
 })
 
 // Full schema (for final validation)
+// v6a: superRefine enforces URL requirements based on ctaType.
+// Application-type CTAs need applicationUrl; booking-type CTAs need offerDetailsUrl;
+// dm-keyword CTAs need ctaKeyword instead (no URL required).
 export const questionnaireSchema = stepWhoYouAreSchema
   .merge(stepYourStorySchema)
   .merge(stepIdealClientSchema)
@@ -173,12 +218,44 @@ export const questionnaireSchema = stepWhoYouAreSchema
   .merge(stepYourResultsSchema)
   .merge(stepFinalDetailsSchema)
   .merge(stepBrandAssetsSchema)
+  .superRefine((val, ctx) => {
+    if (val.ctaType === 'application' && !val.applicationUrl) {
+      ctx.addIssue({
+        path: ['applicationUrl'],
+        code: z.ZodIssueCode.custom,
+        message: 'Application URL required when CTA type is Application',
+      })
+    }
+    if (val.ctaType === 'booking' && !val.offerDetailsUrl) {
+      ctx.addIssue({
+        path: ['offerDetailsUrl'],
+        code: z.ZodIssueCode.custom,
+        message: 'Booking / sales page URL required when CTA type is Book a Call',
+      })
+    }
+    if (val.ctaType === 'dm-keyword' && !val.ctaKeyword) {
+      ctx.addIssue({
+        path: ['ctaKeyword'],
+        code: z.ZodIssueCode.custom,
+        message: 'DM keyword required when CTA type is DM Keyword',
+      })
+    }
+    // v6b: if a guarantee is set, enforce a timeframe so templates stop inventing "30 days."
+    if (val.guaranteeOrRisk && val.guaranteeOrRisk.trim().length > 0 && !val.guaranteeTimeframe) {
+      ctx.addIssue({
+        path: ['guaranteeTimeframe'],
+        code: z.ZodIssueCode.custom,
+        message: 'Guarantee timeframe required when a guarantee is set (e.g. "60 days," "first 90 days")',
+      })
+    }
+  })
 
 export type QuestionnaireAnswers = z.infer<typeof questionnaireSchema>
 export type CaseStudy = z.infer<typeof caseStudySchema>
 export type ProgramPhase = z.infer<typeof programPhaseSchema>
 export type ObjectionRebuttal = z.infer<typeof objectionRebuttalSchema>
 export type TrackRecord = z.infer<typeof trackRecordSchema>
+export type Pricing = z.infer<typeof pricingSchema>
 
 // Legacy exports for backward compatibility
 export const stepYouAndStorySchema = stepWhoYouAreSchema.merge(stepYourStorySchema)

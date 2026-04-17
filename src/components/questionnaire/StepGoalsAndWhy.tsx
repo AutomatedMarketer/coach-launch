@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import DynamicObjectArrayField from './DynamicObjectArrayField'
+import FieldSuggestion from './FieldSuggestion'
 
 interface StepGoalsAndWhyProps {
   form: UseFormReturn<Record<string, unknown>>
@@ -40,6 +41,42 @@ export default function StepGoalsAndWhy({ form }: StepGoalsAndWhyProps) {
             { key: 'quote', label: 'Their Words (optional)', placeholder: 'e.g. "This changed everything for me"', type: 'textarea' },
           ]}
         />
+      </div>
+
+      {/* Aggregate Success Rate (added April 15 2026 — closes belief-shift-map Component 12 gap) */}
+      <div className="space-y-4">
+        <h3 className="text-base font-semibold text-amber-400 uppercase tracking-wide">
+          Program Success Rate
+        </h3>
+        <p className="text-sm text-slate-400">
+          If you have rough numbers, drop them here. The AI uses this in your Belief Breakthrough Blueprint as internal case study evidence. Leave blank if you don&apos;t track this yet — the AI will skip it rather than invent.
+        </p>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-2">
+            <Label htmlFor="clientSuccessRate.totalClientsInProgram">
+              Total Clients in Your Program <span className="text-slate-500">(optional)</span>
+            </Label>
+            <Input
+              id="clientSuccessRate.totalClientsInProgram"
+              type="number"
+              min={0}
+              placeholder="e.g. 50"
+              {...register('clientSuccessRate.totalClientsInProgram', { valueAsNumber: true })}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="clientSuccessRate.clientsAchievedResult">
+              How Many Achieved the Result <span className="text-slate-500">(optional)</span>
+            </Label>
+            <Input
+              id="clientSuccessRate.clientsAchievedResult"
+              type="number"
+              min={0}
+              placeholder="e.g. 43"
+              {...register('clientSuccessRate.clientsAchievedResult', { valueAsNumber: true })}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Section 2 — Track Record */}
@@ -217,16 +254,24 @@ export default function StepGoalsAndWhy({ form }: StepGoalsAndWhyProps) {
 
         <div className="space-y-2">
           <Label htmlFor="scarcityElement">
-            What Creates Urgency? <span className="text-slate-500">(optional)</span>
+            What Creates Urgency? <span className="text-red-400">*</span>
           </Label>
           <p className="text-sm text-slate-400">
-            Cohort start dates, limited spots, upcoming price increase — anything that creates legitimate FOMO. Used in emails and ads.
+            Capacity cap, cohort start dates, upcoming price increase, bonus deadline — anything that creates legitimate FOMO. Used across every email, ad, and sales page. Without it, the AI invents a deadline.
           </p>
           <Input
             id="scarcityElement"
-            placeholder='e.g. "Next cohort starts March 1st, limited to 10 coaches"'
+            placeholder='e.g. "Only 10 clients at a time, next cohort opens March 1" or "Enrollment closes Friday — price goes up $2K on Monday"'
             {...register('scarcityElement')}
           />
+          <FieldSuggestion
+            fieldName="scarcityElement"
+            answers={form.getValues() as Record<string, unknown>}
+            onAccept={(val) => form.setValue('scarcityElement', val, { shouldValidate: true, shouldDirty: true })}
+          />
+          {errors.scarcityElement && (
+            <p className="text-sm text-red-500">{errors.scarcityElement.message as string}</p>
+          )}
         </div>
 
         <div className="space-y-2">

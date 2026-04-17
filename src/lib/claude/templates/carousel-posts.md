@@ -62,16 +62,20 @@ You are creating 5-10 Instagram/Facebook carousel posts for a coaching business.
 - **Aspiring Identity:** {{aspiringIdentity}}
 - **ManyChat Keyword:** {{ctaKeyword}}
 - **Lead Magnet:** {{leadMagnetName}}
+{{#if idealClientCurrentRevenue}}- **Ideal Client's Current Revenue (coach-provided — use verbatim):** {{idealClientCurrentRevenue}}{{/if}}
+{{#if monthlyActionCost}}- **Cost of Inaction (coach-provided — use verbatim in cost/urgency slides):** {{monthlyActionCost}}{{/if}}
+- **Case Studies:** {{caseStudies}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
 8. BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
+9. **HARD RULE — dollar amounts in social content.** For cost-of-inaction slides, use `monthlyActionCost` VERBATIM when provided. For revenue/income references, use `idealClientCurrentRevenue` VERBATIM when provided. Do NOT invent competitor prices, medical costs, therapy costs, alternative program costs, or ROI figures. If a slide needs a dollar figure not in CLIENT DETAILS, describe the concept qualitatively ("a fraction of what alternatives cost," "a price most serious professionals already spend on less-valuable things") or skip that slide entirely.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}

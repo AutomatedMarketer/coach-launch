@@ -1,0 +1,224 @@
+[dotenv@17.3.1] injecting env (6) from .env.local -- tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' }
+[env] Anthropic key loaded: sk-ant-api03-JD…1xmMdAAA
+
+── Fact allowlist preview ──
+fitness-sparse  money=18  durations=10  numbers=40  properNouns=10
+business-abstract money=30  durations=12  numbers=48  properNouns=9
+relationship-dense money=26  durations=18  numbers=55  properNouns=19
+
+================================================================================
+▶ COACH: Marcus Reed — Fitness Coach (sparse input) (in-home fitness coaching for busy executives)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    10.7s — clean output
+  ✓ human-bio                      85/100     9.9s — missing sections
+  ✓ proof-stack                    91/100     14.5s — 3 scanner warnings
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     27.7s — 15 scanner warnings
+  ✓ emotional-trigger-map          85/100     134.7s [redacted 1] — 39 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     31.3s — 12 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✓ two-identities                 85/100     77.9s — 66 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}
+  ✓ belief-shift-map               85/100     172.6s — 124 scanner warnings
+  ✓ lead-magnet-outline            85/100     72.1s [redacted 5] — 65 scanner warnings
+  ✓ offer-one-sheet                85/100     33.5s — 5 scanner warnings
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ core-conversion-content        85/100     123.5s [redacted 1] — 22 scanner warnings
+  ~ qualifying-filter              76/100     16.4s — missing sections; 3 scanner warnings
+  ✓ pricing-framework              85/100     41.7s — 28 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{revenueGoal}}
+  ✓ sales-call-script              85/100     106.3s [redacted 2] — 28 scanner warnings
+  ✓ homepage-copy                  85/100     52.9s — 22 scanner warnings
+  ✓ about-page                     85/100     42.5s — 10 scanner warnings
+  ✓ email-welcome-sequence         85/100     72.7s — 37 scanner warnings
+  ✓ email-sales-sequence           85/100     125.6s — 80 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{qualificationQuestions}}, {{qualificationQuestions}}, {{minimumRequirements}}
+  ✓ content-angle-library          85/100     227.4s [redacted 3] — 285 scanner warnings
+  ~ ghl-chat-sequence              55/100     107.5s [redacted 21] — truncated mid-sentence; 161 scanner warnings
+  ✓ manychat-sequence              85/100     71.9s [redacted 1] — 194 scanner warnings
+  ✓ facebook-posts                 85/100     100.0s [redacted 1] — 52 scanner warnings
+  ✓ facebook-ad-copy               85/100     49.9s [redacted 2] — 39 scanner warnings
+  ✓ youtube-script                 85/100     91.8s — 43 scanner warnings
+  ✓ carousel-posts                 85/100     136.0s [redacted 6] — 282 scanner warnings
+  ✓ shorts-reels-scripts           85/100     52.8s — 56 scanner warnings
+
+================================================================================
+▶ COACH: Sarah Chen — Business/Mindset Coach (abstract niche) (mindset coaching for female entrepreneurs)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    21.7s — clean output
+  ✓ human-bio                      85/100     13.0s — missing sections
+  ✓ proof-stack                    100/100    14.5s — clean output
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     34.3s — 12 scanner warnings
+  ✓ emotional-trigger-map          85/100     120.5s [redacted 7] — 22 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     23.2s — 13 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✓ two-identities                 85/100     87.2s — 73 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}
+  ✓ belief-shift-map               85/100     206.7s [redacted 2] — 137 scanner warnings
+  ✓ lead-magnet-outline            85/100     98.8s [redacted 1] — 96 scanner warnings
+  ✓ offer-one-sheet                85/100     31.3s — 10 scanner warnings
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ core-conversion-content        85/100     119.1s — 39 scanner warnings
+  ~ qualifying-filter              73/100     19.4s — missing sections; 4 scanner warnings
+  ✓ pricing-framework              85/100     40.0s [redacted 5] — 32 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{revenueGoal}}
+  ✓ sales-call-script              85/100     69.3s [redacted 1] — 45 scanner warnings
+  ✓ homepage-copy                  85/100     46.9s — 14 scanner warnings
+  ✓ about-page                     85/100     41.1s — 10 scanner warnings
+  ✓ email-welcome-sequence         85/100     101.4s [redacted 4] — 39 scanner warnings
+  ✓ email-sales-sequence           85/100     135.4s [redacted 2] — 88 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{qualificationQuestions}}, {{qualificationQuestions}}, {{minimumRequirements}}
+  ✓ content-angle-library          85/100     261.4s [redacted 3] — 342 scanner warnings
+  ✓ ghl-chat-sequence              85/100     81.3s [redacted 8] — 114 scanner warnings
+  ✓ manychat-sequence              85/100     82.3s [redacted 1] — 173 scanner warnings
+  ✓ facebook-posts                 85/100     110.0s [redacted 2] — 35 scanner warnings
+  ✓ facebook-ad-copy               85/100     44.5s [redacted 3] — 41 scanner warnings
+  ✓ youtube-script                 85/100     96.3s [redacted 1] — 58 scanner warnings
+  ~ carousel-posts                 55/100     69.5s — truncated mid-sentence; 160 scanner warnings
+  ✓ shorts-reels-scripts           85/100     49.9s — 61 scanner warnings
+
+================================================================================
+▶ COACH: David Alvarez — Relationship Coach (dense input) (post-divorce dating coaching for men)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    12.6s [redacted 1] — clean output
+  ✓ human-bio                      85/100     8.7s — missing sections
+  ✓ proof-stack                    100/100    12.8s — clean output
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     31.7s — 13 scanner warnings
+  ✓ emotional-trigger-map          85/100     111.0s [redacted 1] — 16 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     24.9s — 14 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✓ two-identities                 85/100     92.6s [redacted 4] — 59 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}
+  ✓ belief-shift-map               85/100     235.6s [redacted 3] — 124 scanner warnings
+  ✓ lead-magnet-outline            85/100     64.7s — 66 scanner warnings
+  ✓ offer-one-sheet                85/100     29.8s — missing sections
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ core-conversion-content        85/100     119.7s — 22 scanner warnings
+  ~ qualifying-filter              76/100     20.8s — missing sections; 3 scanner warnings
+  ✓ pricing-framework              85/100     49.5s [redacted 9] — 33 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{revenueGoal}}
+  ✓ sales-call-script              85/100     115.5s [redacted 2] — 29 scanner warnings
+  ✓ homepage-copy                  85/100     53.3s — 17 scanner warnings
+  ✓ about-page                     85/100     42.9s — 5 scanner warnings
+  ✓ email-welcome-sequence         85/100     95.4s [redacted 3] — 33 scanner warnings
+  ✓ email-sales-sequence           85/100     124.8s — 73 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{qualificationQuestions}}, {{qualificationQuestions}}, {{minimumRequirements}}
+  ✓ content-angle-library          85/100     251.5s [redacted 6] — 315 scanner warnings
+  ✓ ghl-chat-sequence              85/100     110.6s — 192 scanner warnings
+  ✓ manychat-sequence              85/100     81.9s [redacted 4] — 157 scanner warnings
+  ✓ facebook-posts                 85/100     124.4s [redacted 3] — 69 scanner warnings
+  ✓ facebook-ad-copy               85/100     51.2s [redacted 4] — 41 scanner warnings
+  ✓ youtube-script                 85/100     90.1s — 35 scanner warnings
+  ✓ carousel-posts                 85/100     143.6s [redacted 7] — 319 scanner warnings
+  ✓ shorts-reels-scripts           85/100     45.9s — 45 scanner warnings
+
+================================================================================
+  FINAL REPORT
+================================================================================
+
+
+┌─ Marcus Reed — Fitness Coach (sparse input)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 84/100 | Median: 85/100
+│   Hallucinations (post-redact): 1671 (0 critical)
+│   Auto-redacted: 43 critical hits replaced with [COACH: Insert ...]
+│   Tokens: 511,620 (est. cost: $3.07)
+│
+│   Worst deliverables:
+│     55/100  ghl-chat-sequence               truncated mid-sentence; 161 scanner warnings
+│     76/100  qualifying-filter               missing sections; 3 scanner warnings
+│     85/100  human-bio                       missing sections
+│     85/100  magnetic-messaging-statement    15 scanner warnings
+│     85/100  emotional-trigger-map           39 scanner warnings
+└─
+
+┌─ Sarah Chen — Business/Mindset Coach (abstract niche)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 85/100 | Median: 85/100
+│   Hallucinations (post-redact): 1622 (0 critical)
+│   Auto-redacted: 40 critical hits replaced with [COACH: Insert ...]
+│   Tokens: 522,228 (est. cost: $3.13)
+│
+│   Worst deliverables:
+│     55/100  carousel-posts                  truncated mid-sentence; 160 scanner warnings
+│     73/100  qualifying-filter               missing sections; 4 scanner warnings
+│     85/100  human-bio                       missing sections
+│     85/100  magnetic-messaging-statement    12 scanner warnings
+│     85/100  emotional-trigger-map           22 scanner warnings
+└─
+
+┌─ David Alvarez — Relationship Coach (dense input)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 86/100 | Median: 85/100
+│   Hallucinations (post-redact): 1686 (0 critical)
+│   Auto-redacted: 47 critical hits replaced with [COACH: Insert ...]
+│   Tokens: 542,116 (est. cost: $3.25)
+│
+│   Worst deliverables:
+│     76/100  qualifying-filter               missing sections; 3 scanner warnings
+│     85/100  human-bio                       missing sections
+│     85/100  magnetic-messaging-statement    13 scanner warnings
+│     85/100  emotional-trigger-map           16 scanner warnings
+│     85/100  usp                             14 scanner warnings
+└─
+
+── SCANNER ACCURACY ──
+Total critical hallucinations caught: 0
+Total warnings caught: 4979
+Templates with critical hallucinations:
+
+Full results written to: D:\dev\Coach launch\app\scripts\test-output\fact-scanner-e2e-2026-04-16T18-40-18-382Z.json
+

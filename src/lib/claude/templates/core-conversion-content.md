@@ -74,7 +74,7 @@ Think of this like the Bible for {{clientName}}'s business: it has every argumen
 {{#if ctaKeyword}}- **CTA Keyword:** {{ctaKeyword}}{{/if}}
 {{#if testimonials}}- **Testimonials:** {{testimonials}}{{/if}}
 {{#if credentials}}- **Credentials:** {{credentials}}{{/if}}
-- **Program Phases:** {{programPhases}}
+{{#if programPhases}}- **Program Phases:** {{programPhases}}{{else}}- **Program Phases:** Not provided — for Section 9, create 3 phases from {{uniqueMechanism}} using the transformation arc: what changes first, what builds second, what the final transformation looks like. Name each phase in language specific to {{niche}}.{{/if}}
 - **Track Record:** {{trackRecord}}
 - **Case Studies:** {{caseStudies}}
 - **Why Beyond Money:** {{whyDoThis}}
@@ -89,7 +89,7 @@ Think of this like the Bible for {{clientName}}'s business: it has every argumen
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -119,7 +119,9 @@ So if you are: {{targetAudience}}, you're [problems], leading to [complaints], m
 Then pay attention to what I'm about to share with you because this could very well be the [video / guide / letter] that changes everything for you."
 
 #### SECTION 3: SOCIAL PROOF
-{{#if testimonials}}Use the provided testimonials. For EACH testimonial, follow this exact structure:
+{{#if testimonials}}Use the provided testimonials. TESTIMONIAL CONSTRAINTS: Each testimonial below contains only what the coach provided. DO NOT add time periods, problem descriptions, transformation details, or outcome metrics that are not explicitly stated in the testimonial text. If those details are absent, write the narrative ONLY around what is there (the quote and the client name). Shorten the proof block rather than invent missing details.
+
+For EACH testimonial, follow this exact structure:
 "Just like it did for [client name]. See, [client name] was right where you are. They had [specific problems], leading to [specific complaints], which made them feel [unwanted feelings]. They had tried [old methods], they still [unwanted result]... But they applied what I'm about to share with you and ultimately ended up getting [big goal] in [time period]. And they didn't even have to [negative old method]."
 Testimonials provided: {{testimonials}}{{else}}Insert clearly marked placeholders using this structure:
 "Just like it did for [INSERT CLIENT NAME]. See, [CLIENT] was right where you are. They had [CLIENT'S PROBLEMS], leading to [COMPLAINTS], which made them feel [UNWANTED FEELINGS]. They tried [OLD METHODS], they still [UNWANTED RESULT]... But they applied what I'm about to share with you and ultimately ended up getting [BIG GOAL] in [TIME PERIOD]."
@@ -208,7 +210,7 @@ First, write a transition:
 Then write an OVERVIEW using this structure:
 "It's a [delivery model] that helps {{targetAudience}} get [big goal] without [negative old method]. This works by [why new method works] in a way that gets [big goal]. As a result... instead of [old method] and [complaints]... All you'll get are [phase 1 goal], [phase 2 goal] and [phase 3 goal]. With {{offerName}}, you can have less [complaints], get [big goal(s)], and [desired feelings]! And in this [program], I'm going to give you the step-by-step system on how you can do it too. It's the exact same system me and my clients currently use to get [big goal(s)]. And it's designed to help you go from [old identity] to [aspiring identity]."
 
-Then write EACH PHASE using this exact structure from {{programPhases}}:
+{{#if programPhases}}Then write EACH PHASE using the program phases listed above:{{else}}Write EACH PHASE as 3 logical steps in the journey from {{unwantedFeelings}} to {{desiredFeelings}}. Name each phase with {{niche}}-specific language — not 'Phase 1/2/3' but named steps the coach would actually use.{{/if}}
 "The first step is called [Phase 1 Name].
 The first thing we're going to do is [Phase 1 big idea / result].
 We do this by [what it is from phase 1] in a way that easily, quickly avoids [complaints related to phase 1] and gets [phase 1 big idea / result].

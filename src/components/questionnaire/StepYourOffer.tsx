@@ -2,6 +2,7 @@
 
 import { type UseFormReturn } from 'react-hook-form'
 import { Textarea } from '@/components/ui/textarea'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import {
   Select,
@@ -11,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import DynamicArrayField from './DynamicArrayField'
+import FieldSuggestion from './FieldSuggestion'
 
 interface StepYourOfferProps {
   form: UseFormReturn<Record<string, unknown>>
@@ -74,6 +76,46 @@ export default function StepYourOffer({ form }: StepYourOfferProps) {
           rows={4}
           {...register('bestClientEver')}
         />
+      </div>
+
+      {/* Client's Financial Reality (added April 15 2026 — closes hallucination gap) */}
+      <div className="space-y-2">
+        <Label htmlFor="idealClientCurrentRevenue">
+          What is your ideal client currently earning? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Estimate their current monthly or annual revenue. This powers every pricing statement, value-gap calculation, and urgency hook the AI writes. Without it, the AI invents numbers.
+        </p>
+        <Input
+          id="idealClientCurrentRevenue"
+          placeholder='e.g. "$3K-$8K/month" or "$150K-$500K/year" or "Around $5K/month, stuck there for 12+ months"'
+          {...register('idealClientCurrentRevenue')}
+        />
+        {errors.idealClientCurrentRevenue && (
+          <p className="text-sm text-red-500">{errors.idealClientCurrentRevenue.message as string}</p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="monthlyActionCost">
+          What does inaction cost them per month? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Quantify the cost of staying stuck — dollars lost, time wasted, opportunities missed. The AI uses this verbatim in urgency copy across emails, ads, chat sequences, and pricing pages. Be specific — vague answers lead to [COACH: Insert X] placeholders in your output.
+        </p>
+        <Input
+          id="monthlyActionCost"
+          placeholder='e.g. "$2,000/month in underpricing alone" or "15 hours/week of lost time worth $3K" or "2-3 lost clients/month = $6K"'
+          {...register('monthlyActionCost')}
+        />
+        <FieldSuggestion
+          fieldName="monthlyActionCost"
+          answers={form.getValues() as Record<string, unknown>}
+          onAccept={(val) => form.setValue('monthlyActionCost', val, { shouldValidate: true, shouldDirty: true })}
+        />
+        {errors.monthlyActionCost && (
+          <p className="text-sm text-red-500">{errors.monthlyActionCost.message as string}</p>
+        )}
       </div>
 
       {/* Q24 — Top Complaints */}

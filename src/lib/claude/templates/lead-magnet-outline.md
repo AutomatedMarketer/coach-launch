@@ -57,7 +57,7 @@ You are creating a lead magnet outline for a coaching business. This lead magnet
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -95,6 +95,7 @@ You are creating a lead magnet outline for a coaching business. This lead magnet
 3. **Introduction** (1 page)
    - Why the reader should care
    - What they'll learn
+   - CREDENTIAL RULE: Only state credentials, certifications, client counts, and results explicitly provided in the CLIENT INPUT DATA. If a credential is not listed, omit it. Do not estimate, round up, or infer achievements not in the questionnaire.
    - Quick credibility statement about {{clientName}}
    - "By the end of this guide, you'll know exactly [specific outcome]"
 

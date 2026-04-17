@@ -3,11 +3,28 @@ import { createClient, createAdminClient } from '@/lib/supabase/server'
 import { generateDeliverable } from '@/lib/claude/generate'
 import { generateWithRetry } from '@/lib/claude/retry-engine'
 import { checkQuality, extractPostProcessing } from '@/lib/claude/quality-check'
+import { scanForHallucinations, redactHallucinations } from '@/lib/claude/fact-scanner'
+import { logHallucinations } from '@/lib/notifications/hallucination-logger'
 import { reportError } from '@/lib/notifications/error-reporter'
 import { trackTokenUsage, trackRateLimitHit, trackQualityAlert } from '@/lib/notifications/usage-monitor'
 import { DELIVERABLES } from '@/lib/deliverable-config'
 import { extractIdentityNames } from '@/lib/claude/identity-extractor'
 import { checkRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+
+/**
+ * Fact-scanner enforcement flag. When true, critical hallucinations force a
+ * correction retry (older, more expensive path). Default false.
+ */
+const FACT_SCANNER_ENFORCE = process.env.FACT_SCANNER_ENFORCE === 'true'
+
+/**
+ * Auto-redact flag. When true (default), critical hallucinations detected by the
+ * scanner are REPLACED in-place with `[COACH: Insert your real X here]` placeholders
+ * before the deliverable is saved. Deterministic, no retry needed, works uniformly
+ * across all templates regardless of output length.
+ * Set FACT_SCANNER_AUTOREDACT=false to disable.
+ */
+const FACT_SCANNER_AUTOREDACT = process.env.FACT_SCANNER_AUTOREDACT !== 'false'
 
 /** Strip known hallucinated names from prior deliverable context to prevent propagation */
 const HALLUCINATED_NAMES = [
@@ -203,10 +220,37 @@ export async function POST(
       const postProcessingRules = extractPostProcessing(templateId)
       let qualityResult = await checkQuality(templateId, result.content, answers, postProcessingRules)
 
+      // Deterministic fact scanner: catches numeric/duration/money/proper-noun hallucinations
+      // that the LLM QA reviewer has blind spots for (math on client data, paraphrased durations).
+      // Shadow mode by default — logs findings but does NOT force a retry unless FACT_SCANNER_ENFORCE=true.
+      let scannerResult = scanForHallucinations(result.content, result.allowlist)
+      const criticalScannerHits = scannerResult.hallucinations.filter(h => h.severity === 'critical')
+      if (FACT_SCANNER_ENFORCE && criticalScannerHits.length > 0 && qualityResult.pass) {
+        console.log(`[fact-scanner] ${criticalScannerHits.length} critical hallucinations caught — forcing correction retry`)
+        qualityResult = {
+          ...qualityResult,
+          pass: false,
+          issues: [
+            ...qualityResult.issues,
+            ...criticalScannerHits.map(h => `SCANNER HALLUCINATION (${h.type}): "${h.value}" not in client input — context: "${h.evidence}"`),
+          ],
+          suggestions: [
+            ...qualityResult.suggestions,
+            `Remove these fabricated ${criticalScannerHits[0].type} values: ${criticalScannerHits.map(h => h.value).join(', ')}. Either skip the sentence/section entirely, or rewrite it qualitatively (e.g. "significant ROI" instead of a specific dollar amount).`,
+          ],
+        }
+      }
+
       // If quality fails, retry once with corrections
       // Small templates: always retry. Large templates: only retry on truncation (to avoid timeout).
-      const isTruncated = qualityResult.issues.some(i => i.toLowerCase().includes('truncat'))
-      if (!qualityResult.pass && qualityResult.suggestions.length > 0 && (config.maxTokens < 10240 || isTruncated)) {
+      const TRUNCATION_SIGNALS = ['truncat', 'cut off', 'cut-off', 'incomplete', 'unfinished', 'mid-sentence', 'mid sentence', 'mid-bullet', 'mid bullet']
+      const isTruncated = qualityResult.issues.some(i => {
+        const lower = i.toLowerCase()
+        return TRUNCATION_SIGNALS.some(sig => lower.includes(sig))
+      })
+      // Always retry truncation, regardless of template size.
+      // Retry other QA failures only for small templates (large-template re-gen is expensive + rarely improves).
+      if (!qualityResult.pass && qualityResult.suggestions.length > 0 && (config.maxTokens < 16384 || isTruncated)) {
         console.log(`[generate] QA failed for ${templateId} (score: ${qualityResult.score}, truncated: ${isTruncated}). Retrying with corrections...`)
         try {
           const correctionContext = `\n\nIMPORTANT CORRECTIONS REQUIRED:\n${qualityResult.suggestions.map(s => `- ${s}`).join('\n')}\nPlease regenerate addressing these specific issues.${isTruncated ? ' Ensure ALL sections are fully completed — do not cut off mid-sentence.' : ''}`
@@ -221,12 +265,29 @@ export async function POST(
           result.completionTokens += correctedResult.completionTokens
           result.retryCount += 1
 
-          // Re-check quality
+          // Re-check quality AND re-scan facts on the corrected content
           qualityResult = await checkQuality(templateId, result.content, answers, postProcessingRules)
+          scannerResult = scanForHallucinations(result.content, result.allowlist)
         } catch (corrErr) {
           console.error(`[generate] Correction retry failed for ${templateId}:`, corrErr instanceof Error ? corrErr.message : corrErr)
         }
       }
+
+      // Auto-redact critical hallucinations in-place with [COACH: Insert ...] placeholders.
+      // This is the "strong fix" — deterministic, output-agnostic, works for long multi-item
+      // templates where prompt-layer rules decay mid-generation.
+      if (FACT_SCANNER_AUTOREDACT) {
+        const redaction = redactHallucinations(result.content, scannerResult.hallucinations, { severity: 'critical' })
+        if (redaction.redacted > 0) {
+          console.log(`[fact-scanner] Auto-redacted ${redaction.redacted} critical hallucination(s) in ${templateId}: ${redaction.redactedValues.slice(0, 5).join(', ')}${redaction.redactedValues.length > 5 ? ', …' : ''}`)
+          result.content = redaction.content
+        }
+      }
+
+      // Measure post-redaction quality: semantic blanks + leaked fallbacks
+      const semanticBlanks = (result.content.match(/\[ADD: [^\]]+\]/g) || []).length
+      const leakedFallbacks = (result.content.match(/not provided — skip this element/gi) || []).length
+      console.log(`[quality] ${templateId}: ${semanticBlanks} blanks, ${leakedFallbacks} leaked fallbacks`)
 
       const deliverableData = {
         questionnaire_id: questionnaireId,
@@ -265,6 +326,19 @@ export async function POST(
         if (error) throw error
         data = inserted
       }
+
+      // Persist every caught hallucination (scanner + QA) for the self-learning loop.
+      // Fire-and-forget — logging must never block the response.
+      void logHallucinations(
+        {
+          templateId,
+          questionnaireId,
+          deliverableId: data?.id,
+          enforced: FACT_SCANNER_ENFORCE,
+        },
+        scannerResult,
+        qualityResult.issues,
+      )
 
       // Track token usage for billing/usage alerts
       trackTokenUsage(user.id, result.promptTokens + result.completionTokens, templateId)
@@ -342,8 +416,15 @@ export async function POST(
       })
 
       console.error(`[generate] Generation failed for ${templateId}:`, errorMsg)
+
+      // Surface the detailed error from generateDeliverable (token-budget hints, etc.)
+      // instead of the generic "try again" message. The user sees this directly.
+      const clientMessage = errorMsg.startsWith('Claude returned no text content')
+        ? errorMsg
+        : `Content generation for "${config.title}" failed. This can happen if your questionnaire answers are very long or if the AI service is temporarily overloaded. Please try again, or contact support if it keeps failing.`
+
       return NextResponse.json(
-        { error: 'Content generation failed. Please try again.', deliverable },
+        { error: clientMessage, deliverable },
         { status: 500 }
       )
     }

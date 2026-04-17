@@ -5,7 +5,7 @@ export interface RetryResult extends GenerationResult {
   retryStrategy: 'none' | 'fresh-call' | 'simplified-context' | 'model-fallback'
 }
 
-const FALLBACK_MODEL = 'claude-sonnet-4-20250514'
+const FALLBACK_MODEL = 'claude-sonnet-4-6'
 const RETRY_BACKOFF_MS = 2000
 const MAX_RETRIES = 3
 

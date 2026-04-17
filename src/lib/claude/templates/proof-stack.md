@@ -50,7 +50,7 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -64,6 +64,12 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 4. **DO NOT invent media appearances, speaking events, or publications.** Only include what is explicitly stated.
 5. **DO NOT round up or embellish numbers.** If they coached 47 clients, say 47 — not "nearly 50" or "50+".
 6. **For any section with no data provided**, write exactly: "No data provided for this section." Do NOT leave it blank, do NOT skip it silently, and do NOT fill it with assumptions.
+7. **DO NOT perform math on client numbers.** Do NOT multiply, add, or aggregate client figures to produce a new number. If the client says "$5,000 per client," do NOT calculate "$500,000 total revenue" — that total is not in the data. Only cite totals, sums, or aggregates if the client explicitly provided them as totals.
+8. **USE THE CLIENT'S EXACT PHRASING for durations, nouns, and context.**
+   - If the client says "13 years of personal training," write "13 years of personal training" — NOT "15 years in the fitness industry," NOT "over a decade," NOT "10+ years training clients."
+   - Do NOT change nouns: "personal training" ≠ "fitness industry." "Built a gym" ≠ "owned a fitness business." Keep the exact words the client used.
+   - Do NOT change verbs: "built" ≠ "sold" ≠ "ran" ≠ "founded" ≠ "grew." Keep the exact verb the client used.
+   - Do NOT widen or narrow the scope of any claim.
 
 ### WHAT TO GENERATE
 

@@ -12,17 +12,24 @@ A complete ManyChat automation flow for coaching businesses. Includes a DM keywo
   "clientName": "string",
   "businessName": "string",
   "offerName": "string",
-  "pricePoint": "string",
+  "pricePoint": "string (synthesized from pricing.displayString)",
   "targetAudience": "string",
   "problemSolved": "string",
   "transformation": "string",
   "uniqueMechanism": "string",
-  "ctaType": "string — 'dm-keyword' | 'comment-trigger' | 'story-reply'",
-  "ctaKeyword": "string — the DM trigger word (e.g., 'READY', 'COACHING', 'FREE')",
+  "ctaType": "string — 'application' | 'booking' | 'dm-keyword'",
+  "ctaKeyword": "string (required when ctaType === 'dm-keyword')",
+  "applicationUrl": "string (required when ctaType === 'application')",
+  "offerDetailsUrl": "string (required when ctaType === 'booking')",
+  "leadMagnetUrl": "string (required)",
+  "leadMagnetName": "string (required)",
   "brandVoice": "string",
   "unwantedFeelings": "array — feelings the target audience wants to escape (from belief-shift map)",
   "desiredFeelings": "array — feelings the target audience wants to experience",
-  "aspiringIdentity": "string — the identity the target audience wants to become"
+  "aspiringIdentity": "string — the identity the target audience wants to become",
+  "monthlyActionCost": "string (required) — quoted verbatim in urgency nodes",
+  "firstResultTimeframe": "string (required) — quoted verbatim for result-timing claims",
+  "programDuration": "string (optional)"
 }
 ```
 
@@ -55,10 +62,17 @@ You are writing a complete ManyChat automation flow for a coaching business. Thi
 - **DM Keyword:** {{ctaKeyword}}
 - **Brand Voice:** {{brandVoice}}
 {{#if salesApproach}}- **Sales Approach:** {{salesApproach}}{{/if}}
+- **First Measurable Result Timeframe (coach-provided):** {{firstResultTimeframe}}
+- **Monthly Cost of Inaction (coach-provided — use verbatim in any urgency node):** {{monthlyActionCost}}
+- **Lead Magnet URL:** {{leadMagnetUrl}}
+- **Lead Magnet Name:** {{leadMagnetName}}
+{{#if applicationUrl}}- **Application URL:** {{applicationUrl}}{{/if}}
+{{#if offerDetailsUrl}}- **Offer / Sales Page URL:** {{offerDetailsUrl}}{{/if}}
+{{#if programDuration}}- **Program Duration:** {{programDuration}}{{/if}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -147,7 +161,11 @@ Use this exact format for each node:
 - Congratulate them on being a fit
 - Deliver the offer details for {{offerName}} in 3-5 bullet points
 - Include {{pricePoint}} openly
-- Include a button to the application/booking page
+- Reference `firstResultTimeframe` VERBATIM when describing timing: clients see their first measurable win {{firstResultTimeframe}}. Do NOT invent other week-N milestones.
+- Button action depends on CTA type — `{{ctaType}}`. Use EXACTLY ONE of the three branches below (the one matching {{ctaType}}); do NOT combine them:
+  {{#if ctaType === 'application'}}- Application CTA: button links to {{applicationUrl}}{{/if}}
+  {{#if ctaType === 'booking'}}- Booking CTA: button links to {{offerDetailsUrl}}{{/if}}
+  {{#if ctaType === 'dm-keyword'}}- DM-keyword CTA: button label "Reply {{ctaKeyword}}" that tags the user and triggers the next-step node{{/if}}
 - Include a "I have questions" button that routes to Q&A node
 
 **Node 7: Social Proof / Case Study** (1 hour delay if no button tap)
@@ -158,6 +176,7 @@ Use this exact format for each node:
 **Node 8: Urgency / Scarcity Reminder** (24 hours if no application)
 - If there's genuine scarcity (limited spots, cohort start date), mention it
 - If no real scarcity, use "momentum" framing instead: "The best time to start is when you're feeling this pull"
+- If you reference the cost of staying stuck, use `monthlyActionCost` VERBATIM ("{{monthlyActionCost}}"). Do NOT invent dollar figures.
 - Address ONE Core Belief from the Belief-Shift Map
 - Button: "Apply Now" + "Not ready yet" (routes to nurture)
 
@@ -196,7 +215,7 @@ Use this exact format for each node:
 - Quick reply: "I never thought of it that way" / "How do I fix this?"
 
 **Node N5: Day 5 — Free Resource** (24 hours)
-- Send a free resource (lead magnet, video, guide) related to {{problemSolved}}
+- Send the lead magnet: {{leadMagnetName}} — link: {{leadMagnetUrl}}
 - Frame it as: "I put this together for people in your exact situation"
 - Button: "Thanks!" + "Tell me about {{offerName}}"
 

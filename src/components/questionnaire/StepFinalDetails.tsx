@@ -21,6 +21,9 @@ interface StepFinalDetailsProps {
 export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
   const { register, formState: { errors }, watch, setValue } = form
 
+  // ctaType comes from Step 5 (Your Program). We key the URL requirements off it.
+  const ctaType = watch('ctaType') as string | undefined
+
   // Set defaults for Select fields only on first mount (if not already set from saved answers)
   useEffect(() => {
     if (!watch('brandVoice')) {
@@ -114,14 +117,29 @@ export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
         />
       </div>
 
-      {/* URLs (optional) */}
+      {/* URLs — required fields vary by CTA type */}
       <div className="space-y-4">
-        <h3 className="text-sm font-medium text-slate-300">
-          Links <span className="text-slate-500">(optional — skip if you don&apos;t have these yet)</span>
-        </h3>
+        <h3 className="text-sm font-medium text-slate-300">Links</h3>
+        {ctaType ? (
+          <p className="text-xs text-slate-500 -mt-2">
+            Your CTA type is <span className="text-amber-300">{ctaType}</span>.
+            {ctaType === 'application' && ' Application URL is required — it anchors all your "apply now" CTAs in emails and ads.'}
+            {ctaType === 'booking' && ' Offer / sales page URL is required — it\'s the destination for all "book a call" CTAs.'}
+            {ctaType === 'dm-keyword' && ' No booking URL required — the DM keyword drives your automations.'}
+          </p>
+        ) : (
+          <p className="text-xs -mt-2 rounded-md border border-amber-500/30 bg-amber-500/10 p-2 text-amber-300">
+            ⚠ No CTA type selected yet on Step 5 (Your Program). Go back and choose one so we know which URL you actually need.
+          </p>
+        )}
 
         <div className="space-y-2">
-          <Label htmlFor="offerDetailsUrl">Offer / Sales Page URL</Label>
+          <Label htmlFor="offerDetailsUrl">
+            Offer / Sales Page URL
+            {ctaType === 'booking'
+              ? <span className="text-red-400"> *</span>
+              : <span className="text-slate-500 font-normal"> (optional)</span>}
+          </Label>
           <Input
             id="offerDetailsUrl"
             type="url"
@@ -134,7 +152,12 @@ export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="applicationUrl">Application / Booking URL</Label>
+          <Label htmlFor="applicationUrl">
+            Application URL
+            {ctaType === 'application'
+              ? <span className="text-red-400"> *</span>
+              : <span className="text-slate-500 font-normal"> (optional)</span>}
+          </Label>
           <Input
             id="applicationUrl"
             type="url"
@@ -143,6 +166,24 @@ export default function StepFinalDetails({ form }: StepFinalDetailsProps) {
           />
           {errors.applicationUrl && (
             <p className="text-sm text-red-500">{errors.applicationUrl.message as string}</p>
+          )}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="leadMagnetUrl">
+            Lead Magnet Download URL <span className="text-red-400">*</span>
+          </Label>
+          <p className="text-sm text-gray-500">
+            Direct link to your free resource. Used in welcome emails, DM automations, and any nurture sequence — so every lead can access it with one tap.
+          </p>
+          <Input
+            id="leadMagnetUrl"
+            type="url"
+            placeholder="https://yoursite.com/guide"
+            {...register('leadMagnetUrl')}
+          />
+          {errors.leadMagnetUrl && (
+            <p className="text-sm text-red-500">{errors.leadMagnetUrl.message as string}</p>
           )}
         </div>
       </div>

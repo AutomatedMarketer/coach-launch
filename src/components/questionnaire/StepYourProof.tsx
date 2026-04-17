@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import DynamicObjectArrayField from './DynamicObjectArrayField'
+import FieldSuggestion from './FieldSuggestion'
 
 const CTA_LABELS: Record<string, string> = {
   application: 'Application Form — Pre-qualifies leads before you speak',
@@ -23,9 +24,23 @@ interface StepYourProofProps {
   form: UseFormReturn<Record<string, unknown>>
 }
 
+interface PricingValue {
+  totalUSD?: number
+  billingType?: 'one-time' | 'subscription' | 'installments'
+  displayString?: string
+  paymentPlanCount?: number
+  pifDiscountPercent?: number
+}
+
 export default function StepYourProof({ form }: StepYourProofProps) {
   const { register, formState: { errors }, watch, setValue } = form
   const ctaType = watch('ctaType') as string
+  const pricing = (watch('pricing') || {}) as PricingValue
+  const pricingErrors = errors.pricing as Record<string, { message?: string }> | undefined
+
+  const updatePricing = (patch: Partial<PricingValue>) => {
+    setValue('pricing', { ...pricing, ...patch }, { shouldValidate: true, shouldDirty: true })
+  }
 
   return (
     <div className="space-y-6">
@@ -138,20 +153,100 @@ export default function StepYourProof({ form }: StepYourProofProps) {
         />
       </div>
 
-      {/* Q48 — Price Point */}
-      <div className="space-y-2">
-        <Label htmlFor="pricePoint">What does it cost — pay-in-full and payment plan?</Label>
-        <p className="text-sm text-gray-500">
-          Your price anchors your positioning. Include both options if you offer them — prospects often choose the plan even when they can pay in full.
-        </p>
-        <Input
-          id="pricePoint"
-          placeholder="e.g. $4,997 pay-in-full or 3 payments of $1,897"
-          {...register('pricePoint')}
-        />
-        {errors.pricePoint && (
-          <p className="text-sm text-red-500">{errors.pricePoint.message as string}</p>
+      {/* Q48 — Pricing (structured) */}
+      <div className="space-y-3 rounded-xl border border-slate-700 bg-slate-900/30 p-4">
+        <div>
+          <Label className="text-base">What does your program cost?</Label>
+          <p className="text-sm text-gray-500 mt-1">
+            Enter the total price as a number so we can compute payment plans and pay-in-full discounts without guessing. The display string is exactly how we&apos;ll quote the price on your pages and in copy.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="space-y-1">
+            <Label htmlFor="pricing.totalUSD" className="text-sm">Total price (USD)</Label>
+            <Input
+              id="pricing.totalUSD"
+              type="number"
+              min={1}
+              placeholder="e.g. 4997"
+              value={pricing.totalUSD ?? ''}
+              onChange={(e) => updatePricing({ totalUSD: e.target.value === '' ? undefined : Number(e.target.value) })}
+            />
+            {pricingErrors?.totalUSD?.message && (
+              <p className="text-sm text-red-500">{pricingErrors.totalUSD.message as string}</p>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <Label className="text-sm">Billing type</Label>
+            <Select
+              value={pricing.billingType || ''}
+              onValueChange={(value) => updatePricing({ billingType: value as PricingValue['billingType'] })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Choose billing type..." />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="one-time">One-time payment</SelectItem>
+                <SelectItem value="subscription">Recurring subscription</SelectItem>
+                <SelectItem value="installments">Installments / payment plan</SelectItem>
+              </SelectContent>
+            </Select>
+            {pricingErrors?.billingType?.message && (
+              <p className="text-sm text-red-500">{pricingErrors.billingType.message as string}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <Label htmlFor="pricing.displayString" className="text-sm">How you display the price</Label>
+          <Input
+            id="pricing.displayString"
+            placeholder='e.g. "$4,997 for 6 months (or 3 payments of $1,897)"'
+            value={pricing.displayString || ''}
+            onChange={(e) => updatePricing({ displayString: e.target.value })}
+          />
+          {pricingErrors?.displayString?.message && (
+            <p className="text-sm text-red-500">{pricingErrors.displayString.message as string}</p>
+          )}
+        </div>
+
+        {pricing.billingType === 'installments' && (
+          <div className="space-y-1">
+            <Label htmlFor="pricing.paymentPlanCount" className="text-sm">Number of monthly payments</Label>
+            <Input
+              id="pricing.paymentPlanCount"
+              type="number"
+              min={1}
+              max={24}
+              placeholder="e.g. 3, 6, or 12"
+              value={pricing.paymentPlanCount ?? ''}
+              onChange={(e) => updatePricing({ paymentPlanCount: e.target.value === '' ? undefined : Number(e.target.value) })}
+            />
+            {pricingErrors?.paymentPlanCount?.message && (
+              <p className="text-sm text-red-500">{pricingErrors.paymentPlanCount.message as string}</p>
+            )}
+          </div>
         )}
+
+        <div className="space-y-1">
+          <Label htmlFor="pricing.pifDiscountPercent" className="text-sm">
+            Pay-in-full discount (%) <span className="text-slate-500 font-normal">— optional, default 0</span>
+          </Label>
+          <Input
+            id="pricing.pifDiscountPercent"
+            type="number"
+            min={0}
+            max={30}
+            placeholder="e.g. 10"
+            value={pricing.pifDiscountPercent ?? ''}
+            onChange={(e) => updatePricing({ pifDiscountPercent: e.target.value === '' ? 0 : Number(e.target.value) })}
+          />
+          {pricingErrors?.pifDiscountPercent?.message && (
+            <p className="text-sm text-red-500">{pricingErrors.pifDiscountPercent.message as string}</p>
+          )}
+        </div>
       </div>
 
       {/* Q49 — Guarantee / Risk Reversal */}
@@ -167,6 +262,44 @@ export default function StepYourProof({ form }: StepYourProofProps) {
           placeholder={'e.g. "I guarantee my process — if you show up, do the work, and follow the system, you will see results. I don\'t guarantee income because I can\'t control your execution."'}
           rows={3}
           {...register('guaranteeOrRisk')}
+        />
+      </div>
+
+      {/* Guarantee Timeframe (v6b — required if guaranteeOrRisk is set) */}
+      {(() => {
+        const g = watch('guaranteeOrRisk')
+        return typeof g === 'string' && g.trim().length > 0
+      })() && (
+        <div className="space-y-2">
+          <Label htmlFor="guaranteeTimeframe">
+            Guarantee timeframe <span className="text-red-400">*</span>
+          </Label>
+          <p className="text-sm text-gray-500">
+            How long does the guarantee last? The AI quotes this verbatim in your guarantee copy. Without it, we get &quot;30 days&quot; or &quot;90 days&quot; invented.
+          </p>
+          <Input
+            id="guaranteeTimeframe"
+            placeholder='e.g. "first 60 days of the program" or "first 90 days" or "through the end of month 4"'
+            {...register('guaranteeTimeframe')}
+          />
+          {errors.guaranteeTimeframe && (
+            <p className="text-sm text-red-500">{errors.guaranteeTimeframe.message as string}</p>
+          )}
+        </div>
+      )}
+
+      {/* Fast-Action Bonus Deadline (v6b — optional) */}
+      <div className="space-y-2">
+        <Label htmlFor="fastActionBonusDeadline">
+          Fast-action bonus deadline <span className="text-slate-500 font-normal">(optional)</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          When does the &quot;enroll fast, get this bonus&quot; window close? Used verbatim in pricing pages and sales call scripts. Leave blank if you don&apos;t run a fast-action bonus.
+        </p>
+        <Input
+          id="fastActionBonusDeadline"
+          placeholder='e.g. "72 hours from discovery call" or "within 48 hours of this email" or "by midnight Friday"'
+          {...register('fastActionBonusDeadline')}
         />
       </div>
 
@@ -217,6 +350,52 @@ export default function StepYourProof({ form }: StepYourProofProps) {
         />
         {errors.transformation && (
           <p className="text-sm text-red-500">{errors.transformation.message as string}</p>
+        )}
+      </div>
+
+      {/* First Result Timeframe (v6a — required) */}
+      <div className="space-y-2">
+        <Label htmlFor="firstResultTimeframe">
+          When do clients see their first measurable win? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          Be specific. The AI quotes this verbatim across emails, ads, and pricing pages. Vague answers become invented &quot;within 90 days&quot; timeframes that aren&apos;t yours.
+        </p>
+        <Input
+          id="firstResultTimeframe"
+          placeholder='e.g. "within 14 days" or "by end of week 2" or "in the first 30 days — most clients report 2-3 qualified leads"'
+          {...register('firstResultTimeframe')}
+        />
+        <FieldSuggestion
+          fieldName="firstResultTimeframe"
+          answers={form.getValues() as Record<string, unknown>}
+          onAccept={(val) => form.setValue('firstResultTimeframe', val, { shouldValidate: true, shouldDirty: true })}
+        />
+        {errors.firstResultTimeframe && (
+          <p className="text-sm text-red-500">{errors.firstResultTimeframe.message as string}</p>
+        )}
+      </div>
+
+      {/* Target Client Monthly Revenue (v6a — required) */}
+      <div className="space-y-2">
+        <Label htmlFor="targetClientMonthlyRevenue">
+          What does a typical client earn or achieve after the program? <span className="text-red-400">*</span>
+        </Label>
+        <p className="text-sm text-gray-500">
+          If your niche is revenue-based, give the dollar range. If it&apos;s not (fitness, relationships, health), describe the typical outcome in numbers. Powers all ROI, value-gap, and transformation copy.
+        </p>
+        <Input
+          id="targetClientMonthlyRevenue"
+          placeholder='e.g. "$15K-$30K/month" or "20+ qualified leads per week" or "30-45 lbs lost by month 6"'
+          {...register('targetClientMonthlyRevenue')}
+        />
+        <FieldSuggestion
+          fieldName="targetClientMonthlyRevenue"
+          answers={form.getValues() as Record<string, unknown>}
+          onAccept={(val) => form.setValue('targetClientMonthlyRevenue', val, { shouldValidate: true, shouldDirty: true })}
+        />
+        {errors.targetClientMonthlyRevenue && (
+          <p className="text-sm text-red-500">{errors.targetClientMonthlyRevenue.message as string}</p>
         )}
       </div>
 

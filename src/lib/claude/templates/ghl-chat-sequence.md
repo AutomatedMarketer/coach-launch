@@ -12,19 +12,26 @@ An automated chat/SMS follow-up sequence for GoHighLevel (GHL). Includes DM keyw
   "clientName": "string",
   "businessName": "string",
   "offerName": "string",
-  "pricePoint": "string",
+  "pricePoint": "string (synthesized from pricing.displayString)",
   "targetAudience": "string",
   "transformation": "string",
-  "ctaKeyword": "string — the DM trigger word (e.g., 'READY', 'COACHING')",
+  "ctaType": "string — 'application' | 'booking' | 'dm-keyword'",
+  "ctaKeyword": "string (optional, required when ctaType === 'dm-keyword')",
   "qualificationQuestions": "(AI-generated from niche, targetAudience, and pricePoint)",
   "minimumRequirements": "(AI-derived from targetAudience and pricePoint)",
-  "offerDetailsUrl": "string — link to offer page or PDF (optional)",
-  "applicationUrl": "string — link to application form (optional)",
+  "offerDetailsUrl": "string (required when ctaType === 'booking')",
+  "applicationUrl": "string (required when ctaType === 'application')",
+  "leadMagnetUrl": "string (required)",
+  "leadMagnetName": "string (required)",
   "platformType": "string — 'instagram-dm' | 'sms' | 'website-chat'",
   "brandVoice": "string",
   "unwantedFeelings": "array — feelings the target audience wants to escape (from belief-shift map)",
   "desiredFeelings": "array — feelings the target audience wants to experience",
-  "aspiringIdentity": "string — the identity the target audience wants to become"
+  "aspiringIdentity": "string — the identity the target audience wants to become",
+  "idealClientCurrentRevenue": "string (optional)",
+  "monthlyActionCost": "string (required) — quoted verbatim in urgency messages",
+  "firstResultTimeframe": "string (required) — quoted verbatim for result-timing claims",
+  "programDuration": "string (optional)"
 }
 ```
 
@@ -60,16 +67,24 @@ You are writing a GHL (GoHighLevel) chat/SMS automation sequence for a coaching 
 - **Unwanted Feelings:** {{unwantedFeelings}}
 - **Desired Feelings:** {{desiredFeelings}}
 - **Aspiring Identity:** {{aspiringIdentity}}
+{{#if idealClientCurrentRevenue}}- **Ideal Client's Current Revenue (coach-provided):** {{idealClientCurrentRevenue}}{{/if}}
+- **Cost of Inaction (coach-provided — use verbatim in urgency messages):** {{monthlyActionCost}}
+- **First Measurable Result Timeframe (coach-provided):** {{firstResultTimeframe}}
+- **Lead Magnet URL:** {{leadMagnetUrl}}
+- **Lead Magnet Name:** {{leadMagnetName}}
+- **CTA Type:** {{ctaType}}
+{{#if programDuration}}- **Program Duration:** {{programDuration}}{{/if}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
 8. BANNED CLICHES: Do NOT use these overused words in identity names, headlines, section headers, or key messaging: "prisoner," "captive," "trapped," "slave," "beggar," "grind/grinding," "hamster wheel," "treadmill," "rat race," "cage," "chains." Use niche-specific language instead.
+9. **HARD RULE — numbers in chat messages.** For urgency/cost messages, use `monthlyActionCost` VERBATIM when provided. For timeframe claims, use `programDuration` when provided. Do NOT invent dollar amounts, timeframes ("within 90 days"), percentages, or result claims with specific numbers. Chat messages should be conversational and qualitative — if a number isn't in CLIENT DETAILS, skip it rather than invent.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
@@ -157,7 +172,7 @@ Before the message sequence, generate a summary of all triggers needed in GHL:
 
 **Step 5: Qualified — Offer Details** (Instant after passing qualification)
 - "Awesome — sounds like this could be a great fit. Let me share the details."
-- Send {{offerDetailsUrl}} or describe the offer in 3-5 bullet points
+{{#if offerDetailsUrl}}- Send the offer details URL: {{offerDetailsUrl}}{{else}}- No offer URL was provided — describe the offer in 3-5 bullet points (do NOT invent a URL){{/if}}
 - Include {{pricePoint}} openly — no hiding
 - "Take a look and let me know if you have any questions."
 - **Tags:** +Qualified, +Offer-Sent
@@ -167,15 +182,17 @@ Before the message sequence, generate a summary of all triggers needed in GHL:
   - IF reply is "not sure" / objection → Go to Objection Handler Step
   - IF no response after 1 hour → Go to Step 6 automatically
 
-**Step 6: Application Invite** (30 min - 1 hour after Step 5)
-- "If what you saw resonates, the next step is to fill out a quick application."
-- Send {{applicationUrl}}
-- Frame as selective: "I review every application personally to make sure it's a mutual fit."
+**Step 6: Next Step** (30 min - 1 hour after Step 5)
+- Copy this step based on CTA type — `{{ctaType}}`. Use EXACTLY ONE of the three branches below (the one matching {{ctaType}}); do NOT combine them:
+  {{#if ctaType === 'application'}}- Application CTA: "If what you saw resonates, the next step is to fill out a quick application." Send {{applicationUrl}}.{{/if}}
+  {{#if ctaType === 'booking'}}- Booking CTA: "If what you saw resonates, grab a time on my calendar — {{offerDetailsUrl}}."{{/if}}
+  {{#if ctaType === 'dm-keyword'}}- DM-keyword CTA: "If you're in, reply with '{{ctaKeyword}}' and I'll send you the next step."{{/if}}
+- Frame as selective: "I review every response personally to make sure it's a mutual fit."
 - NOT "hurry up and apply" — calm, confident
-- **Tags:** +Application-Sent
-- **Pipeline:** Move to "Application Sent"
+- **Tags:** +Application-Sent (or +Booking-Sent)
+- **Pipeline:** Move to "Application Sent" (or "Booking Sent")
 - **Condition:**
-  - IF contact submits application → Tag: +Applied, Pipeline: "Applied", End sequence
+  - IF contact submits / books / replies with keyword → Tag: +Applied, Pipeline: "Applied", End sequence
   - IF no response after 24 hours → Go to Step 7
 
 **Step 7: Follow-Up #1 — Core Belief Nurture** (24 hours if no application)

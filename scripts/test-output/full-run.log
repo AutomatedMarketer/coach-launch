@@ -1,0 +1,327 @@
+[dotenv@17.3.1] injecting env (6) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[env] Anthropic key loaded: sk-ant-api03-JD…1xmMdAAA
+
+── Fact allowlist preview ──
+fitness-sparse  money=4  durations=8  numbers=22  properNouns=10
+business-abstract money=7  durations=11  numbers=21  properNouns=9
+relationship-dense money=5  durations=15  numbers=30  properNouns=19
+
+================================================================================
+▶ COACH: Marcus Reed — Fitness Coach (sparse input) (in-home fitness coaching for busy executives)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    13.9s — clean output
+  ✓ human-bio                      85/100     8.2s — missing sections
+  ✓ proof-stack                    85/100     16.4s — 8 scanner warnings
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     32.4s — 17 scanner warnings
+  ~ emotional-trigger-map          55/100     130.8s [2C/41W] — 2 critical hallucinations; 41 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     30.4s — 12 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✗ two-identities                 45/100     73.8s [8C/76W] — 8 critical hallucinations; 76 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{else}}
+  ✗ belief-shift-map               45/100     174.7s [3C/155W] — 3 critical hallucinations; 155 scanner warnings
+[template-loader] Unfilled placeholders: {{#if leadMagnetType === 'pdf-guide'}}, {{/if}}, {{#if leadMagnetType === 'checklist'}}, {{/if}}, {{#if leadMagnetType === 'framework'}}, {{/if}}, {{#if leadMagnetType === 'mini-course'}}, {{/if}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{else}}
+  ✓ lead-magnet-outline            85/100     76.9s — 73 scanner warnings
+  ~ offer-one-sheet                70/100     36.0s [1C/5W] — 1 critical hallucinations; 5 scanner warnings
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{else}}, {{else}}
+  ✓ core-conversion-content        85/100     128.8s — 22 scanner warnings
+  ✓ qualifying-filter              85/100     19.2s — 5 scanner warnings
+  ✗ pricing-framework              45/100     42.4s [13C/41W] — 13 critical hallucinations; 41 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{revenueGoal}}, {{else}}
+  ~ sales-call-script              55/100     99.6s [2C/37W] — 2 critical hallucinations; 37 scanner warnings
+  ✓ homepage-copy                  85/100     56.0s — 26 scanner warnings
+  ✓ about-page                     85/100     40.2s — 8 scanner warnings
+  ✗ email-welcome-sequence         45/100     96.0s [3C/49W] — 3 critical hallucinations; 49 scanner warnings
+  ~ email-sales-sequence           70/100     132.9s [1C/84W] — 1 critical hallucinations; 84 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{offerDetailsUrl}}, {{applicationUrl}}, {{qualificationQuestions}}, {{qualificationQuestions}}, {{offerDetailsUrl}}, {{applicationUrl}}, {{minimumRequirements}}, {{applicationUrl}}
+  ✗ content-angle-library          15/100     211.5s [12C/237W] — truncated mid-sentence; 12 critical hallucinations; 237 scanner warnings
+  ✓ ghl-chat-sequence              85/100     94.2s — 181 scanner warnings
+  ~ manychat-sequence              70/100     81.6s [1C/193W] — 1 critical hallucinations; 193 scanner warnings
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{leadMagnetUrl}}, {{else}}
+[template-loader] Unfilled placeholders: {{else}}
+  ~ facebook-posts                 55/100     90.2s [2C/37W] — 2 critical hallucinations; 37 scanner warnings
+  ✗ facebook-ad-copy               45/100     49.8s [3C/19W] — 3 critical hallucinations; 19 scanner warnings
+  ~ youtube-script                 70/100     76.5s [1C/29W] — 1 critical hallucinations; 29 scanner warnings
+  ✓ carousel-posts                 85/100     99.2s — 253 scanner warnings
+  ~ shorts-reels-scripts           70/100     55.1s [1C/52W] — 1 critical hallucinations; 52 scanner warnings
+
+================================================================================
+▶ COACH: Sarah Chen — Business/Mindset Coach (abstract niche) (mindset coaching for female entrepreneurs)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    14.0s — clean output
+  ✓ human-bio                      85/100     11.4s — missing sections
+  ✓ proof-stack                    85/100     13.9s — 5 scanner warnings
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✗ magnetic-messaging-statement   15/100     30.5s [3C/16W] — truncated mid-sentence; 3 critical hallucinations; 16 scanner warnings
+  ✗ emotional-trigger-map          45/100     139.2s [3C/30W] — 3 critical hallucinations; 30 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     32.9s — 13 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✗ two-identities                 45/100     82.7s [5C/63W] — 5 critical hallucinations; 63 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{else}}
+  ✗ belief-shift-map               45/100     204.9s [18C/205W] — 18 critical hallucinations; 205 scanner warnings
+[template-loader] Unfilled placeholders: {{#if leadMagnetType === 'pdf-guide'}}, {{/if}}, {{#if leadMagnetType === 'checklist'}}, {{/if}}, {{#if leadMagnetType === 'framework'}}, {{/if}}, {{#if leadMagnetType === 'mini-course'}}, {{/if}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{else}}
+  ✗ lead-magnet-outline            45/100     79.7s [3C/121W] — 3 critical hallucinations; 121 scanner warnings
+  ✗ offer-one-sheet                45/100     38.5s [4C/9W] — 4 critical hallucinations; 9 scanner warnings
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{else}}, {{else}}
+  ~ core-conversion-content        55/100     135.4s [2C/31W] — 2 critical hallucinations; 31 scanner warnings
+  ~ qualifying-filter              61/100     19.4s [1C/3W] — missing sections; 1 critical hallucinations; 3 scanner warnings
+  ✗ pricing-framework              45/100     44.0s [23C/42W] — 23 critical hallucinations; 42 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{revenueGoal}}, {{else}}
+  ~ sales-call-script              55/100     78.1s [2C/59W] — 2 critical hallucinations; 59 scanner warnings
+  ~ homepage-copy                  70/100     53.5s [1C/31W] — 1 critical hallucinations; 31 scanner warnings
+  ~ about-page                     70/100     42.2s [1C/18W] — 1 critical hallucinations; 18 scanner warnings
+  ✗ email-welcome-sequence         45/100     90.3s [8C/56W] — 8 critical hallucinations; 56 scanner warnings
+  ✗ email-sales-sequence           45/100     125.7s [7C/84W] — 7 critical hallucinations; 84 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{offerDetailsUrl}}, {{applicationUrl}}, {{qualificationQuestions}}, {{qualificationQuestions}}, {{offerDetailsUrl}}, {{applicationUrl}}, {{minimumRequirements}}, {{applicationUrl}}
+  ✗ content-angle-library          15/100     199.7s [18C/337W] — truncated mid-sentence; 18 critical hallucinations; 337 scanner warnings
+  ✗ ghl-chat-sequence              45/100     118.8s [4C/155W] — 4 critical hallucinations; 155 scanner warnings
+  ~ manychat-sequence              70/100     83.9s [1C/197W] — 1 critical hallucinations; 197 scanner warnings
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{leadMagnetUrl}}, {{else}}
+[template-loader] Unfilled placeholders: {{else}}
+  ✗ facebook-posts                 45/100     115.6s [5C/69W] — 5 critical hallucinations; 69 scanner warnings
+  ✗ facebook-ad-copy               45/100     54.8s [4C/67W] — 4 critical hallucinations; 67 scanner warnings
+  ✗ youtube-script                 45/100     85.8s [7C/70W] — 7 critical hallucinations; 70 scanner warnings
+  ✗ carousel-posts                 45/100     101.7s [17C/225W] — 17 critical hallucinations; 225 scanner warnings
+  ~ shorts-reels-scripts           55/100     47.5s [2C/60W] — 2 critical hallucinations; 60 scanner warnings
+
+================================================================================
+▶ COACH: David Alvarez — Relationship Coach (dense input) (post-divorce dating coaching for men)
+================================================================================
+
+── Phase 1 (1 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{revenueGoal}}, {{revenueGoalDeadline}}
+[template-loader] Unfilled placeholders: {{personalFamily}}, {{personalTraits}}, {{personalLocation}}
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ mission-statement              100/100    15.0s — clean output
+  ✓ human-bio                      85/100     10.6s — missing sections
+  ✓ proof-stack                    85/100     14.4s — 7 scanner warnings
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     38.5s — 16 scanner warnings
+  ✗ emotional-trigger-map          45/100     127.1s [7C/25W] — 7 critical hallucinations; 25 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     30.9s — 16 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ~ two-identities                 70/100     80.7s [1C/55W] — 1 critical hallucinations; 55 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{else}}
+  ✗ belief-shift-map               45/100     203.6s [9C/163W] — 9 critical hallucinations; 163 scanner warnings
+[template-loader] Unfilled placeholders: {{#if leadMagnetType === 'pdf-guide'}}, {{/if}}, {{#if leadMagnetType === 'checklist'}}, {{/if}}, {{#if leadMagnetType === 'framework'}}, {{/if}}, {{#if leadMagnetType === 'mini-course'}}, {{/if}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{else}}
+  ~ lead-magnet-outline            70/100     75.3s [1C/28W] — 1 critical hallucinations; 28 scanner warnings
+  ✓ offer-one-sheet                100/100    29.4s — clean output
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{else}}, {{else}}
+  ✓ core-conversion-content        85/100     137.1s — 34 scanner warnings
+  ~ qualifying-filter              55/100     19.2s [1C/5W] — missing sections; 1 critical hallucinations; 5 scanner warnings
+  ✗ pricing-framework              45/100     43.9s [16C/32W] — 16 critical hallucinations; 32 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{revenueGoal}}, {{else}}
+  ✗ sales-call-script              45/100     104.5s [3C/27W] — 3 critical hallucinations; 27 scanner warnings
+  ✓ homepage-copy                  85/100     44.4s — 19 scanner warnings
+  ~ about-page                     55/100     45.5s [2C/11W] — 2 critical hallucinations; 11 scanner warnings
+  ✗ email-welcome-sequence         45/100     107.1s [7C/40W] — 7 critical hallucinations; 40 scanner warnings
+  ~ email-sales-sequence           70/100     124.9s [1C/78W] — 1 critical hallucinations; 78 scanner warnings
+
+── Phase 5 (3 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{offerDetailsUrl}}, {{applicationUrl}}, {{qualificationQuestions}}, {{qualificationQuestions}}, {{offerDetailsUrl}}, {{applicationUrl}}, {{minimumRequirements}}, {{applicationUrl}}
+  ✗ content-angle-library          45/100     188.9s [7C/384W] — 7 critical hallucinations; 384 scanner warnings
+  ✗ ghl-chat-sequence              45/100     85.1s [3C/113W] — 3 critical hallucinations; 113 scanner warnings
+  ~ manychat-sequence              70/100     80.9s [1C/160W] — 1 critical hallucinations; 160 scanner warnings
+[template-loader] Unfilled placeholders: {{else}}
+[template-loader] Unfilled placeholders: {{leadMagnetUrl}}, {{else}}
+[template-loader] Unfilled placeholders: {{else}}
+  ✗ facebook-posts                 45/100     136.6s [9C/42W] — 9 critical hallucinations; 42 scanner warnings
+  ✗ facebook-ad-copy               45/100     58.6s [6C/32W] — 6 critical hallucinations; 32 scanner warnings
+  ✗ youtube-script                 45/100     83.6s [3C/27W] — 3 critical hallucinations; 27 scanner warnings
+  ✗ carousel-posts                 45/100     112.6s [8C/190W] — 8 critical hallucinations; 190 scanner warnings
+  ✗ shorts-reels-scripts           45/100     50.1s [4C/43W] — 4 critical hallucinations; 43 scanner warnings
+
+================================================================================
+  FINAL REPORT
+================================================================================
+
+
+┌─ Marcus Reed — Fitness Coach (sparse input)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 69/100 | Median: 70/100
+│   Hallucinations: 1713 (53 critical)
+│   Tokens: 486,114 (est. cost: $2.92)
+│
+│   Worst deliverables:
+│     15/100  content-angle-library           truncated mid-sentence; 12 critical hallucinations; 237 scanner warnings
+│     45/100  two-identities                  8 critical hallucinations; 76 scanner warnings
+│     45/100  belief-shift-map                3 critical hallucinations; 155 scanner warnings
+│     45/100  pricing-framework               13 critical hallucinations; 41 scanner warnings
+│     45/100  email-welcome-sequence          3 critical hallucinations; 49 scanner warnings
+└─
+
+┌─ Sarah Chen — Business/Mindset Coach (abstract niche)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 54/100 | Median: 45/100
+│   Hallucinations: 2106 (139 critical)
+│   Tokens: 516,601 (est. cost: $3.10)
+│
+│   Worst deliverables:
+│     15/100  magnetic-messaging-statement    truncated mid-sentence; 3 critical hallucinations; 16 scanner warnings
+│     15/100  content-angle-library           truncated mid-sentence; 18 critical hallucinations; 337 scanner warnings
+│     45/100  emotional-trigger-map           3 critical hallucinations; 30 scanner warnings
+│     45/100  two-identities                  5 critical hallucinations; 63 scanner warnings
+│     45/100  belief-shift-map                18 critical hallucinations; 205 scanner warnings
+└─
+
+┌─ David Alvarez — Relationship Coach (dense input)
+│   Attempted: 26 | Completed: 26 | Failed: 0
+│   Avg rating: 63/100 | Median: 55/100
+│   Hallucinations: 1640 (89 critical)
+│   Tokens: 524,991 (est. cost: $3.15)
+│
+│   Worst deliverables:
+│     45/100  emotional-trigger-map           7 critical hallucinations; 25 scanner warnings
+│     45/100  belief-shift-map                9 critical hallucinations; 163 scanner warnings
+│     45/100  pricing-framework               16 critical hallucinations; 32 scanner warnings
+│     45/100  sales-call-script               3 critical hallucinations; 27 scanner warnings
+│     45/100  email-welcome-sequence          7 critical hallucinations; 40 scanner warnings
+└─
+
+── SCANNER ACCURACY ──
+Total critical hallucinations caught: 281
+Total warnings caught: 5178
+Templates with critical hallucinations:
+  52×  pricing-framework
+       [fitness-sparse / money] "$1,200 "  — "ice. - **Discount:** Offer 10% savings ($1,200 off) for pay-in-full vs. payment ..."
+       [fitness-sparse / money] "$2,200 "  — "nded Structure:** 6 monthly payments of $2,200 ($13,200 total) - **Rationale:** ..."
+       [fitness-sparse / money] "$13,200 "  — "ucture:** 6 monthly payments of $2,200 ($13,200 total) - **Rationale:** Monthly ..."
+  37×  content-angle-library
+       [fitness-sparse / money] "$2,000 "  — "---|---| | 66 | $12,000 for 6 months is $2,000 per month — you probably spend th..."
+       [fitness-sparse / money] "$99"  — "Case Study | Post | Dan M. tried three $99/month programs before investing in ou..."
+       [fitness-sparse / money] "$50,000"  — "vs staying stuck: $12,000 investment vs $50,000+ in potential healthcare costs y..."
+  30×  belief-shift-map
+       [fitness-sparse / money] "$8,400 "  — "s. Average healthcare cost savings were $8,400 over two years, plus reported bus..."
+       [fitness-sparse / duration] "10 years"  — "s" - "I have more energy now than I did 10 years ago" - "I can keep up with my k..."
+       [fitness-sparse / duration] "365 days"  — "and this investment improves your life 365 days per year. Your increased energy ..."
+  25×  carousel-posts
+       [business-abstract / money] "$120K"  — "**Title:** Why $18K Feels Expensive But $120K in Lost Revenue Doesn't **Core Bel..."
+       [business-abstract / money] "$120K"  — "18K Feels Expensive" **Body Text:** But $120K in lost revenue doesn't. Let's do ..."
+       [business-abstract / money] "$10K"  — "ext:** Every month you stay stuck costs $10K in lost revenue. That's $120K per y..."
+  18×  email-welcome-sequence
+       [fitness-sparse / money] "$100,000"  — "s: A heart attack at 55 costs more than $100,000. Diabetes medication runs $3,00..."
+       [fitness-sparse / money] "$3,000 "  — "than $100,000. Diabetes medication runs $3,000 annually. But the real cost is op..."
+       [fitness-sparse / duration] "20 days"  — "uity partners stay lean while traveling 20 days a month. My energy is back. My b..."
+  16×  facebook-posts
+       [fitness-sparse / money] "$50,000"  — "t's do the math: $12,000 investment vs $50,000+ in potential diabetes, heart dis..."
+       [fitness-sparse / money] "$50,000 "  — "t your results. I see executives spend $50,000 on business consultants without b..."
+       [business-abstract / money] "$200 "  — "Business coaching interests You spend $200 on business books but won't spend $18..."
+  14×  two-identities
+       [fitness-sparse / money] "$3,000"  — "ars - **Fitness Equipment Investment:** $3,000+ in unused home gym equipment col..."
+       [fitness-sparse / money] "$50K"  — "f a business investment** — He'll spend $50K on marketing software but won't inv..."
+       [fitness-sparse / money] "$3,000 "  — "oton Paperweight CEO):** - You've got a $3,000 Peloton holding dry cleaning and ..."
+  13×  facebook-ad-copy
+       [fitness-sparse / money] "$100"  — "imization: Landing page views - Budget: $100-200/day --- ## AD 2: SOLUTION-AWARE..."
+       [fitness-sparse / money] "$75"  — "rs) - Optimization: Purchases - Budget: $75-150/day --- ## AD 3: TESTIMONIAL / C..."
+       [fitness-sparse / money] "$200"  — "ion: Purchases (applications) - Budget: $200-300/day --- ### ADDITIONAL TESTING ..."
+  12×  emotional-trigger-map
+       [fitness-sparse / money] "$200"  — "'t understood or valued. 2. **Spending $200/month on a gym membership they use t..."
+       [fitness-sparse / duration] "15 years"  — "their wife look at them the way she did 15 years ago** — Won't say it because it..."
+       [business-abstract / money] "$200"  — "r so long. Costs them: staying stuck in $200/hour work when they should be doing..."
+  11×  youtube-script
+       [fitness-sparse / duration] "30 days"  — "s but can't stick to a workout plan for 30 days. You probably think your problem..."
+       [business-abstract / money] "$300K"  — "# YouTube Video Script: "Why Your $300K Revenue Ceiling Is Actually a Nervous S..."
+       [business-abstract / money] "$300K"  — "Video Title (SEO-optimized):** Why Your $300K Revenue Ceiling Is Actually a Nerv..."
+  9×  email-sales-sequence
+       [fitness-sparse / duration] "365 days"  — "and this investment improves your life 365 days per year. But if you want to be ..."
+       [business-abstract / money] "$300K"  — "the difference between staying stuck at $300K and building the $420K+ business o..."
+       [business-abstract / money] "$20K"  — "bject:** Every month you wait costs you $20K+ (here's why) **Preview Text:** The..."
+  7×  sales-call-script
+       [fitness-sparse / duration] "12 months"  — "ings?" "If nothing changes in the next 12 months, where does that leave you? Wha..."
+       [fitness-sparse / duration] "12 months"  — "ges — if you're in this exact same spot 12 months from now — what does that look..."
+       [business-abstract / duration] "12 months"  — "tner?" "If nothing changes in the next 12 months — if you're in this exact same ..."
+  7×  shorts-reels-scripts
+       [fitness-sparse / duration] "30 days"  — "s but can't stick to a workout plan for 30 days. Why? Because you're used to com..."
+       [business-abstract / money] "$300K"  — "TikTok, YouTube Shorts **Hook:** "Your $300K revenue ceiling isn't a strategy pr..."
+       [business-abstract / money] "$300K"  — "n't a strategy problem" **Body:** Your $300K revenue ceiling isn't a strategy pr..."
+  7×  ghl-chat-sequence
+       [business-abstract / money] "$300K"  — "this in perspective: If you're making $300K but could be making $500K, you're lo..."
+       [business-abstract / money] "$200K"  — "ut could be making $500K, you're losing $200K per year by staying stuck. If you'..."
+       [business-abstract / duration] "1 year"  — "path) > - IF contact mentions less than 1 year: → Go to Step 4B (Medium-fit path..."
+  5×  offer-one-sheet
+       [fitness-sparse / duration] "365 days"  — "is investment improves your performance 365 days per year. Every month you wait ..."
+       [business-abstract / money] "$6,000
+"  — "8,000 for 6 months** — or 3 payments of $6,000 Here's the truth: You're already ..."
+       [business-abstract / money] "$10K"  — "e. Every month you stay stuck costs you $10K-$20K in underpricing alone. Plus th..."
+  4×  lead-magnet-outline
+       [business-abstract / money] "$300K"  — "eady 'Successful')" **Option 2:** "The $300K Prison Break: How to Audit the Inte..."
+       [business-abstract / money] "$300K"  — "mming upstream. --- ## SECTION 1: THE $300K PRISON (2 pages / 600 words) ### Key..."
+       [business-abstract / money] "$300K"  — "ounders hit an invisible ceiling around $300K not because they lack strategy, bu..."
+  3×  manychat-sequence
+       [fitness-sparse / duration] "30 days"  — ""Nurture-Complete" + no engagement for 30 days → move to re-engagement campaign ..."
+       [business-abstract / money] "$300K"  — "work. > > The patterns that got you to $300K will keep you stuck there until you..."
+       [relationship-dense / duration] "30 days"  — "tag → Move to re-engagement list after 30 days - If subscriber taps "Not ready y..."
+  3×  magnetic-messaging-statement
+       [business-abstract / money] "$300K"  — "ISLAND **Hell Island:** You're making $300K but working 70-hour weeks, drinking ..."
+       [business-abstract / money] "$300K"  — "FORM VARIATIONS **a) Ad Hook** "Making $300K but working 70-hour weeks and resen..."
+       [business-abstract / money] "$300K"  — "Opening** "Let me guess: You're making $300K but working 70-hour weeks. You drin..."
+  3×  about-page
+       [business-abstract / duration] "90 days"  — "through pricing increases alone within 90 days. **I believe The Sovereignty Stac..."
+       [relationship-dense / duration] "80 years"  — "ard's Grant Study followed men for over 80 years and found that relationship qua..."
+       [relationship-dense / duration] "12 months"  — "d are in committed relationships within 12 months. ## The Personal Side When I'm..."
+  2×  core-conversion-content
+       [business-abstract / money] "$300K"  — "P Version:** "How to Break Through Your $300K Revenue Ceiling in 6 Months Withou..."
+       [business-abstract / money] "$300K"  — "the difference between staying stuck at $300K and building the $420K+ business o..."
+  2×  qualifying-filter
+       [business-abstract / money] "$100K"  — "re brand new to entrepreneurship (under $100K revenue) or haven't been stuck at ..."
+       [relationship-dense / money] "$47 "  — "ink you can get the same results from a $47 course or free YouTube videos instea..."
+  1×  homepage-copy
+       [business-abstract / money] "$300K"  — "lt a high-paying prison. You're making $300K but working 70-hour weeks. You chec..."
+
+Full results written to: D:\dev\Coach launch\app\scripts\test-output\fact-scanner-e2e-2026-04-15T22-00-14-527Z.json
+

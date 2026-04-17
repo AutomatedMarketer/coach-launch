@@ -11,11 +11,19 @@ A complete pricing analysis and recommendation document that gives the coach a d
 {
   "clientName": "string",
   "offerName": "string",
-  "pricePoint": "string",
+  "pricePoint": "string (synthesized from structured pricing.displayString)",
+  "pricePointUSD": "string (synthesized from pricing.totalUSD — raw number)",
+  "paymentPlanBreakdown": "string (auto-computed from pricing when billingType === 'installments')",
+  "pifBreakdown": "string (auto-computed from pricing when pifDiscountPercent > 0)",
   "revenuePerClient": "string (optional)",
-  "idealClientCurrentRevenue": "string (optional)",
-  "scarcityElement": "string (optional)",
+  "idealClientCurrentRevenue": "string (required) — coach-provided estimate, drives all value-gap math",
+  "targetClientMonthlyRevenue": "string (required) — coach-provided target post-program revenue/outcome",
+  "monthlyActionCost": "string (required) — cost of inaction, used verbatim in value-reframe statement",
+  "firstResultTimeframe": "string (required) — when clients see their first measurable win",
+  "scarcityElement": "string (required v6b) — capacity cap / cohort timing / bonus window",
   "guaranteeOrRisk": "string (optional)",
+  "guaranteeTimeframe": "string (required if guaranteeOrRisk is set) — quoted verbatim in guarantee copy",
+  "fastActionBonusDeadline": "string (optional) — quoted verbatim in fast-action bonus copy",
   "transformation": "string",
   "programDuration": "string (optional)",
   "programIncludes": "string (optional)"
@@ -43,18 +51,26 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 ### CLIENT DETAILS
 - **Coach:** {{clientName}}
 - **Offer:** {{offerName}}
-- **Price Point:** {{pricePoint}}
+- **Price Point (verbatim display string):** {{pricePoint}}
+- **Price Point (raw USD number — use for any math):** {{pricePointUSD}}
+{{#if paymentPlanBreakdown}}- **Computed Payment Plan (use verbatim — do NOT recalculate):** {{paymentPlanBreakdown}}{{/if}}
+{{#if pifBreakdown}}- **Computed Pay-In-Full Discount (use verbatim — do NOT recalculate):** {{pifBreakdown}}{{/if}}
 {{#if revenuePerClient}}- **Revenue Per Client (for the client's business):** {{revenuePerClient}}{{/if}}
-{{#if idealClientCurrentRevenue}}- **Ideal Client's Current Monthly Revenue:** {{idealClientCurrentRevenue}}{{/if}}
+- **Ideal Client's Current Revenue (coach-provided):** {{idealClientCurrentRevenue}}
+- **Target Client Monthly Revenue After Program (coach-provided):** {{targetClientMonthlyRevenue}}
+- **Cost of Inaction (coach-provided — quote VERBATIM):** {{monthlyActionCost}}
+- **First Measurable Result Timeframe (coach-provided):** {{firstResultTimeframe}}
 {{#if scarcityElement}}- **Existing Scarcity Element:** {{scarcityElement}}{{/if}}
 {{#if guaranteeOrRisk}}- **Existing Guarantee / Risk Reversal:** {{guaranteeOrRisk}}{{/if}}
+{{#if guaranteeTimeframe}}- **Guarantee Timeframe (coach-provided — quote VERBATIM in any guarantee copy):** {{guaranteeTimeframe}}{{/if}}
+{{#if fastActionBonusDeadline}}- **Fast-Action Bonus Deadline (coach-provided — use VERBATIM):** {{fastActionBonusDeadline}}{{/if}}
 - **Transformation Promised:** {{transformation}}
 {{#if programDuration}}- **Program Duration:** {{programDuration}}{{/if}}
 {{#if programIncludes}}- **What's Included:** {{programIncludes}}{{/if}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -70,15 +86,16 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 
 #### SECTION 1: RECOMMENDED PRICING STRUCTURE
 
+⚠️ HARD RULE: Quote {{pricePoint}} verbatim. If `paymentPlanBreakdown` or `pifBreakdown` are provided above, quote them VERBATIM — the math is already computed, do NOT recalculate or restate with different numbers. Do NOT invent any dollar amount that is not in CLIENT DETAILS.
+
 **Pay-In-Full Option**
-- Recommended pay-in-full price based on the provided {{pricePoint}}
-- Rationale: why this price point is justified (anchor against the transformation value, not competitor prices)
-- Suggested discount percentage for pay-in-full vs. payment plan (industry standard: 10-15% savings)
+- **Price:** {{pricePoint}} (use this string exactly; do not rephrase)
+- **Rationale:** why this price point is justified (anchor against the transformation value, not competitor prices)
+{{#if pifBreakdown}}- **Pay-In-Full Discount:** {{pifBreakdown}} — quote verbatim.{{else}}- **Pay-In-Full Discount:** The coach has not set a PIF discount percentage. Skip this bullet rather than invent one.{{/if}}
 
 **Payment Plan Option**
-- Recommended number of payments and amount per payment
-- Rationale: keep monthly payments below the prospect's "pain threshold" — a number they can commit to without financial stress
-- Total payment plan cost (slightly higher than pay-in-full to incentivize PIF)
+{{#if paymentPlanBreakdown}}- **Recommended Structure:** {{paymentPlanBreakdown}} — quote verbatim.
+- Rationale: this structure keeps the per-payment amount below most prospects' "pain threshold" while preserving the full investment.{{else}}- The coach has configured this offer as {{pricePoint}}. No payment plan was provided. If you recommend one, describe it qualitatively only (e.g., "Consider offering 3 or 6 monthly payments") — do NOT invent per-payment dollar amounts.{{/if}}
 
 **Which to Lead With and Why**
 - Clear recommendation on whether to present pay-in-full first or payment plan first, based on the price point and target audience
@@ -91,33 +108,28 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 
 This section gives the coach concrete math to use in sales conversations, on sales pages, and in content. All calculations must use ONLY the numbers provided.
 
-{{#if idealClientCurrentRevenue}}
-- **Current Monthly Revenue:** {{idealClientCurrentRevenue}}
-{{else}}
-- **Current Monthly Revenue:** [COACH TO FILL IN — this number is required for the math to work]
-{{/if}}
+- **Current Revenue (coach-provided):** {{idealClientCurrentRevenue}}
+- **Target Revenue / Outcome After Program (coach-provided):** {{targetClientMonthlyRevenue}}
+- **Cost of Staying Stuck (coach-provided — quote verbatim):** {{monthlyActionCost}}
+- **First Measurable Result (coach-provided):** {{firstResultTimeframe}}
+- **Program Investment:** {{pricePoint}} (verbatim)
+{{#if revenuePerClient}}- **Revenue Per Client (business-revenue coaches only):** {{revenuePerClient}}{{/if}}
 
-{{#if revenuePerClient}}
-- **Revenue Per Client:** {{revenuePerClient}}
-{{else}}
-- **Revenue Per Client:** [COACH TO FILL IN — how much does one new client bring in?]
-{{/if}}
+⚠️ HARD RULE for this section: Build the value narrative using ONLY the numbers above. Combine current revenue and target revenue to describe the income gap qualitatively (e.g., "moving from {{idealClientCurrentRevenue}} into {{targetClientMonthlyRevenue}}") rather than inventing a specific gap dollar amount. Do NOT invent ROI multiples, "pays for itself in X months" figures, or 12-month revenue projections. If a figure is needed but not provided, describe it qualitatively.
 
-- **Target Monthly Revenue:** Calculate based on the transformation promise — what's the realistic target?
-- **The Gap:** Difference between current and target monthly revenue
-- **Program Investment:** {{pricePoint}}
-- **How Long to Pay for Itself:** At a conservative result (50% of promised transformation), how many months/clients before the program pays for itself?
-- **12-Month ROI at Conservative Result:** What is the total additional revenue generated over 12 months at 50% of the promised transformation, minus the program cost?
+⚠️ **NO COMPARISON PRICE ANCHORS.** Do NOT generate "Additional Value Anchors," "What Alternatives Cost," or comparison tables with invented prices for personal chefs, corporate wellness programs, therapists, gym memberships, consultants, or any external service. These prices are always invented. If the coach wants price anchoring, they provide their own comparisons.
 
-If any numbers are missing, clearly mark the calculation as: "*** [COACH: Insert your [specific number] here to complete this calculation] ***" — do NOT invent placeholder numbers.
+**Value Reframe Statement:** Write 2-3 sentences the coach can use verbatim to reframe the price as an investment. Use the coach-provided numbers verbatim — no invention.
 
-**Value Reframe Statement:** Write 2-3 sentences the coach can use verbatim to reframe the price as an investment. Structure: "The real question isn't whether you can afford [price]. It's whether you can afford [cost of staying stuck]. At [conservative result], this program pays for itself in [timeframe] and generates [ROI] over the next 12 months."
+Structure: "The real question isn't whether you can afford {{pricePoint}}. It's whether you can afford {{monthlyActionCost}}. Clients in {{offerName}} see their first measurable result {{firstResultTimeframe}} — moving from {{idealClientCurrentRevenue}} toward {{targetClientMonthlyRevenue}}."
 
 ---
 
 #### SECTION 3: GUARANTEE LANGUAGE
 
 Write 3 guarantee versions, from most bold to most conservative. The coach picks the one that matches their confidence level and risk tolerance.
+
+{{#if guaranteeTimeframe}}⚠️ IMPORTANT: For any guarantee copy you write, use the coach-provided timeframe **{{guaranteeTimeframe}}** VERBATIM. Do NOT invent a different timeframe like "30 days" or "60 days" unless that's what {{guaranteeTimeframe}} says.{{else}}⚠️ IMPORTANT: No guarantee timeframe was provided. Write the 3 guarantee versions with `[timeframe]` as an inline editorial blank (e.g. "Try [program name] for [timeframe]") — do NOT invent a number of days. The coach fills this in.{{/if}}
 
 **Version 1: THE BOLD GUARANTEE (Results-Based)**
 - Ties directly to a specific, measurable outcome
@@ -169,14 +181,16 @@ For each: describe the tactic, explain the real reason behind the deadline, and 
 Urgency must be tied to a REAL reason to act now. Examples:
 - Price increase at a specific date (and actually follow through)
 - Bonus that expires after a specific enrollment window
-- Cost of waiting calculated in real numbers (every month without [result] costs [amount])
+- Cost of waiting using coach-provided data: "{{monthlyActionCost}}" — cite this verbatim, do NOT invent other figures
 - Seasonal timing that genuinely matters for the niche
 
 **Recommended Fast-Action Bonus**
-- One specific bonus for prospects who enroll within a short window (24-72 hours)
-- What the bonus is, why it's valuable, and how to present it
-- The bonus should complement the main offer — not be a random add-on
-- Include the exact copy: "Enroll by [deadline] and get [bonus] — a $[value] addition, yours free."
+- One specific bonus for prospects who enroll within a short window.
+- What the bonus is, why it's valuable, and how to present it.
+- The bonus should complement the main offer — not be a random add-on.
+{{#if fastActionBonusDeadline}}- Use the coach-provided deadline VERBATIM: **{{fastActionBonusDeadline}}**. Copy template: "Enroll by {{fastActionBonusDeadline}} and get [bonus] — yours free."
+{{else}}- No deadline was provided — describe the offer qualitatively ("Enroll within the fast-action window and get [bonus]") rather than inventing a specific timeframe.
+{{/if}}
 
 ---
 
@@ -188,14 +202,14 @@ Return the output as clean markdown with four clearly labeled sections. Use:
 - **Bold** for key figures, recommendations, and emphasis
 - Tables where math is involved (for easy scanning)
 - Blockquotes (>) for ready-to-use copy snippets the coach can paste directly
-- Clear [COACH TO FILL IN] markers wherever a number is missing
+- If a required number is missing, skip the sentence or describe the concept qualitatively instead
 - Total length: 800-1200 words
 ```
 
 ## Post-Processing
 1. Verify all four sections are present and complete
 2. Check that ALL math uses only provided numbers — no invented figures
-3. Verify missing numbers are clearly marked with [COACH TO FILL IN] placeholders
+3. Verify missing numbers are handled qualitatively (skipped or rephrased) — not left as placeholder markers
 4. Check that all three guarantee versions are distinct in risk level and structure
 5. Verify scarcity and urgency tactics are legitimate — no fake countdown timers or manufactured limits
 6. Ensure the fast-action bonus is specific and complementary to the offer

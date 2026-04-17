@@ -2,6 +2,59 @@ import { readFileSync } from 'fs'
 import { resolve, basename } from 'path'
 import { DELIVERABLES } from '@/lib/deliverable-config'
 
+export interface PricingSynthesis {
+  pricePoint?: string
+  pricePointUSD?: string
+  paymentPlanBreakdown?: string
+  pifBreakdown?: string
+  /** Computed numbers added to allowlist: per-payment amount, PIF savings, PIF price. */
+  computedNumbers: string[]
+}
+
+/**
+ * Compute pricing-derived fields from the structured `pricing` object.
+ *
+ * Shared between template-loader (injects fields into the prompt) and
+ * fact-allowlist (whitelists the same computed numbers, so the scanner
+ * doesn't redact numbers we ourselves told the LLM to quote verbatim).
+ */
+export function synthesizePricing(answers: Record<string, unknown>): PricingSynthesis {
+  const out: PricingSynthesis = { computedNumbers: [] }
+  const pricing = answers['pricing'] as {
+    totalUSD?: number
+    billingType?: 'one-time' | 'subscription' | 'installments'
+    displayString?: string
+    paymentPlanCount?: number
+    pifDiscountPercent?: number
+  } | undefined
+
+  if (!pricing || typeof pricing !== 'object') return out
+
+  if (pricing.displayString && !answers['pricePoint']) {
+    out.pricePoint = pricing.displayString
+  }
+  if (typeof pricing.totalUSD === 'number' && pricing.totalUSD > 0) {
+    out.pricePointUSD = String(pricing.totalUSD)
+    out.computedNumbers.push(String(pricing.totalUSD))
+
+    if (pricing.billingType === 'installments' && pricing.paymentPlanCount && pricing.paymentPlanCount > 0) {
+      const perPayment = Math.round(pricing.totalUSD / pricing.paymentPlanCount)
+      out.paymentPlanBreakdown =
+        `${pricing.paymentPlanCount} monthly payments of $${perPayment.toLocaleString()} (total: $${pricing.totalUSD.toLocaleString()})`
+      out.computedNumbers.push(String(perPayment))
+    }
+
+    if (typeof pricing.pifDiscountPercent === 'number' && pricing.pifDiscountPercent > 0) {
+      const savings = Math.round(pricing.totalUSD * pricing.pifDiscountPercent / 100)
+      const pifPrice = pricing.totalUSD - savings
+      out.pifBreakdown =
+        `Pay in full: $${pifPrice.toLocaleString()} (save $${savings.toLocaleString()} — ${pricing.pifDiscountPercent}% off the $${pricing.totalUSD.toLocaleString()} total)`
+      out.computedNumbers.push(String(savings), String(pifPrice), String(pricing.pifDiscountPercent))
+    }
+  }
+  return out
+}
+
 const TEMPLATE_DIR = resolve(process.cwd(), 'src', 'lib', 'claude', 'templates')
 
 const VALID_TEMPLATE_IDS = new Set(DELIVERABLES.map(d => d.templateId))
@@ -67,6 +120,32 @@ function formatNestedObject(obj: Record<string, unknown>): string {
 
 export function fillTemplate(template: string, answers: Record<string, unknown>): string {
   const mergedAnswers = { ...FIELD_DEFAULTS, ...answers }
+
+  // === Synthesize pricing fields from structured pricing object (v6a) ===
+  // Shared with fact-allowlist so computed numbers (per-payment, PIF savings, etc.)
+  // are whitelisted alongside the raw pricing.totalUSD.
+  const pricingFields = synthesizePricing(mergedAnswers)
+  if (pricingFields.pricePoint) mergedAnswers['pricePoint'] = pricingFields.pricePoint
+  if (pricingFields.pricePointUSD) mergedAnswers['pricePointUSD'] = pricingFields.pricePointUSD
+  if (pricingFields.paymentPlanBreakdown) mergedAnswers['paymentPlanBreakdown'] = pricingFields.paymentPlanBreakdown
+  if (pricingFields.pifBreakdown) mergedAnswers['pifBreakdown'] = pricingFields.pifBreakdown
+
+  // === Promote clientSuccessRate nested numbers to top-level strings ===
+  // Lets templates use {{clientsAchievedResult}} and {{totalClientsInProgram}} directly.
+  // Also synthesizes a ready-to-drop summary sentence when both are present.
+  const csr = mergedAnswers['clientSuccessRate'] as { clientsAchievedResult?: number; totalClientsInProgram?: number } | undefined
+  if (csr && typeof csr === 'object') {
+    if (typeof csr.clientsAchievedResult === 'number' && !Number.isNaN(csr.clientsAchievedResult)) {
+      mergedAnswers['clientsAchievedResult'] = String(csr.clientsAchievedResult)
+    }
+    if (typeof csr.totalClientsInProgram === 'number' && !Number.isNaN(csr.totalClientsInProgram)) {
+      mergedAnswers['totalClientsInProgram'] = String(csr.totalClientsInProgram)
+    }
+    if (typeof csr.clientsAchievedResult === 'number' && typeof csr.totalClientsInProgram === 'number') {
+      mergedAnswers['clientSuccessRateSummary'] =
+        `Out of our last ${csr.totalClientsInProgram} clients, ${csr.clientsAchievedResult} achieved the result`
+    }
+  }
 
   // === Synthesize personalStory from structured fields ===
   // Old questionnaires with a single personalStory blob still pass through as-is
@@ -146,14 +225,45 @@ export function fillTemplate(template: string, answers: Record<string, unknown>)
     }
   }
 
-  // === Conditionals: {{#if varName}}...content...{{/if}} ===
-  filled = filled.replace(/\{\{#if (\w+)\}\}([\s\S]*?)\{\{\/if\}\}/g, (_, key, block) => {
-    const val = mergedAnswers[key]
-    const hasValue = val !== undefined && val !== null && val !== '' &&
+  // === Conditionals ===
+  // Support both `{{#if X}}A{{else}}B{{/if}}` and `{{#if X}}A{{/if}}`, and handle expression
+  // conditions like `{{#if leadMagnetType === 'pdf-guide'}}` that leak through otherwise.
+
+  // Helper: evaluate an {{#if CONDITION}} expression against mergedAnswers.
+  // Supports:  fieldName          (truthy check)
+  //            fieldName == 'x'   (equality — also ===, !=, !==)
+  const evaluateCondition = (rawCond: string): boolean => {
+    const cond = rawCond.trim()
+
+    // Equality/inequality: fieldName === 'value' | fieldName == "value" | fieldName != 'value' etc.
+    const cmp = cond.match(/^(\w+)\s*(===|==|!==|!=)\s*['"]([^'"]*)['"]$/)
+    if (cmp) {
+      const [, field, op, value] = cmp
+      const actual = mergedAnswers[field]
+      const equal = actual === value
+      return op === '===' || op === '==' ? equal : !equal
+    }
+
+    // Plain field: truthy check (same semantics as before)
+    const val = mergedAnswers[cond]
+    return val !== undefined && val !== null && val !== '' &&
       (!Array.isArray(val) || val.length > 0) &&
       (typeof val !== 'object' || Array.isArray(val) || Object.values(val as Record<string, unknown>).some(v => v !== undefined && v !== null && v !== ''))
-    return hasValue ? block : ''
-  })
+  }
+
+  // Process blocks with else branches first: {{#if COND}}A{{else}}B{{/if}}
+  filled = filled.replace(/\{\{#if\s+([^}]+?)\}\}([\s\S]*?)\{\{else\}\}([\s\S]*?)\{\{\/if\}\}/g,
+    (_, cond, ifBlock, elseBlock) => evaluateCondition(cond) ? ifBlock : elseBlock
+  )
+
+  // Then process simple {{#if COND}}A{{/if}} blocks
+  filled = filled.replace(/\{\{#if\s+([^}]+?)\}\}([\s\S]*?)\{\{\/if\}\}/g,
+    (_, cond, block) => evaluateCondition(cond) ? block : ''
+  )
+
+  // Final sweep: strip any leftover Handlebars control tokens that survived (broken blocks,
+  // mismatched tags, etc.). These would otherwise leak into the prompt as visible text.
+  filled = filled.replace(/\{\{\s*(#if\b[^}]*|\/if|else|\/each|#each\s+[^}]+)\s*\}\}/g, '')
 
   // Warn about unfilled placeholders (helps debug missing data in Vercel logs)
   const unfilledMatches = filled.match(/\{\{(?!BELIEF_FRAMEWORK_CONTEXT|STEVE_VOICE_PROFILE)[^}]+\}\}/g)
@@ -164,7 +274,7 @@ export function fillTemplate(template: string, answers: Record<string, unknown>)
   // Replace unfilled placeholders with explicit instruction so Claude skips rather than invents
   // Preserve {{BELIEF_FRAMEWORK_CONTEXT}} and {{STEVE_VOICE_PROFILE}} — injected later by generate.ts
   filled = filled.replace(/\{\{(?!BELIEF_FRAMEWORK_CONTEXT|STEVE_VOICE_PROFILE)([^}]+)\}\}/g,
-    (_match, fieldName) => `[${fieldName}: DATA NOT PROVIDED — DO NOT INVENT]`
+    (_match, fieldName) => `[${fieldName}: not provided — skip this element or rephrase qualitatively; do not invent a value]`
   )
 
   return filled

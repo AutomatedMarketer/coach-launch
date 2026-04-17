@@ -23,7 +23,13 @@ A complete library of 98+ content angles organized into 9 belief categories matc
   "testimonials": "array (optional)",
   "offerName": "string",
   "expertise": "array",
-  "brandVoice": "string"
+  "brandVoice": "string",
+  "pricePoint": "string (synthesized from pricing.displayString)",
+  "monthlyActionCost": "string (required) — quoted verbatim in cost-of-staying-stuck angles",
+  "idealClientCurrentRevenue": "string (required)",
+  "targetClientMonthlyRevenue": "string (required) — used in ROI and transformation angles",
+  "firstResultTimeframe": "string (required) — quoted verbatim for result-timing angles",
+  "programDuration": "string"
 }
 ```
 
@@ -61,15 +67,20 @@ You are a content strategist creating a complete content library for a coaching 
 {{#if clientBlameTarget}}- **Who They Blame:** {{clientBlameTarget}}{{/if}}
 {{#if clientAngerTrigger}}- **Anger Trigger:** {{clientAngerTrigger}}{{/if}}
 {{#if clientDailyReminder}}- **Daily Reminder:** {{clientDailyReminder}}{{/if}}
+- **Monthly Cost of Inaction (coach-provided — use verbatim in "cost of staying stuck" angles):** {{monthlyActionCost}}
+- **Ideal Client's Current Revenue (coach-provided):** {{idealClientCurrentRevenue}}
+- **First Measurable Result Timeframe (coach-provided):** {{firstResultTimeframe}}
+- **Target Client Monthly Revenue After Program (coach-provided):** {{targetClientMonthlyRevenue}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+8. **HARD RULE — no invented competitor prices, healthcare costs, consultant fees, course prices, or industry stats.** Specifically banned: invented competitor monthly fees (e.g. `"$99/month programs"`), healthcare costs (e.g. `"$50,000+ in potential healthcare costs"`), consultant fees (e.g. `"$50,000 on business consultants"`), course prices (e.g. `"$47 course"`). If you need a cost comparison for an angle, describe it qualitatively ("a fraction of what consultants charge," "less than what most pay for equivalent generic programs") or pick a different angle. NEVER make up a number, and do not write placeholder markers inside content angles.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
@@ -107,7 +118,7 @@ Generate one angle for each of these sub-topics:
 3. Historical assistance failures — why past coaches/programs/courses didn't work
 4. Success foundation requirements — what must be true before anything else works
 5. Current world description — a brutally honest snapshot of where they are today
-6. Cost of delayed action — what each month of inaction actually costs
+6. Cost of delayed action — what each month of inaction actually costs. **Use the coach-provided `monthlyActionCost` VERBATIM ("{{monthlyActionCost}}"). Do NOT invent other dollar figures.**
 7. Consequence cascading — how one unaddressed problem creates five more
 8. Goal correction — they're chasing the wrong goal entirely
 9. Self-inquiry questions — questions that force honest self-assessment
@@ -126,7 +137,7 @@ Generate one angle for each of these sub-topics:
 6. Common misunderstandings — what most people get wrong about solving {{problemSolved}}
 7. Old method rejection — why the popular approach is fundamentally broken
 8. Process overview (30,000-foot view) — the big picture of how {{uniqueMechanism}} works
-9. Process walkthrough — step-by-step of what the first 30 days look like
+9. Process walkthrough — step-by-step of what the first weeks look like (reference {{firstResultTimeframe}} for timing)
 10. Phase importance — why each phase of the system matters (and what happens if you skip one)
 11. Theoretical foundations — the principle/science behind why this works
 12. Live demonstrations — showing the method in action with real examples
@@ -181,7 +192,7 @@ Generate one angle for each of these sub-topics:
 5. Resourcefulness vs resources — finding the money is part of the transformation
 6. Free content limitations — why free information alone will never get them there
 
-Style guidance: Examples: "{{pricePoint}} over 12 months is $[X]/month — we find $[Y] in month one, so you're profitable forever." / "You'll spend thousands on ads that don't work but won't invest in the system that makes ads work."
+Style guidance: Examples: "The cost of staying stuck? {{monthlyActionCost}}. Keep reading." / "You'll spend thousands on ads that don't work but won't invest in the system that makes ads work." Quote `monthlyActionCost` and `pricePoint` verbatim; do NOT invent per-month math or ROI figures.
 
 **G. Help & Support (18 angles)**
 Generate one angle for each of these sub-topics:
@@ -194,8 +205,8 @@ Generate one angle for each of these sub-topics:
 7. Commitment dependency — results require commitment, not just enrollment
 8. Program failure analysis — why programs fail (and how this one is different)
 9. Client work methodology — how {{clientName}} actually works with clients day-to-day
-10. Expectation setting — what to realistically expect in weeks 1, 4, 8, 12
-11. Result timeline — when results typically show up (and the compound effect after)
+10. Expectation setting — what to realistically expect (use {{firstResultTimeframe}} and {{programDuration}} — do NOT invent other weekly milestones)
+11. Result timeline — when results typically show up. Quote {{firstResultTimeframe}} verbatim; describe later milestones qualitatively (no invented week-X statements)
 12. Communication channels — how support works and how accessible {{clientName}} is
 13. Payment consistency — the psychological link between paying and performing
 14. Simplification approach — complexity is the enemy, simplicity gets results
@@ -222,7 +233,7 @@ These are conversion content. Goal: present the offer, close the deal.
 **A. About the Program (5+ angles)**
 - What's included in {{offerName}}
 - How it works day-to-day
-- What the first 30 days look like
+- What clients see by {{firstResultTimeframe}}
 - Client onboarding experience
 
 **B. Results & Performance (5+ angles)**

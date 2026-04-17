@@ -12,7 +12,7 @@ A complete 12-email sales sequence that takes prospects from lead magnet deliver
   "clientName": "string",
   "businessName": "string",
   "offerName": "string",
-  "pricePoint": "string",
+  "pricePoint": "string (synthesized from pricing.displayString)",
   "transformation": "string",
   "uniqueMechanism": "string",
   "targetAudience": "string",
@@ -25,7 +25,10 @@ A complete 12-email sales sequence that takes prospects from lead magnet deliver
   "unwantedFeelings": "string",
   "desiredFeelings": "string",
   "aspiringIdentity": "string",
-  "leadMagnetName": "string"
+  "leadMagnetName": "string",
+  "monthlyActionCost": "string (required) — quoted verbatim in Email 9",
+  "firstResultTimeframe": "string (required) — quoted verbatim when emails reference result timing",
+  "targetClientMonthlyRevenue": "string (required) — used in ROI / transformation framing"
 }
 ```
 
@@ -67,18 +70,21 @@ IMPORTANT: Generate EXACTLY 12 emails. Not 5, not 8, not 10 — exactly 12. Each
 - **Their Next-Level Self:** {{aspiringIdentity}}
 - **Lead Magnet:** {{leadMagnetName}}
 - **Case Studies:** {{caseStudies}}
-- **Scarcity Element:** {{scarcityElement}}
+{{#if scarcityElement}}- **Scarcity Element:** {{scarcityElement}}{{/if}}
 - **Revenue Goal:** {{revenueGoal}}
 {{#if clientSecretFear}}- **Secret Fear:** {{clientSecretFear}}{{/if}}
 {{#if clientGuiltShame}}- **Guilt/Shame:** {{clientGuiltShame}}{{/if}}
 {{#if clientSecretDesire}}- **Secret Desire:** {{clientSecretDesire}}{{/if}}
 {{#if clientInactionConsequence}}- **3-Year Consequence of Inaction:** {{clientInactionConsequence}}{{/if}}
+{{#if monthlyActionCost}}- **Monthly Cost of Inaction (coach-provided — use verbatim in Email 9):** {{monthlyActionCost}}{{else}}- **Monthly Cost of Inaction:** Not provided — in Email 9, describe the cost qualitatively: emotional toll, missed opportunities, time lost — without inventing a dollar figure.{{/if}}
+- **First Measurable Result Timeframe (coach-provided — use when emails reference result timing):** {{firstResultTimeframe}}
+- **Target Client Monthly Revenue After Program (coach-provided):** {{targetClientMonthlyRevenue}}
 {{#if bonuses}}- **Bonuses:** {{bonuses}}{{/if}}
 {{#if scarcityElement}}- **Scarcity Element:** {{scarcityElement}}{{/if}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
@@ -312,8 +318,7 @@ PS: My client roster is almost full, and I only have a few spots left to persona
 
 Content requirements:
 - Open with a cost calculation: "Let me ask you something — what is staying stuck costing you?"
-- Break down the cost of inaction per month across: income lost, time wasted, opportunities missed, emotional toll
-- Use specific numbers relevant to {{niche}} and {{targetAudience}}
+{{#if monthlyActionCost}}- Quote the cost of inaction VERBATIM: "{{monthlyActionCost}}". Do not modify or add invented sub-figures. Expand qualitatively on emotional toll and opportunity cost without fabricating dollar amounts.{{else}}- Describe the cost of staying stuck qualitatively — emotional toll, time lost, missed opportunities — without inventing a specific dollar figure.{{/if}}
 - "Every month you wait is another month as [Before Identity] instead of [After Identity]"
 - Address "I need to think about it" — this is a fear response, not a logical process
 - Present genuine urgency: limited spots, cohort start date, or bonus deadline (must be real, not manufactured)

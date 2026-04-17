@@ -66,15 +66,18 @@ IMPORTANT: Use ONLY the facts provided below. If a detail is not explicitly prov
 {{#if clientExcuse}}- **Client Self-Limiting Story:** {{clientExcuse}}{{/if}}
 {{#if topComplaints}}- **Top Complaints:** {{topComplaints}}{{/if}}
 {{#if topDesires}}- **Top Desires:** {{topDesires}}{{/if}}
+{{#if programDuration}}- **Program Duration:** {{programDuration}}{{/if}}
+{{#if monthlyActionCost}}- **Cost of Inaction (coach-provided):** {{monthlyActionCost}}{{/if}}
 
 ### ANTI-HALLUCINATION RULES (apply to ALL content below)
 1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If needed but not provided, write: [COACH: Insert your real numbers here].
+2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
 3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
 4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
 5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
 6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
 7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+8. **HARD RULE — numbers in identity profiles.** Statistical benchmarks must use ONLY numbers from CLIENT DETAILS (idealClientCurrentRevenue, targetClientMonthlyRevenue, firstResultTimeframe, programDuration, pricePoint). For the Aspiring Identity's result stats, combine `idealClientCurrentRevenue` → `targetClientMonthlyRevenue` for the revenue arc, and use `firstResultTimeframe` / `programDuration` for timing. Do NOT invent monthly revenue targets, timeframes like "within 90 days," success percentages, or ROI figures. If a stat needs a number not in CLIENT DETAILS, describe the benchmark qualitatively (e.g. "a meaningful jump from where they are now") — do NOT write placeholder markers in identity copy.
 
 {{#if BELIEF_FRAMEWORK_CONTEXT}}
 ### PRIOR DELIVERABLE CONTEXT
@@ -142,7 +145,7 @@ ANTI-EXAMPLES (do NOT produce names like these):
 - "The Growth Catalyst" — GENERIC. Could be fitness, business, mindset, anything.
 
 **2. Statistical Profile (Undesired Current Results)**
-List 5-7 specific, measurable benchmarks that define this identity's current reality. Use numbers relevant to {{niche}}. Pull from {{idealClientCurrentRevenue}} and expand with realistic metrics for someone in this situation.
+List 5-7 specific, measurable benchmarks that define this identity's current reality. Use numbers ONLY from {{idealClientCurrentRevenue}} and other CLIENT DETAILS. Do NOT invent additional dollar amounts, percentages, or timeframes. If you need a metric not in CLIENT DETAILS, describe it qualitatively (e.g., "inconsistent income" not "$3K one month, $800 the next").
 
 For each stat:
 - The metric (e.g., monthly revenue, client count, hours worked per week)
@@ -199,11 +202,11 @@ Using the CONCRETE ANCHORS from your pre-generation analysis, brainstorm 5 aspir
 **Selected Name:** [pick the highest-scoring name — must score 4 or 5]
 
 **2. Statistical Profile (Desired Results)**
-List 5-7 specific, measurable benchmarks that define this identity's transformed reality. Mirror the same metrics from the Undesired Identity but with the new numbers. These should be ambitious but credible.
+List 5-7 benchmarks that define this identity's transformed reality. Mirror the same categories from Part 1. For dollar/revenue targets, use ONLY the coach's {{transformation}} description — do NOT invent specific revenue targets, monthly income numbers, or ROI figures. For timeframes, use {{programDuration}} if provided. If the transformation doesn't include a specific number, describe the benchmark qualitatively (e.g., "consistent, predictable monthly income" not "$25K/month").
 
 For each stat:
 - The metric (same categories as above for direct comparison)
-- The specific number or range
+- The specific number or range (ONLY from CLIENT DETAILS) or qualitative description
 - What this number means for their life (1 sentence)
 
 **3. Things to Be Proud Of**

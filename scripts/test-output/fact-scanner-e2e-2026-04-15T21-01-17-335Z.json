@@ -1,0 +1,222 @@
+{
+  "summaries": [
+    {
+      "coachId": "fitness-sparse",
+      "coachLabel": "Marcus Reed — Fitness Coach (sparse input)",
+      "totalAttempted": 3,
+      "totalCompleted": 3,
+      "totalFailed": 0,
+      "totalHallucinations": 5,
+      "totalCriticalHallucinations": 0,
+      "totalTokens": 13027,
+      "avgRating": 80,
+      "medianRating": 85,
+      "worstDeliverables": [
+        {
+          "coachId": "fitness-sparse",
+          "templateId": "proof-stack",
+          "title": "Proof Stack",
+          "phase": 1,
+          "success": true,
+          "latencyMs": 14582,
+          "scannerHallucinations": 5,
+          "scannerCritical": 0,
+          "scannerWarnings": 5,
+          "scannerVerified": 35,
+          "scannerScanned": 40,
+          "scannerHits": [
+            {
+              "type": "proper_noun",
+              "value": "Proof Stack",
+              "severity": "warning",
+              "evidence": "# Marcus Reed — Proof Stack --- ## SECTION 1: TRACK RECORD - **1"
+            },
+            {
+              "type": "proper_noun",
+              "value": "National Academy of Sports Medicine Certified Personal Trainer",
+              "severity": "warning",
+              "evidence": "IALS & QUALIFICATIONS - **NASM CPT** — National Academy of Sports Medicine Certified Personal Trainer - **Precision Nutr"
+            },
+            {
+              "type": "proper_noun",
+              "value": "Nutrition Certification",
+              "severity": "warning",
+              "evidence": "- **Precision Nutrition L1** — Level 1 Nutrition Certification - **11 years of personal training** exp"
+            },
+            {
+              "type": "proper_noun",
+              "value": "What We Did",
+              "severity": "warning",
+              "evidence": "target, hadn't trained in 3 years | | **What We Did** | 6-month Executive Athlete Program |"
+            },
+            {
+              "type": "proper_noun",
+              "value": "What We Did",
+              "severity": "warning",
+              "evidence": "Before** | Prediabetic A1C of 6.2 | | **What We Did** | 6-month program + nutrition overhau"
+            }
+          ],
+          "hasPlaceholderLeaks": false,
+          "hasAllSections": true,
+          "truncated": true,
+          "wordCount": 419,
+          "rating": 55,
+          "ratingReason": "truncated mid-sentence; 5 scanner warnings",
+          "content": "# Marcus Reed — Proof Stack\n\n---\n\n## SECTION 1: TRACK RECORD\n\n- **11 years** of personal training experience — started in 2013\n- **340 total clients** coached across all platforms and formats\n- **Built and operated Reed Performance gym** — single location in Austin from 2015 to 2022\n- **Transitioned to fully online coaching** — closed physical location in 2022 to focus on remote executive training\n- **Started with personal training clients** at a local Gold's Gym before building independent practice\n\n---\n\n## SECTION 2: CREDENTIALS & QUALIFICATIONS\n\n- **NASM CPT** — National Academy of Sports Medicine Certified Personal Trainer\n- **Precision Nutrition L1** — Level 1 Nutrition Certification\n- **11 years of personal training** experience across in-person and remote formats\n- **340 clients coached** throughout career spanning gym ownership and online coaching\n\n---\n\n## SECTION 3: POSITIONS HELD\n\nNo data provided for this section.\n\n---\n\n## SECTION 4: STAGES & MEDIA\n\nNo data provided for this section.\n\n---\n\n## SECTION 5: NOTABLE CLIENTS\n\n- **Dan M.** — SaaS CEO | Lost 42 lbs in 6 months while maintaining heavy travel schedule\n- **Rick P.** — Private equity partner | Reversed prediabetes and lost 28 lbs in 6 months\n\n---\n\n## SECTION 6: CLIENT RESULTS — STRUCTURED CASE STUDIES\n\n| Field | Detail |\n|-------|--------|\n| **Client** | Dan M. |\n| **Business/Niche** | SaaS CEO |\n| **Before** | Burned out, 42 lbs over target, hadn't trained in 3 years |\n| **What We Did** | 6-month Executive Athlete Program |\n| **Result** | Lost 42 lbs, squats 2x bodyweight, travels 2 weeks/month and stays on track |\n| **Timeframe** | 6 months |\n| **Quote** | \"Marcus is the only trainer who actually gets what my life is like.\" |\n\n| Field | Detail |\n|-------|--------|\n| **Client** | Rick P. |\n| **Business/Niche** | Private equity partner |\n| **Before** | Prediabetic A1C of 6.2 |\n| **What We Did** | 6-month program + nutrition overhaul |\n| **Result** | A1C dropped to 5.4, lost 28 lbs |\n| **Timeframe** | 6 months |\n| **Quote** | \"My doctor couldn't believe the numbers.\" |\n\n---\n\n## SUMMARY: PROOF AT A GLANCE\n\n- **340 clients coached** over 11 years in personal training\n- **NASM CPT and Precision Nutrition L1** certified\n- **Built and operated Reed Performance gym** in Austin from 2015-2022\n- **SaaS CEO client lost 42 lbs** while traveling 2 weeks/month\n- **Private equity partner reversed prediabetes** (A1C from 6.2 to 5.4) in 6 months",
+          "promptTokens": 4602,
+          "completionTokens": 745
+        },
+        {
+          "coachId": "fitness-sparse",
+          "templateId": "human-bio",
+          "title": "Human Bio",
+          "phase": 1,
+          "success": true,
+          "latencyMs": 10092,
+          "scannerHallucinations": 0,
+          "scannerCritical": 0,
+          "scannerWarnings": 0,
+          "scannerVerified": 5,
+          "scannerScanned": 5,
+          "scannerHits": [],
+          "hasPlaceholderLeaks": false,
+          "hasAllSections": false,
+          "truncated": false,
+          "wordCount": 245,
+          "rating": 85,
+          "ratingReason": "missing sections",
+          "content": "Marcus Reed grew up in Ohio watching his single mom work two jobs, which taught him that real results come from showing up every day, even when you don't feel like it.\n\nThese days, you'll find him in Austin with his wife and two kids, where he's just as likely to be smoking brisket in his backyard as he is reviewing a client's workout video. When he's not coaching executives through their fitness transformations, Marcus is usually out on a run through the Texas heat or buried in a book—he's the guy who actually reads the studies behind the training methods he uses.\n\nWhat drives Marcus isn't the typical trainer motivation. He was the fat kid nobody believed in, and that experience shaped everything about how he approaches coaching. He doesn't do pep talks or motivational speeches. Instead, he builds systems that work for people who've given up on themselves, helping them prove their own critics wrong one workout at a time.\n\nAfter 11 years in the fitness industry and 340 clients coached, Marcus has learned that the executives who succeed aren't the ones looking for shortcuts—they're the ones ready to treat their body like the business asset it actually is. He's the trainer who gets that your 60-hour work week isn't going away, so he builds your fitness around your reality, not some fantasy schedule.\n\nMarcus is the kind of person who remembers that sustainable change happens in the details, not the dramatic gestures.",
+          "promptTokens": 3407,
+          "completionTokens": 306
+        },
+        {
+          "coachId": "fitness-sparse",
+          "templateId": "mission-statement",
+          "title": "Mission Statement",
+          "phase": 1,
+          "success": true,
+          "latencyMs": 12884,
+          "scannerHallucinations": 0,
+          "scannerCritical": 0,
+          "scannerWarnings": 0,
+          "scannerVerified": 4,
+          "scannerScanned": 4,
+          "scannerHits": [],
+          "hasPlaceholderLeaks": false,
+          "hasAllSections": true,
+          "truncated": false,
+          "wordCount": 344,
+          "rating": 100,
+          "ratingReason": "clean output",
+          "content": "# MARCUS REED — MISSION STATEMENT\n\n**I will grow to 50 paying clients in my coaching program by end of year because every executive who's given up on themselves deserves to prove their own critics wrong. They will no longer catch their reflection and feel embarrassed, exhausted by 3pm, dreading their next physical — and will instead feel confident, capable, energetic, and proud of how they look.**\n\n---\n\n## THE BREAKDOWN\n\n**THE GOAL** — Build to 50 paying clients in The Executive Athlete Program. Not just any clients — executives who've tried 3+ approaches and failed, who make real money but can't figure out how to get their body back.\n\n**THE DEADLINE** — By end of year. No more \"someday\" bullshit. Every month that passes is another month these guys stay stuck in the cycle of trying and failing.\n\n**THE REASON** — I was the fat kid nobody believed in. I know what it feels like when everyone counts you out. Now I get to help executives who've counted themselves out prove that they can still be the athlete they used to be. Every transformation is a middle finger to everyone who said \"you're too old\" or \"you're too busy.\"\n\n**THE TRANSFORMATION** — No more avoiding mirrors. No more being the guy who's dead tired by 3pm while his younger employees are still going strong. No more dreading doctor visits. Instead, they become the executive athlete — the high performer who takes his body as seriously as his P&L. Strong, lean, energetic leaders who train on their own terms.\n\n---\n\n## DAILY REMINDER VERSION\n\n**50 clients by year-end. Every executive who's given up on themselves gets to prove their critics wrong.**\n\n---\n\n## TEAM / PUBLIC VERSION\n\nWe help busy executives get in the best shape of their lives without leaving their home office. Our mission is to transform burnt-out leaders who've tried everything into confident, energetic executive athletes who take their body as seriously as their business. Because every high performer who's given up on themselves deserves to prove their own critics wrong.",
+          "promptTokens": 3509,
+          "completionTokens": 458
+        }
+      ]
+    }
+  ],
+  "results": {
+    "fitness-sparse": [
+      {
+        "coachId": "fitness-sparse",
+        "templateId": "mission-statement",
+        "title": "Mission Statement",
+        "phase": 1,
+        "success": true,
+        "latencyMs": 12884,
+        "scannerHallucinations": 0,
+        "scannerCritical": 0,
+        "scannerWarnings": 0,
+        "scannerVerified": 4,
+        "scannerScanned": 4,
+        "scannerHits": [],
+        "hasPlaceholderLeaks": false,
+        "hasAllSections": true,
+        "truncated": false,
+        "wordCount": 344,
+        "rating": 100,
+        "ratingReason": "clean output",
+        "content": "# MARCUS REED — MISSION STATEMENT\n\n**I will grow to 50 paying clients in my coaching program by end of year because every executive who's given up on themselves deserves to prove their own critics wrong. They will no longer catch their reflection and feel embarrassed, exhausted by 3pm, dreading their next physical — and will instead feel confident, capable, energetic, and proud of how they look.**\n\n---\n\n## THE BREAKDOWN\n\n**THE GOAL** — Build to 50 paying clients in The Executive Athlete Program. Not just any clients — executives who've tried 3+ approaches and failed, who make real money but can't figure out how to get their body back.\n\n**THE DEADLINE** — By end of year. No more \"someday\" bullshit. Every month that passes is another month these guys stay stuck in the cycle of trying and failing.\n\n**THE REASON** — I was the fat kid nobody believed in. I know what it feels like when everyone counts you out. Now I get to help executives who've counted themselves out prove that they can still be the athlete they used to be. Every transformation is a middle finger to everyone who said \"you're too old\" or \"you're too busy.\"\n\n**THE TRANSFORMATION** — No more avoiding mirrors. No more being the guy who's dead tired by 3pm while his younger employees are still going strong. No more dreading doctor visits. Instead, they become the executive athlete — the high performer who takes his body as seriously as his P&L. Strong, lean, energetic leaders who train on their own terms.\n\n---\n\n## DAILY REMINDER VERSION\n\n**50 clients by year-end. Every executive who's given up on themselves gets to prove their critics wrong.**\n\n---\n\n## TEAM / PUBLIC VERSION\n\nWe help busy executives get in the best shape of their lives without leaving their home office. Our mission is to transform burnt-out leaders who've tried everything into confident, energetic executive athletes who take their body as seriously as their business. Because every high performer who's given up on themselves deserves to prove their own critics wrong.",
+        "promptTokens": 3509,
+        "completionTokens": 458
+      },
+      {
+        "coachId": "fitness-sparse",
+        "templateId": "human-bio",
+        "title": "Human Bio",
+        "phase": 1,
+        "success": true,
+        "latencyMs": 10092,
+        "scannerHallucinations": 0,
+        "scannerCritical": 0,
+        "scannerWarnings": 0,
+        "scannerVerified": 5,
+        "scannerScanned": 5,
+        "scannerHits": [],
+        "hasPlaceholderLeaks": false,
+        "hasAllSections": false,
+        "truncated": false,
+        "wordCount": 245,
+        "rating": 85,
+        "ratingReason": "missing sections",
+        "content": "Marcus Reed grew up in Ohio watching his single mom work two jobs, which taught him that real results come from showing up every day, even when you don't feel like it.\n\nThese days, you'll find him in Austin with his wife and two kids, where he's just as likely to be smoking brisket in his backyard as he is reviewing a client's workout video. When he's not coaching executives through their fitness transformations, Marcus is usually out on a run through the Texas heat or buried in a book—he's the guy who actually reads the studies behind the training methods he uses.\n\nWhat drives Marcus isn't the typical trainer motivation. He was the fat kid nobody believed in, and that experience shaped everything about how he approaches coaching. He doesn't do pep talks or motivational speeches. Instead, he builds systems that work for people who've given up on themselves, helping them prove their own critics wrong one workout at a time.\n\nAfter 11 years in the fitness industry and 340 clients coached, Marcus has learned that the executives who succeed aren't the ones looking for shortcuts—they're the ones ready to treat their body like the business asset it actually is. He's the trainer who gets that your 60-hour work week isn't going away, so he builds your fitness around your reality, not some fantasy schedule.\n\nMarcus is the kind of person who remembers that sustainable change happens in the details, not the dramatic gestures.",
+        "promptTokens": 3407,
+        "completionTokens": 306
+      },
+      {
+        "coachId": "fitness-sparse",
+        "templateId": "proof-stack",
+        "title": "Proof Stack",
+        "phase": 1,
+        "success": true,
+        "latencyMs": 14582,
+        "scannerHallucinations": 5,
+        "scannerCritical": 0,
+        "scannerWarnings": 5,
+        "scannerVerified": 35,
+        "scannerScanned": 40,
+        "scannerHits": [
+          {
+            "type": "proper_noun",
+            "value": "Proof Stack",
+            "severity": "warning",
+            "evidence": "# Marcus Reed — Proof Stack --- ## SECTION 1: TRACK RECORD - **1"
+          },
+          {
+            "type": "proper_noun",
+            "value": "National Academy of Sports Medicine Certified Personal Trainer",
+            "severity": "warning",
+            "evidence": "IALS & QUALIFICATIONS - **NASM CPT** — National Academy of Sports Medicine Certified Personal Trainer - **Precision Nutr"
+          },
+          {
+            "type": "proper_noun",
+            "value": "Nutrition Certification",
+            "severity": "warning",
+            "evidence": "- **Precision Nutrition L1** — Level 1 Nutrition Certification - **11 years of personal training** exp"
+          },
+          {
+            "type": "proper_noun",
+            "value": "What We Did",
+            "severity": "warning",
+            "evidence": "target, hadn't trained in 3 years | | **What We Did** | 6-month Executive Athlete Program |"
+          },
+          {
+            "type": "proper_noun",
+            "value": "What We Did",
+            "severity": "warning",
+            "evidence": "Before** | Prediabetic A1C of 6.2 | | **What We Did** | 6-month program + nutrition overhau"
+          }
+        ],
+        "hasPlaceholderLeaks": false,
+        "hasAllSections": true,
+        "truncated": true,
+        "wordCount": 419,
+        "rating": 55,
+        "ratingReason": "truncated mid-sentence; 5 scanner warnings",
+        "content": "# Marcus Reed — Proof Stack\n\n---\n\n## SECTION 1: TRACK RECORD\n\n- **11 years** of personal training experience — started in 2013\n- **340 total clients** coached across all platforms and formats\n- **Built and operated Reed Performance gym** — single location in Austin from 2015 to 2022\n- **Transitioned to fully online coaching** — closed physical location in 2022 to focus on remote executive training\n- **Started with personal training clients** at a local Gold's Gym before building independent practice\n\n---\n\n## SECTION 2: CREDENTIALS & QUALIFICATIONS\n\n- **NASM CPT** — National Academy of Sports Medicine Certified Personal Trainer\n- **Precision Nutrition L1** — Level 1 Nutrition Certification\n- **11 years of personal training** experience across in-person and remote formats\n- **340 clients coached** throughout career spanning gym ownership and online coaching\n\n---\n\n## SECTION 3: POSITIONS HELD\n\nNo data provided for this section.\n\n---\n\n## SECTION 4: STAGES & MEDIA\n\nNo data provided for this section.\n\n---\n\n## SECTION 5: NOTABLE CLIENTS\n\n- **Dan M.** — SaaS CEO | Lost 42 lbs in 6 months while maintaining heavy travel schedule\n- **Rick P.** — Private equity partner | Reversed prediabetes and lost 28 lbs in 6 months\n\n---\n\n## SECTION 6: CLIENT RESULTS — STRUCTURED CASE STUDIES\n\n| Field | Detail |\n|-------|--------|\n| **Client** | Dan M. |\n| **Business/Niche** | SaaS CEO |\n| **Before** | Burned out, 42 lbs over target, hadn't trained in 3 years |\n| **What We Did** | 6-month Executive Athlete Program |\n| **Result** | Lost 42 lbs, squats 2x bodyweight, travels 2 weeks/month and stays on track |\n| **Timeframe** | 6 months |\n| **Quote** | \"Marcus is the only trainer who actually gets what my life is like.\" |\n\n| Field | Detail |\n|-------|--------|\n| **Client** | Rick P. |\n| **Business/Niche** | Private equity partner |\n| **Before** | Prediabetic A1C of 6.2 |\n| **What We Did** | 6-month program + nutrition overhaul |\n| **Result** | A1C dropped to 5.4, lost 28 lbs |\n| **Timeframe** | 6 months |\n| **Quote** | \"My doctor couldn't believe the numbers.\" |\n\n---\n\n## SUMMARY: PROOF AT A GLANCE\n\n- **340 clients coached** over 11 years in personal training\n- **NASM CPT and Precision Nutrition L1** certified\n- **Built and operated Reed Performance gym** in Austin from 2015-2022\n- **SaaS CEO client lost 42 lbs** while traveling 2 weeks/month\n- **Private equity partner reversed prediabetes** (A1C from 6.2 to 5.4) in 6 months",
+        "promptTokens": 4602,
+        "completionTokens": 745
+      }
+    ]
+  }
+}

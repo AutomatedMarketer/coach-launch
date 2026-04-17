@@ -1,0 +1,68 @@
+[dotenv@17.3.1] injecting env (6) from .env.local -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+[env] Anthropic key loaded: sk-ant-api03-JD…1xmMdAAA
+
+── Fact allowlist preview ──
+fitness-sparse  money=13  durations=9  numbers=32  properNouns=10
+
+================================================================================
+▶ COACH: Marcus Reed — Fitness Coach (sparse input) (in-home fitness coaching for busy executives)
+================================================================================
+
+── Phase 2 (2 waves, 3 deliverables) ──
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{idealClientDreamName}}
+[template-loader] Unfilled placeholders: {{idealClientFailedAttempts}}
+  ✓ magnetic-messaging-statement   85/100     36.2s — 19 scanner warnings
+  ✓ emotional-trigger-map          85/100     118.5s [redacted 4] — 34 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}, {{competitorOldWay}}
+  ✓ usp                            85/100     28.9s — 12 scanner warnings
+
+── Phase 3 (3 waves, 4 deliverables) ──
+  ✓ two-identities                 85/100     91.9s [redacted 6] — 70 scanner warnings
+[template-loader] Unfilled placeholders: {{competitorOldWay}}
+  ✓ belief-shift-map               85/100     184.2s [redacted 2] — 165 scanner warnings
+[template-loader] Unfilled placeholders: {{scarcityElement}}
+  ✓ lead-magnet-outline            85/100     70.3s [redacted 3] — 65 scanner warnings
+  ✓ offer-one-sheet                85/100     30.0s — 6 scanner warnings
+
+── Phase 4 (2 waves, 8 deliverables) ──
+[template-loader] Unfilled placeholders: {{credentials}}
+  ✓ core-conversion-content        85/100     157.4s — 26 scanner warnings
+  ✓ qualifying-filter              91/100     18.8s — 3 scanner warnings
+  ✓ pricing-framework              85/100     48.1s [redacted 7] — 34 scanner warnings
+[template-loader] Unfilled placeholders: {{objectionRebuttals}}
+[template-loader] Unfilled placeholders: {{credentials}}, {{credentials}}
+[template-loader] Unfilled placeholders: {{firstName}}
+[template-loader] Unfilled placeholders: {{scarcityElement}}, {{revenueGoal}}
+  ✓ sales-call-script              85/100     102.5s [redacted 3] — 34 scanner warnings
+  ✓ homepage-copy                  85/100     56.9s — 24 scanner warnings
+  ✓ about-page                     85/100     44.0s — 10 scanner warnings
+  ✓ email-welcome-sequence         85/100     105.8s [redacted 4] — 30 scanner warnings
+  ✓ email-sales-sequence           85/100     136.2s [redacted 1] — 93 scanner warnings
+
+================================================================================
+  FINAL REPORT
+================================================================================
+
+
+┌─ Marcus Reed — Fitness Coach (sparse input)
+│   Attempted: 15 | Completed: 15 | Failed: 0
+│   Avg rating: 85/100 | Median: 85/100
+│   Hallucinations (post-redact): 625 (0 critical)
+│   Auto-redacted: 30 critical hits replaced with [COACH: Insert ...]
+│   Tokens: 287,322 (est. cost: $1.72)
+│
+│   Worst deliverables:
+│     85/100  magnetic-messaging-statement    19 scanner warnings
+│     85/100  emotional-trigger-map           34 scanner warnings
+│     85/100  usp                             12 scanner warnings
+│     85/100  two-identities                  70 scanner warnings
+│     85/100  belief-shift-map                165 scanner warnings
+└─
+
+── SCANNER ACCURACY ──
+Total critical hallucinations caught: 0
+Total warnings caught: 625
+Templates with critical hallucinations:
+
+Full results written to: D:\dev\Coach launch\app\scripts\test-output\fact-scanner-e2e-2026-04-16T01-24-58-954Z.json
+
