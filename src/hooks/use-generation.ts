@@ -194,7 +194,7 @@ export function useGeneration(questionnaireId: string, phase: PhaseNumber) {
         })
       )
 
-      // Check for failures in this wave
+      // Track failures in this wave (but don't abort — continue to next wave if any succeeded)
       const failures: string[] = []
       const errors: string[] = []
       results.forEach((result, i) => {
@@ -204,27 +204,22 @@ export function useGeneration(questionnaireId: string, phase: PhaseNumber) {
         }
       })
 
+      // If any template in this wave failed, mark them and continue
       if (failures.length > 0) {
-        stopPolling()
         setProgress(prev => ({
           ...prev,
-          status: 'error',
           failedTemplates: [...prev.failedTemplates, ...failures],
-          currentTemplate: null,
-          activeTemplates: [],
-          error: `Failed: ${failures.join(', ')} — ${errors[0]}`,
         }))
-        return
       }
     }
 
     stopPolling()
     setProgress(prev => ({
       ...prev,
-      status: 'completed',
+      status: prev.failedTemplates.length > 0 ? 'error' : 'completed',
       currentTemplate: null,
       activeTemplates: [],
-      error: null,
+      error: prev.failedTemplates.length > 0 ? `Failed: ${prev.failedTemplates.join(', ')}` : null,
     }))
   }, [questionnaireId, phaseDeliverables, startPolling, stopPolling])
 

@@ -428,9 +428,39 @@ export async function POST(
         { status: 500 }
       )
     }
-  } catch {
+  } catch (err) {
+    // If a deliverable was set to 'generating' but we crashed before inner try,
+    // reset its status to 'error' to prevent it from being stuck
+    const errorMsg = err instanceof Error ? err.message : 'Unknown error'
+    console.error('[generate] Outer catch — resetting stuck status:', errorMsg)
+
+    // Try to find and reset any deliverable stuck at 'generating'
+    try {
+      const supabase = createAdminClient()
+      const { data: stuck } = await supabase
+        .from('deliverables')
+        .select('id')
+        .eq('template_id', templateId)
+        .eq('questionnaire_id', questionnaireId)
+        .eq('status', 'generating')
+        .single()
+
+      if (stuck) {
+        await supabase
+          .from('deliverables')
+          .update({
+            status: 'error',
+            error_message: `Request failed unexpectedly: ${errorMsg}`,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', stuck.id)
+      }
+    } catch (resetErr) {
+      console.error('[generate] Failed to reset stuck status:', resetErr instanceof Error ? resetErr.message : resetErr)
+    }
+
     return NextResponse.json(
-      { error: 'Request failed' },
+      { error: 'Request failed unexpectedly. Please try again.' },
       { status: 500 }
     )
   }

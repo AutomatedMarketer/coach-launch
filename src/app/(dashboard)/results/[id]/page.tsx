@@ -102,7 +102,7 @@ export default function ResultsPage() {
         </div>
         <div className="flex items-center gap-3">
           <Link
-            href="/questionnaire/1"
+            href={`/questionnaire/1?id=${questionnaireId}`}
             className="inline-flex items-center gap-1.5 rounded-full border border-slate-600 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-700/50 hover:text-white hover:border-slate-500 transition-colors"
           >
             <PenLine className="h-3 w-3" />

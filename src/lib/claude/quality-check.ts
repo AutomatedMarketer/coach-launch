@@ -63,6 +63,10 @@ export async function checkQuality(
     // Split content into overlapping chunks so nothing is skipped
     const chunks = chunkContent(content, CHUNK_SIZE, MAX_CHUNKS)
 
+    // Compute grader max_tokens based on content length: larger content needs more response space
+    const contentLength = content.length
+    const graderMaxTokens = contentLength > 8000 ? 1024 : contentLength > 5000 ? 900 : 600
+
     // Run QA on each chunk in parallel
     const chunkResults = await Promise.all(
       chunks.map(async (chunk, i) => {
@@ -104,7 +108,7 @@ Respond with ONLY this JSON (no other text):
         try {
           const response = await claude.messages.create({
             model: QA_MODEL,
-            max_tokens: 2048,
+            max_tokens: graderMaxTokens,
             messages: [{ role: 'user', content: prompt }],
           })
 
@@ -121,7 +125,7 @@ Respond with ONLY this JSON (no other text):
     return aggregateQualityResults(chunkResults)
   } catch (err) {
     console.warn(`[quality-check] QA unavailable for ${templateId} — content saved without verification:`, err instanceof Error ? err.message : err)
-    return { score: 70, pass: true, issues: ['QA system unavailable — content saved without quality verification'], suggestions: [] }
+    return { score: 50, pass: false, issues: ['QA system unavailable — content could not be verified'], suggestions: ['Please retry generation'] }
   }
 }
 
@@ -200,7 +204,7 @@ function parseQualityResponse(raw: string): QualityResult {
       suggestions: Array.isArray(parsed.suggestions) ? parsed.suggestions.filter((s: unknown) => typeof s === 'string') : [],
     }
   } catch {
-    console.warn('[quality-check] Failed to parse QA response — content saved without verification')
-    return { score: 70, pass: true, issues: ['QA system unavailable — content saved without quality verification'], suggestions: [] }
+    console.warn('[quality-check] Failed to parse QA response — marking as warning')
+    return { score: 50, pass: false, issues: ['Grader response malformed — possible truncation'], suggestions: ['Retry generation with larger context window'] }
   }
 }
