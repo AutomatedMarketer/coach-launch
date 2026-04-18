@@ -160,7 +160,7 @@ After the slides:
 - The keyword should be simple, memorable, and relevant (e.g., "FRAMEWORK", "BLUEPRINT", "FREEDOM")
 - {{#if ctaKeyword}}Use "{{ctaKeyword}}" as the primary keyword{{else}}Suggest a unique keyword for each carousel{{/if}}
 - The CTA must clearly state what they'll receive: "Comment [KEYWORD] and I'll DM you [specific thing]"
-- ManyChat keyword triggers convert 3-5x better than "link in bio" because they create a micro-commitment
+- ManyChat keyword triggers typically outperform "link in bio" because they create a micro-commitment
 
 ### VOICE & TONE
 {{brandVoice}} tone.{{#if voiceNotes}} Voice notes from the coach: {{voiceNotes}}{{/if}} {{STEVE_VOICE_PROFILE}}

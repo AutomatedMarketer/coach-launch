@@ -87,18 +87,46 @@ Think of this like the Bible for {{clientName}}'s business: it has every argumen
 {{#if billboardResult}}- **Billboard Result:** {{billboardResult}}{{/if}}
 {{#if bonuses}}- **Bonuses:** {{bonuses}}{{/if}}
 
-### ANTI-HALLUCINATION RULES (apply to ALL content below)
-1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
-3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
-4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
-5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
-6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
-7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
-8. NICHE-SPECIFIC LANGUAGE ONLY: Do NOT use generic pain/struggle cliches that apply to every industry. Banned phrases in prominent positions (headlines, identity references, key messaging): "trapped," "prisoner," "captive," "slave," "cage," "chains," "hamster wheel," "rat race," "grinding/grind." Replace with language specific to {{niche}} and {{targetAudience}}. Example: instead of "trapped in their business," write something specific like "answering every service call at 11pm" (for trade businesses) or "booking back-to-back 1-on-1 sessions just to make rent" (for fitness coaches).
+### ANTI-HALLUCINATION RULES (CRITICAL — apply to ALL sections)
+**RULE 1: TESTIMONIALS — ZERO INVENTION**
+- IF {{testimonials}} is empty, blank, or not provided → DO NOT write any testimonial section. Write exactly: "[PLACEHOLDER: Add 2-3 client testimonials here before publishing]"
+- IF {{testimonials}} contains data → Use ONLY the exact text provided. Do NOT add details, timeframes, or outcomes not in the testimonial.
+- DO NOT EVER invent client names, stories, or quotes under any circumstance.
+
+**RULE 2: CREDENTIALS — EXACT MATCH ONLY**
+- IF {{credentials}} is empty → Omit any credential or authority claims. Skip Section 3 (Social Proof) or replace with "[PLACEHOLDER: Add client results/testimonials here]"
+- IF {{credentials}} contains data → Use ONLY the exact credentials listed. Do NOT add, infer, or estimate credentials.
+
+**RULE 3: STATISTICS & FIGURES**
+- Do NOT invent: dollar amounts, percentages, client counts, timeframes, ROI figures, or "results achieved" numbers.
+- If a statistic is not in CLIENT DETAILS above, either skip that sentence or use qualitative language only (e.g., "significant," "within a few weeks," "well under competitors").
+
+**RULE 4: STORIES & SOCIAL PROOF**
+- Use ONLY the {{personalStory}}, {{transformation}}, {{caseStudies}} data provided.
+- Do NOT fabricate case studies, client stories, or before/after transformations.
+- Do NOT attribute quotes to real people unless explicitly stated in {{credentials}}.
+
+**RULE 5: IDENTITY NAMES**
+- When prior deliverables mention identity names (Undesired Identity, Aspiring Identity), use those EXACT names ONLY.
+- Do NOT create new identity names or variations.
+
+**RULE 6: VOICE PROFILE — STYLE ONLY**
+- The voice profile describes HOW to write (tone, pacing, word choice), NOT WHAT to claim.
+- Do NOT pull biographical facts, company names, mentor names, dollar amounts, or specific achievements from the voice profile into generated content.
+
+**RULE 7: NICHE-SPECIFIC LANGUAGE**
+- Ban generic pain clichés in headlines or key sections: "trapped," "prisoner," "captive," "slave," "cage," "chains," "hamster wheel," "rat race," "grinding/grind."
+- Use language specific to {{niche}} and {{targetAudience}}. Example: instead of "trapped in their business," write "answering every service call at 11pm" (trade) or "booking back-to-back 1-on-1s just to make rent" (fitness).
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
+
+### SECTION COMPLETION REQUIREMENT
+This document MUST contain all 12 sections in exact order. Skipping any section is a failure condition.
+- Before writing Section 7, confirm you have written Sections 1–6 in full.
+- Before writing Section 9, confirm you have written Sections 1–8 in full.
+- The identity mirror (Section 6) and core belief shift argument (Section 7) are NON-OPTIONAL — they are essential to the sales arc.
+- If you are tempted to skip these sections because they feel abstract or difficult, STOP and write them anyway. They are the hinge on which the entire conversion turns.
 
 ### THE 12-SECTION STRUCTURE
 Generate each section in full. This should read as a complete, ready-to-use VSL script or long-form sales letter.
@@ -269,6 +297,23 @@ But I can only show you the door. You're the one who has to walk through it."
 - Clear next step: {{ctaType}}
 {{#if ctaKeyword}}- "DM me the word '{{ctaKeyword}}' to get started"{{/if}}
 "Either way, thanks so much for [watching / reading] and I wish you all the best."
+
+### FINAL SELF-CHECK
+Before completing, confirm your output contains ALL of these labeled headers in exact order:
+- ✓ ## Section 1: TITLE
+- ✓ ## Section 2: THE HOOK
+- ✓ ## Section 3: SOCIAL PROOF
+- ✓ ## Section 4: OVERVIEW
+- ✓ ## Section 5: BACKSTORY
+- ✓ ## Section 6: OLD IDENTITY → ASPIRING IDENTITY
+- ✓ ## Section 7: CORE BELIEF SHIFT
+- ✓ ## Section 8: THE REAL PROBLEM
+- ✓ ## Section 9: THE 3-PHASE SOLUTION
+- ✓ ## Section 10: DELIVERY & SUPPORT
+- ✓ ## Section 11: THE CLOSE
+- ✓ ## Section 12: THE DECISION
+
+If any of these headers are missing, add them now before completing. Do not end output without all 12 sections.
 
 ### VOICE & TONE
 Write in a {{brandVoice}} tone.{{#if voiceNotes}} Voice notes from the coach: {{voiceNotes}}{{/if}} {{STEVE_VOICE_PROFILE}} This should feel like one person talking directly to another — not a corporate pitch. Be emotionally resonant without being manipulative. Be direct without being pushy. Make every word earn its place.

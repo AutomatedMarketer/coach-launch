@@ -79,7 +79,7 @@ Generate scripts in this ratio:
 
 **HOOK CLIPS (2-3 scripts)**
 - Extract the most compelling, scroll-stopping moments from the YouTube script or belief-shift map
-- These are the "pattern interrupt" moments — bold claims, surprising stats, or contrarian takes
+- These are the "pattern interrupt" moments — bold claims, surprising insights from your client's actual results and data above, or contrarian takes
 - Format: hook statement → 1-2 sentences of context → cliffhanger or mic drop
 - Goal: stop the scroll, create curiosity, drive profile visits
 - Example opening: "Stop doing [common practice]. Here's why it's killing your [result]..."

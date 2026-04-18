@@ -58,14 +58,32 @@ You are writing a complete long-form YouTube video script (10-20 minutes) for a 
 - **Desired Feelings:** {{desiredFeelings}}
 - **Aspiring Identity:** {{aspiringIdentity}}
 
-### ANTI-HALLUCINATION RULES (apply to ALL content below)
-1. Use ONLY facts explicitly provided in CLIENT DETAILS above. If a detail is not listed, do not include it.
-2. DO NOT invent statistics, dollar amounts, percentages, client counts, or timeframes. If a section needs a figure that is not in CLIENT DETAILS, either skip that sentence/section entirely or describe the effect qualitatively (e.g. "significant ROI," "within a few weeks," "well under what alternatives cost"). Do NOT write "[COACH: Insert X]" placeholders — they make the output feel half-finished.
-3. DO NOT fabricate quotes attributed to real people. Paraphrase known principles by name instead.
-4. DO NOT invent client stories, testimonials, or case studies. Use placeholders: [INSERT CLIENT TESTIMONIAL].
-5. If any field says [DATA NOT PROVIDED — DO NOT INVENT], skip that element entirely or use a placeholder.
-6. When prior deliverables define identity names (Undesired Identity, Aspiring Identity), use those EXACT names — do not create new ones.
-7. The voice profile describes communication STYLE only — do not pull biographical facts, company names, mentor names, or dollar amounts from it into the generated content.
+### ANTI-HALLUCINATION RULES (CRITICAL — apply to ALL sections)
+**RULE 1: CREDENTIALS — ZERO INVENTION**
+- In the INTRO section (line 86), state ONLY credentials explicitly in CLIENT INPUT DATA.
+- IF {{credentials}} is empty → Do NOT mention credentials, certifications, or achievement counts.
+- IF {{credentials}} contains data → Use ONLY the exact credentials listed. Do NOT estimate, round up, or add inferred qualifications.
+
+**RULE 2: CLIENT PROOF BLOCKS**
+- Use ONLY client stories, case studies, or testimonials explicitly in CLIENT INPUT DATA.
+- Do NOT invent client names, transformations, or results.
+- If no client data provided → Use placeholder: "[INSERT CLIENT TESTIMONIAL / CASE STUDY HERE]"
+
+**RULE 3: STATISTICS & FIGURES**
+- Do NOT invent: dollar amounts, percentages, client success rates, timeframes ("X clients in Y weeks"), or ROI.
+- If needed → Use qualitative language only: "significant," "substantial," "within weeks," "well under alternatives."
+
+**RULE 4: IDENTITY NAMES**
+- Use EXACT identity names from prior deliverables (Undesired Identity, Aspiring Identity from belief-shift-map).
+- Do NOT create new identity names or variations.
+
+**RULE 5: EXPERTISE CLAIMS**
+- List ONLY expertise topics from {{expertise}} array.
+- Do NOT add topics, credentials, or specialties not in CLIENT INPUT DATA.
+
+**RULE 6: VOICE PROFILE — STYLE ONLY**
+- Voice profile describes HOW to communicate (tone, pace, word choice), NOT what to claim.
+- Do NOT extract biographical facts, company names, results, or achievements from voice profile into the script.
 
 ### PRIOR DELIVERABLE CONTEXT
 {{BELIEF_FRAMEWORK_CONTEXT}}
@@ -111,7 +129,7 @@ Generate the full script with these sections clearly labeled:
   5. **Client Story** — a specific client transformation that demonstrates the belief shift in action (use from testimonials if available)
   6. **External Case Study** — proof from outside the coaching industry (research, business case, historical example) that validates the principle
   7. **Cross-Domain Reference** — a parallel from a completely different field that makes the belief undeniable (e.g., sports, medicine, engineering)
-  8. **Statistics/Data** — concrete numbers, percentages, or research findings that support the new belief
+  8. **Statistics/Data** — use ONLY numbers, percentages, or research findings that appear in CLIENT DETAILS above. If no relevant statistic exists in the provided data, skip this block type and use a different proof block instead. Do NOT invent or estimate statistics.
   9. **Logic Trap** — an irrefutable logical argument that makes the old belief impossible to defend ("If [old belief] were true, then [absurd consequence] would also be true...")
   10. **Reframe** — flip the viewer's perspective entirely ("What if the problem isn't [X], it's actually [Y]?")
 
