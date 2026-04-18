@@ -46,6 +46,9 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  let questionnaireId: string | undefined
+  let templateId: string | undefined
+
   try {
     // Auth check
     const authClient = await createClient()
@@ -70,9 +73,10 @@ export async function POST(
       )
     }
 
-    const { id: questionnaireId } = await params
+    const { id: qId } = await params
+    questionnaireId = qId
     const body = await request.json()
-    const { templateId } = body
+    templateId = body.templateId
 
     if (!templateId) {
       return NextResponse.json(
